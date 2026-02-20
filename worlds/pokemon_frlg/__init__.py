@@ -46,9 +46,8 @@ from .util import int_to_bool_array, HM_TO_COMPATIBILITY_ID
 # Try adding the Pokémon Gen 3 Adjuster
 try:
     from worlds._pokemon_gen3_adjuster import __init__
-except Exception as e:
-    message = getattr(e, "message") if hasattr(e, "message") else str(e)
-    logging.warning(f"Could not load the Pokemon Gen 3 Adjuster: {message}")
+except ImportError:
+    pass
 
 class PokemonFRLGWebWorld(WebWorld):
     """
