@@ -16,9 +16,9 @@ from BaseClasses import CollectionState, Entrance, Item, ItemClassification, Mul
 from worlds.AutoWorld import WebWorld, World
 from entrance_rando import ERPlacementState
 from .client import PokemonFRLGClient
-from .data import (data, ability_name_map, ALL_SPECIES, APWORLD_VERSION, LEGENDARY_POKEMON, NAME_TO_SPECIES_ID,
-                   POPTRACKER_CHECKSUM, LocationCategory, EventData, EvolutionMethodEnum, FlyData, MapData,
-                   MiscPokemonData, MoveData, move_name_map, SpeciesData, StarterData, TrainerData, TradePokemonData)
+from .data import (data, ability_name_map, ALL_SPECIES, LEGENDARY_POKEMON, NAME_TO_SPECIES_ID, POPTRACKER_CHECKSUM,
+                   LocationCategory, EventData, EvolutionMethodEnum, FlyData, MapData, MiscPokemonData, MoveData,
+                   move_name_map, SpeciesData, StarterData, TrainerData, TradePokemonData)
 from .entrances import set_hint_entrances, shuffle_entrances
 from .groups import item_groups, location_groups
 from .items import (PokemonFRLGItem, PokemonFRLGGlitchedToken, add_starting_items, create_item_name_to_id_map,

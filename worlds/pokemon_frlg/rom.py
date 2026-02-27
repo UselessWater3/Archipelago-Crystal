@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Dict, List, Tuple
 
 from worlds.Files import APPatchExtension, APProcedurePatch, APTokenMixin, APTokenTypes
 from settings import get_settings
-from .data import data, APWORLD_VERSION, GAME_OPTIONS, EvolutionMethodEnum, TrainerPokemonDataTypeEnum
+from .data import data, GAME_OPTIONS, EvolutionMethodEnum, TrainerPokemonDataTypeEnum
 from.groups import location_groups
 from .items import is_single_purchase_item
 from .locations import PokemonFRLGLocation
@@ -746,7 +746,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(options_address, 0x53, struct.pack("<B", 1))
 
     # Set apworld version
-    apworld_version = f"AP v{APWORLD_VERSION}"
+    apworld_version = f"AP v{world.world_version.as_simple_string()}"
     for j, b in enumerate(encode_string(apworld_version, 16)):
         patch.write_token(options_address, 0x54 + j, struct.pack("<B", b))
 
@@ -799,7 +799,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     apworld_version_address = {}
     for key in patch.revision_keys:
         apworld_version_address[key] = 0x178
-    patch.write_token(apworld_version_address, 0, APWORLD_VERSION.encode("ascii"))
+    patch.write_token(apworld_version_address, 0, world.world_version.as_simple_string().encode("ascii"))
 
 
 def _set_shuffled_entrances(world: "PokemonFRLGWorld") -> None:

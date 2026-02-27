@@ -3,10 +3,11 @@ from NetUtils import ClientStatus
 from Options import Toggle
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
-from .data import data, APWORLD_VERSION
+from .data import data
 from .options import Goal, ProvideHints
 
 if TYPE_CHECKING:
+    from . import PokemonFRLGWorld
     from worlds._bizhawk.context import BizHawkClientContext
 
 DEXSANITY_OFFSET = 0x5000
@@ -314,7 +315,8 @@ class PokemonFRLGClient(BizHawkClient):
                 logger.info("ERROR: The patch file used to create this ROM is not compatible with "
                             "this client. Double check your pokemon_frlg.apworld against the version being "
                             "used by the generator.")
-                logger.info(f"Client Apworld Version: {APWORLD_VERSION}, Generator Apworld Version: {ap_version}")
+                logger.info(f"Client Apworld Version: {PokemonFRLGWorld.world_version.as_simple_string()},"
+                            f"Generator Apworld Version: {ap_version}")
                 logger.info(f"Client ROM checksum: {client_checksum}, Generator ROM checksum: {generator_checksum}")
                 return False
 
