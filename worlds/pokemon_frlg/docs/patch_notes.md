@@ -1,3 +1,11 @@
+# 1.1.0
+## Game Updates
+* Increased the amount of coins that you can hold to 50000
+* Added 3000 coins and 5000 coins purchase options at the Celadon Game Coner
+## Apworld Updates
+* New option `cheaper_coins`
+  * Reduces the cost of buying coins from the Celadon Game Corner by 90%
+
 # 1.0.4
 ## Bug Fixes
 * Fixed an accessibility option that could occur with randomized wild Pokémon and Pokémon request locations (credit to [Eijebong](https://github.com/Eijebong))

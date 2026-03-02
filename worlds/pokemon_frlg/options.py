@@ -1429,6 +1429,13 @@ class BetterShops(Toggle):
     display_name = "Better Shops"
 
 
+class CheaperCoins(Toggle):
+    """
+    Reduces the cost of buying coins from the Celadon Game Corner by 90%.
+    """
+    display_name = "Cheaper Coins"
+
+
 class FreeFlyLocation(Toggle):
     """
     Enables flying to one random location (excluding cities reachable with no items).
@@ -1687,6 +1694,7 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     all_pokemon_seen: AllPokemonSeen
     starting_money: StartingMoney
     better_shops: BetterShops
+    cheaper_coins: CheaperCoins
     free_fly_location: FreeFlyLocation
     free_fly_blacklist: FreeFlyBlacklist
     town_map_fly_location: TownMapFlyLocation
