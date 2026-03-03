@@ -15,6 +15,11 @@
   * Removed `All Elevators Locked` option
 * New option `elite_four_rematch_requirement`
   * Sets the requirement for challenging the Elite Four Rematch between badges or gyms
+* Update option `game_option`
+  * Added new option `Encounter Mode`
+    * Random: Encounters are chosen randomly based on the encounter rates
+    * Boost: Encounters are chosen based on the encounter rates with a higher chance for Pokemon that haven't already been caught
+    * Rotate: Encounters are chosen by rotating through the encounter slots in an area (multiple slots in a row can be the same Pokemon)
 ## Bug Fixes
 * Fixed an issue where items that should only be purchasable once could be purcahsed multiple times at the Celadon Game Corner Prize Room Shops
 * Fixed an issue where logic could expect you to board the Seagallop from the harbor side of Vermilion City and sail to the main part of the city without any tickets/passes

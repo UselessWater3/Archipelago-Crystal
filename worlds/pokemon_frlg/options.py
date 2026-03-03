@@ -1524,27 +1524,39 @@ class GameOptions(OptionDict):
     Allows you to preset the in game options.
     The available options and their allowed values are the following:
 
-    - Text Speed: Slow, Mid, Fast, Instant
-    - Turbo Button: Off, A, B, A/B
-    - Auto Run: Off, On
-    - Button Mode: Help, L/R, L=A
-    - Frame: 1-10
-    - Battle Scene: Off, On
-    - Battle Style: Shift, Set
-    - Show Effectiveness: Off, On
-    - Experience Multiplier: 0-1000 in increments of 10 (0, 10, 20, etc.)
-    - Experience Distribution: Gen III, Gen VI, Gen VIII
-    - Sound: Mono, Stereo
-    - Low HP Beep: Off, On
-    - Skip Fanfares: Off, On
-    - Bike Music: Off, On
-    - Surf Music: Off, On
-    - Guaranteed Catch: Off, On
-    - Guaranteed Run: Off, On
-    - Encounter Rates: Vanilla, Normalized
-    - Blind Trainers: Off, On
-    - Skip Nicknames: Off, On
-    - Item Messages: All, Progression, None
+    - Text Speed: Slow, Mid, Fast, Instant - Sets the speed at which text advances
+    - Turbo Button: Off, A, B, A/B - Sets which buttons auto advance text when held
+    - Auto Run: Off, On - Sets whether run activates automatically, if 'On' you can hold B to walk
+    - Button Mode: Help, L/R, L=A - Sets how the L/R buttons behave
+        - Help: The L/R buttons open the help menu
+        - L/R: The L/R buttons switch between certain screens such as bag pockets
+        - L=A: The L button maps to the same functionality as the A button, the R button does nothing
+    - Frame: 1-10 - Sets the window frame for menus and textboxes
+    - Battle Scene: Off, On - Sets whether battle animations play
+    - Battle Style: Shift, Set - Sets whether you are asked to switch between trainer Pokemon
+    - Show Effectiveness: Off, On - Sets whether a moves effectiveness is shown in the additional move info box in battle
+    - Experience Multiplier: 0-1000 in increments of 10 (0, 10, 20, etc.) - Sets the Exp multiplier from battles
+    - Experience Distribution: Gen III, Gen VI, Gen VIII - Sets how Exp is distributed when fainting a Pokemon
+        - Gen III: Exp is split evenly among battle participants, Exp. Share splits evenly between participants and non-participants
+        - Gen VI: Battle participants earn 100% Exp, non-participants earn 50% of Exp when Exp. Share is enabled
+        - Gen VIII: Battle participants earn 100% Exp, non-participants earn 100% of Exp when Exp. Share is enabled
+    - Sound: Mono, Stereo - Sets the sound mode
+    - Low HP Beep: Off, On - Sets whether the low HP beep plays
+    - Skip Fanfares: Off, On - Sets whether you can skip fanfares with the B button
+    - Bike Music: Off, On - Sets whether the bike music will play
+    - Surf Music: Off, On - Sets whether the surf music will play
+    - Guaranteed Catch: Off, On - Sets whether balls have a 100% success rate
+    - Guaranteed Run: Off, On - Sets whether running has a 100% success rate
+    - Encounter Rates: Vanilla, Normalized - Sets how encounter rates are determined
+        - Vanilla: Encounter rates are unchanged from the vanilla game
+        - Normalized: Every encounter slot has roughly the same chance of being chosen (this does not mean each Pokemon has the same chance of appearing)
+    - Encounter Mode: Random, Boost, Rotate - Sets what method is used for determining wild encounters
+        - Random: Encounters are chosen randomly based on the encounter rates
+        - Boost: Encounters are chosen based on the encounter rates with a higher chance for Pokemon that haven't already been caught
+        - Rotate: Encounters are chosen by rotating through the encounter slots in an area (multiple slots in a row can be the same Pokemon)
+    - Blind Trainers: Off, On - Sets whether trainers will see you without you directly talking to them
+    - Skip Nicknames: Off, On - Sets whether the game will ask you to nickname Pokemon upon receiving them
+    - Item Messages: All, Progression, None - Sets what items will display a message when received from another game in the multiworld
     """
     display_name = "Game Options"
     schema = Schema({
@@ -1576,6 +1588,7 @@ class GameOptions(OptionDict):
         Optional("Guaranteed Run"): Or(And(str, lambda s: s in GAME_OPTIONS["Guaranteed Run"].options.keys()),
                                        And(bool, lambda s: s in GAME_OPTIONS["Guaranteed Run"].options.keys()),),
         Optional("Encounter Rates"): And(str, lambda s: s in GAME_OPTIONS["Encounter Rates"].options.keys()),
+        Optional("Encounter Mode"): And(str, lambda s: s in GAME_OPTIONS["Encounter Mode"].options.keys()),
         Optional("Blind Trainers"): Or(And(str, lambda s: s in GAME_OPTIONS["Blind Trainers"].options.keys()),
                                        And(bool, lambda s: s in GAME_OPTIONS["Blind Trainers"].options.keys()),),
         Optional("Skip Nicknames"): Or(And(str, lambda s: s in GAME_OPTIONS["Skip Nicknames"].options.keys()),
