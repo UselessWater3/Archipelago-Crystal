@@ -12,6 +12,8 @@
     * Disabled: The elevators are completely unusable
 * Updated option `modify_world_state`
   * Removed `All Elevators Locked` option
+## Bug Fixes
+* Fixed an issue where items that should only be purchasable once could be purcahsed multiple times at the Celadon Game Corner Prize Room Shops
 
 # 1.0.4
 ## Bug Fixes
