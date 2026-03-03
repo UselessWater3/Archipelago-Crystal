@@ -13,7 +13,7 @@ from pkg_resources import resource_listdir, resource_isdir
 from typing import Dict, List, NamedTuple, Set, FrozenSet, Any, Tuple
 from BaseClasses import ItemClassification
 
-POPTRACKER_CHECKSUM = 0x4A497E8F
+POPTRACKER_CHECKSUM = 0xB1742873
 NUM_REAL_SPECIES = 386
 
 @dataclass
