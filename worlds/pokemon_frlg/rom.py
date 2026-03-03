@@ -973,6 +973,10 @@ def _set_shop_data(world: "PokemonFRLGWorld") -> None:
         elif location.item.code is not None:
             patch.write_token(item_address, 2, struct.pack("<H", location.item.code))
 
+        if ((location.item.player and is_single_purchase_item(location.item) or location.item.player != world.player)
+                and location.address is not None):
+            patch.write_token(item_address, 6, struct.pack("<B", 0))
+
 
 def _set_species_info(world: "PokemonFRLGWorld") -> None:
     patch = world.patch_data
