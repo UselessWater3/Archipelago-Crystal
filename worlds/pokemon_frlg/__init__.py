@@ -685,6 +685,7 @@ class PokemonFRLGWorld(World):
             "route23_guard_count",
             "elite_four_requirement",
             "elite_four_count",
+            "elite_four_rematch_requirement",
             "elite_four_rematch_count",
             "cerulean_cave_requirement",
             "cerulean_cave_count",
@@ -703,7 +704,6 @@ class PokemonFRLGWorld(World):
         slot_data["dexsanity"] = 1 if self.options.dexsanity != Dexsanity.special_range_names["none"] else 0
         slot_data["dexsanity_locations"] = [loc.address for loc in self.get_locations()
                                             if loc.category == LocationCategory.POKEDEX]
-        slot_data["elite_four_rematch_requirement"] = self.options.elite_four_requirement.value
         slot_data["starting_town"] = data.constants[self.starting_town]
         slot_data["free_fly_location_id"] = self.free_fly_location_id
         slot_data["town_map_fly_location_id"] = self.town_map_fly_location_id

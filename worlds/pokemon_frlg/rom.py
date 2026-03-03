@@ -580,7 +580,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(address, offsets["eliteFourRequiredCount"], struct.pack("<B", elite_four_count))
 
     # Set Elite Four Rematch requirement
-    elite_four_rematch_requirement = world.options.elite_four_requirement.value
+    elite_four_rematch_requirement = world.options.elite_four_rematch_requirement.value
     patch.write_token(address, offsets["eliteFourRematchRequiresGyms"], struct.pack("<B", elite_four_rematch_requirement))
 
     # Set Elite Four Rematch count

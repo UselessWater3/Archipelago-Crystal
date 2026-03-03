@@ -13,6 +13,8 @@
     * Disabled: The elevators are completely unusable
 * Updated option `modify_world_state`
   * Removed `All Elevators Locked` option
+* New option `elite_four_rematch_requirement`
+  * Sets the requirement for challenging the Elite Four Rematch between badges or gyms
 ## Bug Fixes
 * Fixed an issue where items that should only be purchasable once could be purcahsed multiple times at the Celadon Game Corner Prize Room Shops
 * Fixed an issue where logic could expect you to board the Seagallop from the harbor side of Vermilion City and sail to the main part of the city without any tickets/passes

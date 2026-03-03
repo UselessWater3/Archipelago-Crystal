@@ -9,9 +9,9 @@ from worlds.generic.Rules import CollectionRule, add_rule
 from .data import data, NAME_TO_SPECIES_ID, EvolutionMethodEnum, LocationCategory
 from .items import PokemonFRLGGlitchedToken
 from .locations import PokemonFRLGLocation
-from .options import (CeruleanCaveRequirement, ElevatorsCondition, EliteFourRequirement, FlashRequired, Goal,
-                      IslandPasses, ItemfinderRequired, PewterCityRoadblock, Route22GateRequirement,
-                      Route23GuardRequirement, ViridianCityRoadblock, ViridianGymRequirement)
+from .options import (CeruleanCaveRequirement, ElevatorsCondition, EliteFourRequirement, EliteFourRematchRequirement,
+                      FlashRequired, Goal, IslandPasses, ItemfinderRequired, PewterCityRoadblock,
+                      Route22GateRequirement, Route23GuardRequirement, ViridianCityRoadblock, ViridianGymRequirement)
 from .pokemon import add_hm_compatability
 from .util import HM_TO_COMPATIBILITY_ID, int_to_bool_array
 
@@ -2078,7 +2078,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has_any(logic.wild_pokemon, player))
 
     # Indigo Plateau
-    if options.elite_four_requirement.value == EliteFourRequirement.option_badges:
+    if options.elite_four_rematch_requirement.value == EliteFourRematchRequirement.option_badges:
         add_rule_safe("Lorelei's Room - Elite Four Lorelei Rematch Reward",
                       lambda state: logic.has_lorelei_returned(state) and
                                     logic.has_n_badges(state, options.elite_four_rematch_count.value))
@@ -2106,7 +2106,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
         add_rule_safe("Champion Rematch Scaling",
                       lambda state: logic.has_lorelei_returned(state) and
                                     logic.has_n_badges(state, options.elite_four_rematch_count.value))
-    elif options.elite_four_requirement.value == EliteFourRequirement.option_gyms:
+    elif options.elite_four_rematch_requirement.value == EliteFourRematchRequirement.option_gyms:
         add_rule_safe("Lorelei's Room - Elite Four Lorelei Rematch Reward",
                       lambda state: logic.has_lorelei_returned(state) and
                                     logic.has_n_gyms(state, options.elite_four_rematch_count.value))
