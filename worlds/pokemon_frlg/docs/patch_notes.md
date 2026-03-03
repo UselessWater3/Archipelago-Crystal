@@ -14,6 +14,7 @@
   * Removed `All Elevators Locked` option
 ## Bug Fixes
 * Fixed an issue where items that should only be purchasable once could be purcahsed multiple times at the Celadon Game Corner Prize Room Shops
+* Fixed an issue where logic could expect you to board the Seagallop from the harbor side of Vermilion City and sail to the main part of the city without any tickets/passes
 
 # 1.0.4
 ## Bug Fixes

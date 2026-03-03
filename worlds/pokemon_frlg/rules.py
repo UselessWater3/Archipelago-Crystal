@@ -756,6 +756,21 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: state.has("Vermilion Key", player))
     add_rule_safe("Vermilion City Checkpoint (Bottom)",
                   lambda state: state.has("S.S. Ticket", player))
+    if options.island_passes.value in {IslandPasses.option_vanilla, IslandPasses.option_progressive}:
+        add_rule_safe("Board Seagallop (Vermilion Harbor)",
+                      lambda state: logic.has_island_pass(state, 1) or
+                                    logic.has_island_pass(state, 2) or
+                                    state.has_any(("Mystic Ticket", "Aurora Ticket"), player))
+    elif options.island_passes.value in {IslandPasses.option_split, IslandPasses.option_progressive_split}:
+        add_rule_safe("Board Seagallop (Vermilion Harbor)",
+                      lambda state: logic.has_split_island_pass(state, 1) or
+                                    logic.has_split_island_pass(state, 2) or
+                                    logic.has_split_island_pass(state, 3) or
+                                    logic.has_split_island_pass(state, 4) or
+                                    logic.has_split_island_pass(state, 5) or
+                                    logic.has_split_island_pass(state, 6) or
+                                    logic.has_split_island_pass(state, 7) or
+                                    state.has_any(("Mystic Ticket", "Aurora Ticket"), player))
 
     # S.S. Anne
     add_rule_safe("S.S. Anne Exterior Surfing Spot",
