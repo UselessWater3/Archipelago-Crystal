@@ -365,6 +365,7 @@ class PokemonFRLGData:
     constants: Dict[str, int]
     ram_addresses: Dict[str, Dict[str, int]]
     rom_addresses: Dict[str, Dict[str, int]]
+    ap_offsets: Dict[str, int]
     regions: Dict[str, RegionData]
     locations: Dict[str, LocationData]
     events: Dict[str, EventData]
@@ -816,6 +817,7 @@ def init() -> None:
     data.constants = extracted_data["constants"]
     data.ram_addresses = extracted_data["misc_ram_addresses"]
     data.rom_addresses = extracted_data["misc_rom_addresses"]
+    data.ap_offsets = extracted_data["option_offsets"]
 
     location_data = load_json_data("locations.json")
     event_data = load_json_data("events.json")

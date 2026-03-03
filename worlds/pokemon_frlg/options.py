@@ -712,6 +712,22 @@ class PewterCityRoadblock(Choice):
     option_any_badge = 4
 
 
+class ElevatorsCondition(Choice):
+    """
+    Sets the conditions the Celadon Department Store and Silph Co. elevators are in. Has no logical implications unless
+    interior warps are shuffled.
+
+    - Open: The elevators can be used normally
+    - Locked: The elevators will require the Lift Key before they can be used
+    - Disabled: The elevators are completely unusable
+    """
+    display_name = "Elevator's Condition"
+    default = 0
+    option_open = 0
+    option_locked = 1
+    option_disabled = 2
+
+
 class ModifyWorldState(OptionSet):
     """
     Set various changes to the world's state that changes how you can access various regions and locations.
@@ -735,14 +751,12 @@ class ModifyWorldState(OptionSet):
     - Total Darkness: Changes dark caves to be completely black and provide no vision without Flash
     - Block Vermilion Sailing: Prevents you from sailing to Vermilion City on the Seagallop until you have gotten
                                the S.S. Ticket
-    - All Elevators Locked: Prevents you from using the elevators in the Celadon Department Store and Silph Co. until
-                            you have gotten the Lift Key
     """
     display_name = "Modify World State"
     valid_keys = ["Modify Route 2", "Remove Cerulean Roadblocks", "Block Tunnels", "Modify Route 9",
                   "Modify Route 10", "Block Tower", "Route 12 Boulders", "Modify Route 12", "Modify Route 16",
                   "Open Silph", "Remove Saffron Rockets", "Route 23 Trees", "Modify Route 23", "Victory Road Rocks",
-                  "Early Gossipers", "Total Darkness", "Block Vermilion Sailing", "All Elevators Locked"]
+                  "Early Gossipers", "Total Darkness", "Block Vermilion Sailing"]
 
 
 class AdditionalDarkCaves(OptionSet):
@@ -1635,6 +1649,7 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     evolution_methods_required: EvolutionMethodsRequired
     viridian_city_roadblock: ViridianCityRoadblock
     pewter_city_roadblock: PewterCityRoadblock
+    elevators_condition: ElevatorsCondition
     modify_world_state: ModifyWorldState
     additional_dark_caves: AdditionalDarkCaves
     remove_badge_requirement: RemoveBadgeRequirement

@@ -429,7 +429,8 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     # /* 0x54 */ bool8 randomized;
     # /* 0x55 */ u8 version[16];
     # }
-    options_address = data.rom_addresses["gArchipelagoOptions"]
+    address = data.rom_addresses["gArchipelagoOptions"]
+    offsets = data.ap_offsets
 
     # Set game options
     game_options_1 = 0
@@ -440,239 +441,239 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
         else:
             value = option.default
         if option.option_group == -1:
-            patch.write_token(options_address, 0x00, struct.pack("<B", value))
+            patch.write_token(address, offsets["windowFrameType"], struct.pack("<B", value))
         elif option.option_group == -2:
-            patch.write_token(options_address, 0x01, struct.pack("<H", value))
+            patch.write_token(address, offsets["expMultiplier"], struct.pack("<H", value))
         elif option.option_group == 1:
             game_options_1 |= (value << option.option_number)
         elif option.option_group == 2:
             game_options_2 |= (value << option.option_number)
-    patch.write_token(options_address, 0x03, struct.pack("<H", game_options_1))
-    patch.write_token(options_address, 0x05, struct.pack("<H", game_options_2))
+    patch.write_token(address, offsets["gameOptions1"], struct.pack("<H", game_options_1))
+    patch.write_token(address, offsets["gameOptions2"], struct.pack("<H", game_options_2))
 
     # Set better shops
     better_shops = 1 if world.options.better_shops else 0
-    patch.write_token(options_address, 0x06, struct.pack("<B", better_shops))
+    patch.write_token(address, offsets["betterShops"], struct.pack("<B", better_shops))
 
     # Set cheaper coins
     cheaper_coins = 1 if world.options.cheaper_coins else 0
-    patch.write_token(options_address, 0x07, struct.pack("<B", cheaper_coins))
+    patch.write_token(address, offsets["cheaperCoins"], struct.pack("<B", cheaper_coins))
 
     # Set reusable TMs and Move Tutors
     reusable_tm_tutors = 1 if world.options.reusable_tm_tutors else 0
-    patch.write_token(options_address, 0x08, struct.pack("<B", reusable_tm_tutors))
+    patch.write_token(address, offsets["reusableTms"], struct.pack("<B", reusable_tm_tutors))
 
     # Set unlock seen dex info
     all_pokemon_seen = 1 if world.options.all_pokemon_seen else 0
-    patch.write_token(options_address, 0x09, struct.pack("<B", all_pokemon_seen))
+    patch.write_token(address, offsets["unlockSeenDexInfo"], struct.pack("<B", all_pokemon_seen))
 
     # Set physical/special split
     physical_special_split = 1 if world.options.physical_special_split else 0
-    patch.write_token(options_address, 0x0A, struct.pack("<B", physical_special_split))
+    patch.write_token(address, offsets["physicalSpecialSplit"], struct.pack("<B", physical_special_split))
 
     # Set Viridian City roadblock
     open_viridian = 1 if world.options.viridian_city_roadblock.value == ViridianCityRoadblock.option_open else 0
-    patch.write_token(options_address, 0x0B, struct.pack("<B", open_viridian))
+    patch.write_token(address, offsets["openViridianCity"], struct.pack("<B", open_viridian))
 
     # Set Pewter City roadblock
     route_3_condition = world.options.pewter_city_roadblock.value
-    patch.write_token(options_address, 0x0C, struct.pack("<B", route_3_condition))
+    patch.write_token(address, offsets["route3Requirement"], struct.pack("<B", route_3_condition))
 
     # Set Cerulean City roadblocks
     open_cerulean = 1 if "Remove Cerulean Roadblocks" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x0D, struct.pack("<B", open_cerulean))
+    patch.write_token(address, offsets["openCeruleanCity"], struct.pack("<B", open_cerulean))
 
     # Set Route 2 modification
     route_2_modified = 1 if "Modify Route 2" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x0E, struct.pack("<B", route_2_modified))
+    patch.write_token(address, offsets["modifyRoute2"], struct.pack("<B", route_2_modified))
 
     # Set Route 9 modification
     route_9_modified = 1 if "Modify Route 9" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x0F, struct.pack("<B", route_9_modified))
+    patch.write_token(address, offsets["modifyRoute9"], struct.pack("<B", route_9_modified))
 
     # Set Underground Tunnels blocked
     block_tunnels = 1 if "Block Tunnels" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x10, struct.pack("<B", block_tunnels))
+    patch.write_token(address, offsets["blockTunnels"], struct.pack("<B", block_tunnels))
 
     # Set Route 12 boulders
     route_12_boulders = 1 if "Route 12 Boulders" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x11, struct.pack("<B", route_12_boulders))
+    patch.write_token(address, offsets["route12Boulders"], struct.pack("<B", route_12_boulders))
 
     # Set Route 10 modification
     route_10_modified = 1 if "Modify Route 10" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x12, struct.pack("<B", route_10_modified))
+    patch.write_token(address, data.ap_offsets["modifyRoute10"], struct.pack("<B", route_10_modified))
 
     # Set Route 12 modification
     route_12_modified = 1 if "Modify Route 12" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x13, struct.pack("<B", route_12_modified))
+    patch.write_token(address, offsets["modifyRoute12"], struct.pack("<B", route_12_modified))
 
     # Set Route 16 modification
     route_16_modified = 1 if "Modify Route 16" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x14, struct.pack("<B", route_16_modified))
+    patch.write_token(address, offsets["modifyRoute16"], struct.pack("<B", route_16_modified))
 
     # Set open Silph Co.
     open_silph = 1 if "Open Silph" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x15, struct.pack("<B", open_silph))
+    patch.write_token(address, offsets["openSilphCo"], struct.pack("<B", open_silph))
 
     # Set remove Saffron Rockets
     remove_saffron_rockets = 1 if "Remove Saffron Rockets" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x16, struct.pack("<B", remove_saffron_rockets))
+    patch.write_token(address, offsets["removeSaffronRockets"], struct.pack("<B", remove_saffron_rockets))
 
     # Set Route 23 modification
     route_23_modified = 1 if "Modify Route 23" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x17, struct.pack("<B", route_23_modified))
+    patch.write_token(address, offsets["modifyRoute23"], struct.pack("<B", route_23_modified))
 
     # Set Route 23 trees
     route_23_trees = 1 if "Route 23 Trees" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x18, struct.pack("<B", route_23_trees))
+    patch.write_token(address, offsets["route23Trees"], struct.pack("<B", route_23_trees))
 
     # Set Pokémon Tower blocked
     block_tower = 1 if "Block Tower" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x19, struct.pack("<B", block_tower))
+    patch.write_token(address, offsets["blockPokemonTower"], struct.pack("<B", block_tower))
 
     # Set Victory Road rocks
     victory_road_rocks = 1 if "Victory Road Rocks" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x1A, struct.pack("<B", victory_road_rocks))
+    patch.write_token(address, offsets["victoryRoadRocks"], struct.pack("<B", victory_road_rocks))
 
     # Set early gossipers
     early_gossipers = 1 if "Early Gossipers" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x1B, struct.pack("<B", early_gossipers))
+    patch.write_token(address, offsets["earlyFameGossip"], struct.pack("<B", early_gossipers))
 
     # Set block Vermilion sailing
     block_vermilion_sailing = 1 if "Block Vermilion Sailing" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x1C, struct.pack("<B", block_vermilion_sailing))
+    patch.write_token(address, offsets["blockSailing"], struct.pack("<B", block_vermilion_sailing))
 
     # Set all elevators locked
-    all_elevators_locked = 1 if "All Elevators Locked" in world.options.modify_world_state.value else 0
-    patch.write_token(options_address, 0x1D, struct.pack("<B", all_elevators_locked))
+    elevators_condition = world.options.elevators_condition
+    patch.write_token(address, offsets["elevatorsState"], struct.pack("<B", elevators_condition))
 
     # Set Viridian Gym Rrquirement
     viridian_gym_requirement = world.options.viridian_gym_requirement.value
-    patch.write_token(options_address, 0x1E, struct.pack("<B", viridian_gym_requirement))
+    patch.write_token(address, offsets["giovanniRequiresGyms"], struct.pack("<B", viridian_gym_requirement))
 
     # Set Viridian Gym count
     viridian_gym_count = world.options.viridian_gym_count.value
-    patch.write_token(options_address, 0x1F, struct.pack("<B", viridian_gym_count))
+    patch.write_token(address, offsets["giovanniRequiredCount"], struct.pack("<B", viridian_gym_count))
 
     # Set Route 22 requirement
     route_22_requirement = world.options.route22_gate_requirement.value
-    patch.write_token(options_address, 0x20, struct.pack("<B", route_22_requirement))
+    patch.write_token(address, offsets["route22GateRequiresGyms"], struct.pack("<B", route_22_requirement))
 
     # Set Route 22 count
     route_22_count = world.options.route22_gate_count.value
-    patch.write_token(options_address, 0x21, struct.pack("<B", route_22_count))
+    patch.write_token(address, offsets["route22GateRequiredCount"], struct.pack("<B", route_22_count))
 
     # Set Route 23 requirement
     route_23_requirement = world.options.route23_guard_requirement.value
-    patch.write_token(options_address, 0x22, struct.pack("<B", route_23_requirement))
+    patch.write_token(address, offsets["route23GuardRequiresGyms"], struct.pack("<B", route_23_requirement))
 
     # Set Route 23 count
     route_23_count = world.options.route23_guard_count.value
-    patch.write_token(options_address, 0x23, struct.pack("<B", route_23_count))
+    patch.write_token(address, offsets["route23GuardRequiredCount"], struct.pack("<B", route_23_count))
 
     # Set Elite Four requirement
     elite_four_requirement = world.options.elite_four_requirement.value
-    patch.write_token(options_address, 0x24, struct.pack("<B", elite_four_requirement))
+    patch.write_token(address, offsets["eliteFourRequiresGyms"], struct.pack("<B", elite_four_requirement))
 
     # Set Elite Four count
     elite_four_count = world.options.elite_four_count.value
-    patch.write_token(options_address, 0x25, struct.pack("<B", elite_four_count))
+    patch.write_token(address, offsets["eliteFourRequiredCount"], struct.pack("<B", elite_four_count))
 
     # Set Elite Four Rematch requirement
     elite_four_rematch_requirement = world.options.elite_four_requirement.value
-    patch.write_token(options_address, 0x26, struct.pack("<B", elite_four_rematch_requirement))
+    patch.write_token(address, offsets["eliteFourRematchRequiresGyms"], struct.pack("<B", elite_four_rematch_requirement))
 
     # Set Elite Four Rematch count
     elite_four_rematch_count = world.options.elite_four_rematch_count.value
-    patch.write_token(options_address, 0x27, struct.pack("<B", elite_four_rematch_count))
+    patch.write_token(address, offsets["eliteFourRematchRequiredCount"], struct.pack("<B", elite_four_rematch_count))
 
     # Set Cerulean Cave requirement
     cerulean_cave_requirement = world.options.cerulean_cave_requirement.value
-    patch.write_token(options_address, 0x28, struct.pack("<B", cerulean_cave_requirement))
+    patch.write_token(address, offsets["ceruleanCaveRequirement"], struct.pack("<B", cerulean_cave_requirement))
 
     # Set Cerulean Cave count
     cerulean_cave_count = world.options.cerulean_cave_count.value
-    patch.write_token(options_address, 0x29, struct.pack("<B", cerulean_cave_count))
+    patch.write_token(address, offsets["ceruleanCaveRequiredCount"], struct.pack("<B", cerulean_cave_count))
 
     # Set Fossil count
     fossil_count = world.options.fossil_count.value
-    patch.write_token(options_address, 0x2A, struct.pack("<B", fossil_count))
+    patch.write_token(address, offsets["cinnabarFossilCount"], struct.pack("<B", fossil_count))
 
     # Set rematch requirements
     rematch_requirements = world.options.rematch_requirements.value
-    patch.write_token(options_address, 0x2B, struct.pack("<B", rematch_requirements))
+    patch.write_token(address, offsets["rematchRequiresGyms"], struct.pack("<B", rematch_requirements))
 
     # Set starting money
-    patch.write_token(options_address, 0x2C, struct.pack("<I", world.options.starting_money.value))
+    patch.write_token(address, offsets["startingMoney"], struct.pack("<I", world.options.starting_money.value))
 
     # Set itemfinder required
     itemfinder_required = 1 if world.options.itemfinder_required.value == ItemfinderRequired.option_required else 0
-    patch.write_token(options_address, 0x30, struct.pack("<B", itemfinder_required))
+    patch.write_token(address, offsets["itemfinderRequired"], struct.pack("<B", itemfinder_required))
 
     # Set flash required
     flash_required = 1 if world.options.flash_required.value == FlashRequired.option_required else 0
-    patch.write_token(options_address, 0x31, struct.pack("<B", flash_required))
+    patch.write_token(address, offsets["flashRequired"], struct.pack("<B", flash_required))
 
     # Set fame checker required
     fame_checker_required = 1 if world.options.fame_checker_required else 0
-    patch.write_token(options_address, 0x32, struct.pack("<B", fame_checker_required))
+    patch.write_token(address, offsets["fameCheckerRequired"], struct.pack("<B", fame_checker_required))
 
     # Set bicycle requires jumping shoes
     bicycle_requires_jumping_shoes = 1 if world.options.bicycle_requires_jumping_shoes else 0
-    patch.write_token(options_address, 0x33, struct.pack("<B", bicycle_requires_jumping_shoes))
+    patch.write_token(address, offsets["bikeRequiresJumpingShoes"], struct.pack("<B", bicycle_requires_jumping_shoes))
 
     # Set acrobatic bicycle
     acrobatic_bicycle = 1 if world.options.acrobatic_bicycle else 0
-    patch.write_token(options_address, 0x34, struct.pack("<B", acrobatic_bicycle))
+    patch.write_token(address, offsets["acrobaticBike"], struct.pack("<B", acrobatic_bicycle))
 
     # Set Oak's Aides counts
     oaks_aide_route_2 = world.options.oaks_aide_route_2.value
-    patch.write_token(options_address, 0x35, struct.pack("<B", oaks_aide_route_2))
+    patch.write_token(address, offsets["oaksAideRequiredCounts"], struct.pack("<B", oaks_aide_route_2))
     oaks_aide_route_10 = world.options.oaks_aide_route_10.value
-    patch.write_token(options_address, 0x36, struct.pack("<B", oaks_aide_route_10))
+    patch.write_token(address, offsets["oaksAideRequiredCounts"] + 1, struct.pack("<B", oaks_aide_route_10))
     oaks_aide_route_11 = world.options.oaks_aide_route_11.value
-    patch.write_token(options_address, 0x37, struct.pack("<B", oaks_aide_route_11))
+    patch.write_token(address, offsets["oaksAideRequiredCounts"] + 2, struct.pack("<B", oaks_aide_route_11))
     oaks_aide_route_16 = world.options.oaks_aide_route_16.value
-    patch.write_token(options_address, 0x38, struct.pack("<B", oaks_aide_route_16))
+    patch.write_token(address, offsets["oaksAideRequiredCounts"] + 3, struct.pack("<B", oaks_aide_route_16))
     oaks_aide_route_15 = world.options.oaks_aide_route_15.value
-    patch.write_token(options_address, 0x39, struct.pack("<B", oaks_aide_route_15))
+    patch.write_token(address, offsets["oaksAideRequiredCounts"] + 4, struct.pack("<B", oaks_aide_route_15))
 
     # Set recurring hidden items shuffled
     recurring_hidden_items = 1 if world.options.shuffle_hidden.value == ShuffleHiddenItems.option_all else 0
-    patch.write_token(options_address, 0x3A, struct.pack("<B", recurring_hidden_items))
+    patch.write_token(address, offsets["reccuringHiddenItems"], struct.pack("<B", recurring_hidden_items))
 
     # Set trainersanity
     trainersanity = 1 if world.options.trainersanity.value != Trainersanity.special_range_names["none"] else 0
-    patch.write_token(options_address, 0x3B, struct.pack("<B", trainersanity))
+    patch.write_token(address, offsets["isTrainersanity"], struct.pack("<B", trainersanity))
 
     # Set dexsanity
     dexsanity = 1 if world.options.dexsanity.value != Dexsanity.special_range_names["none"] else 0
-    patch.write_token(options_address, 0x3C, struct.pack("<B", dexsanity))
+    patch.write_token(address, offsets["isDexsanity"], struct.pack("<B", dexsanity))
 
     # Set extra key items
     extra_key_items = 1 if world.options.extra_key_items else 0
-    patch.write_token(options_address, 0x3D, struct.pack("<B", extra_key_items))
+    patch.write_token(address, offsets["extraKeyItems"], struct.pack("<B", extra_key_items))
 
     # Set kanto only
     kanto_only = 1 if world.options.kanto_only else 0
-    patch.write_token(options_address, 0x3E, struct.pack("<B", kanto_only))
+    patch.write_token(address, offsets["kantoOnly"], struct.pack("<B", kanto_only))
 
     # Set fly unlocks
     fly_unlocks = 1 if (world.options.shuffle_fly_unlocks.value != ShuffleFlyUnlocks.option_off or
                         world.options.randomize_fly_destinations) else 0
-    patch.write_token(options_address, 0x3F, struct.pack("<B", fly_unlocks))
+    patch.write_token(address, offsets["flyUnlocks"], struct.pack("<B", fly_unlocks))
 
     # Set famesanity
     famesanity = 1 if world.options.famesanity else 0
-    patch.write_token(options_address, 0x40, struct.pack("<B", famesanity))
+    patch.write_token(address, offsets["isFamesanity"], struct.pack("<B", famesanity))
 
     # Set gym keys
     gym_keys = 1 if world.options.gym_keys else 0
-    patch.write_token(options_address, 0x41, struct.pack("<B", gym_keys))
+    patch.write_token(address, offsets["gymKeys"], struct.pack("<B", gym_keys))
 
     # Set shopsanity
     shopsanity = 1 if world.options.shopsanity else 0
-    patch.write_token(options_address, 0x42, struct.pack("<B", shopsanity))
+    patch.write_token(address, offsets["isShopsanity"], struct.pack("<B", shopsanity))
 
     # Set remove badge requirements
     hms = ["Flash", "Cut", "Fly", "Strength", "Surf", "Rock Smash", "Waterfall"]
@@ -680,7 +681,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     for i, hm in enumerate(hms):
         if hm in world.options.remove_badge_requirement.value:
             remove_badge_requirements |= (1 << i)
-    patch.write_token(options_address, 0x43, struct.pack("<B", remove_badge_requirements))
+    patch.write_token(address, offsets["removeBadgeRequirement"], struct.pack("<B", remove_badge_requirements))
 
     # Set additional dark caves
     dark_caves = ["Mt. Moon", "Diglett's Cave", "Victory Road"]
@@ -695,41 +696,41 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
                 map_data = world.modified_maps[map_id]
                 header_address = map_data.header_address
                 patch.write_token(header_address, 21, struct.pack("<B", 1))
-    patch.write_token(options_address, 0x44, struct.pack("<B", additional_dark_caves))
+    patch.write_token(address, offsets["additionalDarkCaves"], struct.pack("<B", additional_dark_caves))
 
     # Set passes split
     passes_split = 1 if world.options.island_passes.value in {IslandPasses.option_split,
                                                               IslandPasses.option_progressive_split} else 0
-    patch.write_token(options_address, 0x45, struct.pack("<B", passes_split))
+    patch.write_token(address, offsets["passesSplit"], struct.pack("<B", passes_split))
 
     # Set card keys split
     card_keys_split = 1 if world.options.card_key.value in {CardKey.option_split, CardKey.option_progressive} else 0
-    patch.write_token(options_address, 0x46, struct.pack("<B", card_keys_split))
+    patch.write_token(address, offsets["cardKeysSplit"], struct.pack("<B", card_keys_split))
 
     # Set teas split
     teas_split = 1 if world.options.split_teas else 0
-    patch.write_token(options_address, 0x47, struct.pack("<B", teas_split))
+    patch.write_token(address, offsets["teasSplit"], struct.pack("<B", teas_split))
 
     # Set starting town
     starting_town = data.constants[world.starting_town]
-    patch.write_token(options_address, 0x48, struct.pack("<B", starting_town))
+    patch.write_token(address, offsets["startingLocation"], struct.pack("<B", starting_town))
 
     # Set starting respawn
     starting_respawn = data.constants[world.starting_respawn]
-    patch.write_token(options_address, 0x49, struct.pack("<B", starting_respawn))
+    patch.write_token(address, offsets["startingRespawn"], struct.pack("<B", starting_respawn))
 
     # Set free fly location
-    patch.write_token(options_address, 0x4A, struct.pack("<B", world.free_fly_location_id))
+    patch.write_token(address, offsets["freeFlyId"], struct.pack("<B", world.free_fly_location_id))
 
     # Set town map fly location
-    patch.write_token(options_address, 0x4B, struct.pack("<B", world.town_map_fly_location_id))
+    patch.write_token(address, offsets["townFreeFlyId"], struct.pack("<B", world.town_map_fly_location_id))
 
     # Set resort gorgeous mon
-    patch.write_token(options_address, 0x4C, struct.pack("<H", world.logic.resort_gorgeous_pokemon))
+    patch.write_token(address, offsets["resortGorgeousMon"], struct.pack("<H", world.logic.resort_gorgeous_pokemon))
 
     # Set intro species
     species_id = world.random.choice(list(data.species.keys()))
-    patch.write_token(options_address, 0x4E, struct.pack("<H", species_id))
+    patch.write_token(address, offsets["introSpecies"], struct.pack("<H", species_id))
 
     # Set PC item ID
     pc_item_location = world.get_location("Player's PC - PC Item")
@@ -737,23 +738,23 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
         item_id = pc_item_location.item.code
     else:
         item_id = data.constants["ITEM_ARCHIPELAGO_PROGRESSION"]
-    patch.write_token(options_address, 0x50, struct.pack("<H", item_id))
+    patch.write_token(address, offsets["pcItemId"], struct.pack("<H", item_id))
 
     # Set remote items
     remote_items = 1 if world.options.remote_items else 0
-    patch.write_token(options_address, 0x52, struct.pack("<B", remote_items))
+    patch.write_token(address, offsets["remoteItems"], struct.pack("<B", remote_items))
 
     # Set interior ER
     shuffle_interiors = 1 if world.options.shuffle_interiors else 0
-    patch.write_token(options_address, 0x53, struct.pack("<B", shuffle_interiors))
+    patch.write_token(address, offsets["internalEntrancesRandomized"], struct.pack("<B", shuffle_interiors))
 
     # Set that the game has been randomized
-    patch.write_token(options_address, 0x54, struct.pack("<B", 1))
+    patch.write_token(address, offsets["randomized"], struct.pack("<B", 1))
 
     # Set apworld version
     apworld_version = f"AP v{world.world_version.as_simple_string()}"
     for j, b in enumerate(encode_string(apworld_version, 16)):
-        patch.write_token(options_address, 0x55 + j, struct.pack("<B", b))
+        patch.write_token(address, offsets["version"] + j, struct.pack("<B", b))
 
     # Set total darkness
     if "Total Darkness" in world.options.modify_world_state.value:

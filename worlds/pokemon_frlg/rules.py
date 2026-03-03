@@ -9,9 +9,9 @@ from worlds.generic.Rules import CollectionRule, add_rule
 from .data import data, NAME_TO_SPECIES_ID, EvolutionMethodEnum, LocationCategory
 from .items import PokemonFRLGGlitchedToken
 from .locations import PokemonFRLGLocation
-from .options import (CeruleanCaveRequirement, EliteFourRequirement, FlashRequired, Goal, IslandPasses,
-                      ItemfinderRequired, PewterCityRoadblock, Route22GateRequirement, Route23GuardRequirement,
-                      ViridianCityRoadblock, ViridianGymRequirement)
+from .options import (CeruleanCaveRequirement, ElevatorsCondition, EliteFourRequirement, FlashRequired, Goal,
+                      IslandPasses, ItemfinderRequired, PewterCityRoadblock, Route22GateRequirement,
+                      Route23GuardRequirement, ViridianCityRoadblock, ViridianGymRequirement)
 from .pokemon import add_hm_compatability
 from .util import HM_TO_COMPATIBILITY_ID, int_to_bool_array
 
@@ -871,7 +871,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     if options.extra_key_items:
         add_rule_safe("Rocket Hideout",
                       lambda state: state.has("Hideout Key", player))
-    if "All Elevators Locked" in options.modify_world_state.value:
+    if options.elevators_condition == ElevatorsCondition.option_locked:
         add_rule_safe("Celadon Department Store Elevator 1F Stop",
                       lambda state: state.has("Lift Key", player))
         add_rule_safe("Celadon Department Store Elevator 2F Stop",
@@ -882,6 +882,17 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: state.has("Lift Key", player))
         add_rule_safe("Celadon Department Store Elevator 5F Stop",
                       lambda state: state.has("Lift Key", player))
+    elif options.elevators_condition == ElevatorsCondition.option_disabled:
+        add_rule_safe("Celadon Department Store Elevator 1F Stop",
+                      lambda state: False)
+        add_rule_safe("Celadon Department Store Elevator 2F Stop",
+                      lambda state: False)
+        add_rule_safe("Celadon Department Store Elevator 3F Stop",
+                      lambda state: False)
+        add_rule_safe("Celadon Department Store Elevator 4F Stop",
+                      lambda state: False)
+        add_rule_safe("Celadon Department Store Elevator 5F Stop",
+                      lambda state: False)
     add_rule_safe("Celadon Gym Cuttable Trees",
                   lambda state: logic.can_cut(state))
 
@@ -1096,7 +1107,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.has_card_key(state, 10))
     add_rule_safe("Silph Co. 11F Barrier (Bottom)",
                   lambda state: logic.has_card_key(state, 11))
-    if "All Elevators Locked" in options.modify_world_state.value:
+    if options.elevators_condition == ElevatorsCondition.option_locked:
         add_rule_safe("Silph Co. Elevator 1F Stop",
                       lambda state: state.has("Lift Key", player))
         add_rule_safe("Silph Co. Elevator 2F Stop",
@@ -1119,6 +1130,29 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: state.has("Lift Key", player))
         add_rule_safe("Silph Co. Elevator 11F Stop",
                       lambda state: state.has("Lift Key", player))
+    elif options.elevators_condition == ElevatorsCondition.option_disabled:
+        add_rule_safe("Silph Co. Elevator 1F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 2F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 3F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 4F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 5F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 6F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 7F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 8F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 9F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 10F Stop",
+                      lambda state: False)
+        add_rule_safe("Silph Co. Elevator 11F Stop",
+                      lambda state: False)
 
     # Route 19
     add_rule_safe("Route 19 Surfing Spot",

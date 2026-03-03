@@ -5,6 +5,13 @@
 ## Apworld Updates
 * New option `cheaper_coins`
   * Reduces the cost of buying coins from the Celadon Game Corner by 90%
+* New option `elevators_condition`
+  * Sets the conditions the Celadon Department Store and Silph Co. elevators are in. Has no logical implications unless interior warps are shuffled
+    * Open: The elevators can be used normally
+    * Locked: The elevators will require the Lift Key before they can be used
+    * Disabled: The elevators are completely unusable
+* Updated option `modify_world_state`
+  * Removed `All Elevators Locked` option
 
 # 1.0.4
 ## Bug Fixes
