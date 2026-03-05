@@ -915,9 +915,8 @@ def _set_shop_data(world: "PokemonFRLGWorld") -> None:
     patch = world.patch_data
     shop_locations= [loc for loc in world.get_locations()
                      if loc.name in location_groups["Shops"]
-                     or loc.name in location_groups["Vending Machines"]]
-    prize_cornor_locations = [loc for loc in world.get_locations()
-                              if loc.name in location_groups["Prizes"]]
+                     or loc.name in location_groups["Vending Machines"]
+                     or loc.name in location_groups["Prizes"]]
     already_set_prices: Dict[str, int] = {}
 
     for location in shop_locations:
@@ -943,6 +942,8 @@ def _set_shop_data(world: "PokemonFRLGWorld") -> None:
             if location.item.code is not None:
                 patch.write_token(item_address, 2, struct.pack("<H", location.item.code))
 
+        if location.name in location_groups["Prizes"]:
+            price = round(price * 0.5)
         if not already_set:
             if world.options.shop_prices == ShopPrices.option_cheap:
                 price = round(price * 0.5)
@@ -955,23 +956,11 @@ def _set_shop_data(world: "PokemonFRLGWorld") -> None:
 
         patch.write_token(item_address, 4, struct.pack("<H", price))
 
-        if location.item.player == world.player:
-            already_set_prices[location.item.name] = price
-
-        if ((location.item.player and is_single_purchase_item(location.item) or location.item.player != world.player)
-                and location.address is not None):
-            patch.write_token(item_address, 6, struct.pack("<B", 0))
-
-    for location in prize_cornor_locations:
-        if location.item is None:
-            continue
-
-        item_address = location.item_address
-
-        if location.item.player != world.player:
-            patch.write_token(item_address, 2, struct.pack("<H", data.constants["ITEM_ARCHIPELAGO_PROGRESSION"]))
-        elif location.item.code is not None:
-            patch.write_token(item_address, 2, struct.pack("<H", location.item.code))
+        if location.item.player == world.player and location.item.name not in already_set_prices:
+            if location.name in location_groups["Prizes"]:
+                already_set_prices[location.item.name] = round(price * 2)
+            else:
+                already_set_prices[location.item.name] = price
 
         if ((location.item.player and is_single_purchase_item(location.item) or location.item.player != world.player)
                 and location.address is not None):

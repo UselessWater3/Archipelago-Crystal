@@ -5,8 +5,10 @@
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
 ## Apworld Updates
 * Updated several region and entrance names for better clarity in the spoiler log and when using UT
-* New option `cheaper_coins`
-  * Reduces the cost of buying coins from the Celadon Game Corner by 90%
+* Updated option `prizesanity`
+  * The coin price for purchasing items at the Game Corner Prize Room will now be determined by what item it is
+* Updated option `shop_prices` and `consistent_shop_prices`
+  * Now applies to Game Corner Prize Room item purchases as well
 * New option `elevators_condition`
   * Sets the conditions the Celadon Department Store and Silph Co. elevators are in. Has no logical implications unless interior warps are shuffled
     * Open: The elevators can be used normally
@@ -16,6 +18,8 @@
   * Removed `All Elevators Locked` option
 * New option `elite_four_rematch_requirement`
   * Sets the requirement for challenging the Elite Four Rematch between badges or gyms
+* New option `cheaper_coins`
+  * Reduces the cost of buying coins from the Celadon Game Corner by 90%
 * Update option `game_option`
   * Added new option `Encounter Mode`
     * Random: Encounters are chosen randomly based on the encounter rates
