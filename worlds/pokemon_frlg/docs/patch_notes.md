@@ -4,6 +4,7 @@
 * Added 3000 coins and 5000 coins purchase options at the Celadon Game Coner
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
 ## Apworld Updates
+* Updated several region and entrance names for better clarity in the spoiler log and when using UT
 * New option `cheaper_coins`
   * Reduces the cost of buying coins from the Celadon Game Corner by 90%
 * New option `elevators_condition`

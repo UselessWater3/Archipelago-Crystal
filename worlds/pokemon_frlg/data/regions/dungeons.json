@@ -76,8 +76,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_MT_MOON_B1F:2/MAP_MT_MOON_1F:2": "Mt. Moon B1F (First Tunnel) Northeast Ladder",
-      "MAP_MT_MOON_B1F:5/MAP_MT_MOON_B2F:2": "Mt. Moon B1F (First Tunnel) Southwest Ladder"
+      "MAP_MT_MOON_B1F:2/MAP_MT_MOON_1F:2": "Mt. Moon B1F Northeast Ladder (First Tunnel)",
+      "MAP_MT_MOON_B1F:5/MAP_MT_MOON_B2F:2": "Mt. Moon B1F Southwest Ladder (First Tunnel)"
     }
   },
   "REGION_MT_MOON_B1F/SECOND_TUNNEL": {
@@ -94,8 +94,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_MT_MOON_B1F:1/MAP_MT_MOON_1F:1": "Mt. Moon B1F (Second Tunnel) East Ladder",
-      "MAP_MT_MOON_B1F:4/MAP_MT_MOON_B2F:1": "Mt. Moon B1F (Second Tunnel) West Ladder"
+      "MAP_MT_MOON_B1F:1/MAP_MT_MOON_1F:1": "Mt. Moon B1F East Ladder (Second Tunnel)",
+      "MAP_MT_MOON_B1F:4/MAP_MT_MOON_B2F:1": "Mt. Moon B1F West Ladder (Second Tunnel)"
     }
   },
   "REGION_MT_MOON_B1F/THIRD_TUNNEL": {
@@ -112,8 +112,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_MT_MOON_B1F:0/MAP_MT_MOON_1F:0": "Mt. Moon B1F (Third Tunnel) Northwest Ladder",
-      "MAP_MT_MOON_B1F:3/MAP_MT_MOON_B2F:0": "Mt. Moon B1F (Third Tunnel) Southeast Ladder"
+      "MAP_MT_MOON_B1F:0/MAP_MT_MOON_1F:0": "Mt. Moon B1F Northwest Ladder (Third Tunnel)",
+      "MAP_MT_MOON_B1F:3/MAP_MT_MOON_B2F:0": "Mt. Moon B1F Southeast Ladder (Third Tunnel)"
     }
   },
   "REGION_MT_MOON_B1F/FOURTH_TUNNEL": {
@@ -130,8 +130,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_MT_MOON_B1F:6/MAP_MT_MOON_B2F:3": "Mt. Moon B1F (Fourth Tunnel) West Ladder",
-      "MAP_MT_MOON_B1F:7/MAP_ROUTE4:1": "Mt. Moon B1F (Fourth Tunnel) East Ladder"
+      "MAP_MT_MOON_B1F:6/MAP_MT_MOON_B2F:3": "Mt. Moon B1F West Ladder (Fourth Tunnel)",
+      "MAP_MT_MOON_B1F:7/MAP_ROUTE4:1": "Mt. Moon B1F East Ladder (Fourth Tunnel)"
     }
   },
   "REGION_MT_MOON_B2F/SOUTH": {
@@ -212,7 +212,7 @@
     },
     "warps": {
       "MAP_SSANNE_EXTERIOR:0/MAP_VERMILION_CITY:0": "S.S. Anne Exterior Exit",
-      "MAP_SSANNE_EXTERIOR:1/MAP_SSANNE_1F_CORRIDOR:2": "S.S. Anne"
+      "MAP_SSANNE_EXTERIOR:1/MAP_SSANNE_1F_CORRIDOR:2": "S.S. Anne Entrance"
     }
   },
   "REGION_SSANNE_EXTERIOR/WATER": {
@@ -243,16 +243,16 @@
     "exits": {},
     "warps": {
       "MAP_SSANNE_1F_CORRIDOR:0/MAP_SSANNE_2F_CORRIDOR:0": "S.S. Anne 1F Corridor Northwest Stairs",
-      "MAP_SSANNE_1F_CORRIDOR:1/MAP_SSANNE_KITCHEN:0": "S.S. Anne Kitchen",
+      "MAP_SSANNE_1F_CORRIDOR:1/MAP_SSANNE_KITCHEN:0": "S.S. Anne Kitchen Entrance",
       "MAP_SSANNE_1F_CORRIDOR:2/MAP_SSANNE_EXTERIOR:1": "S.S. Anne Exit",
       "MAP_SSANNE_1F_CORRIDOR:3/MAP_SSANNE_B1F_CORRIDOR:0": "S.S. Anne 1F Corridor Southeast Stairs",
-      "MAP_SSANNE_1F_CORRIDOR:4/MAP_SSANNE_1F_ROOM1:0": "S.S. Anne 1F Room 1",
-      "MAP_SSANNE_1F_CORRIDOR:5/MAP_SSANNE_1F_ROOM2:0": "S.S. Anne 1F Room 2",
-      "MAP_SSANNE_1F_CORRIDOR:6/MAP_SSANNE_1F_ROOM3:0": "S.S. Anne 1F Room 3",
-      "MAP_SSANNE_1F_CORRIDOR:7/MAP_SSANNE_1F_ROOM4:0": "S.S. Anne 1F Room 4",
-      "MAP_SSANNE_1F_CORRIDOR:8/MAP_SSANNE_1F_ROOM5:0": "S.S. Anne 1F Room 5",
-      "MAP_SSANNE_1F_CORRIDOR:9/MAP_SSANNE_1F_ROOM7:0": "S.S. Anne 1F Room 7",
-      "MAP_SSANNE_1F_CORRIDOR:10/MAP_SSANNE_1F_ROOM6:0": "S.S. Anne 1F Room 6"
+      "MAP_SSANNE_1F_CORRIDOR:4/MAP_SSANNE_1F_ROOM1:0": "S.S. Anne 1F Room 1 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:5/MAP_SSANNE_1F_ROOM2:0": "S.S. Anne 1F Room 2 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:6/MAP_SSANNE_1F_ROOM3:0": "S.S. Anne 1F Room 3 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:7/MAP_SSANNE_1F_ROOM4:0": "S.S. Anne 1F Room 4 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:8/MAP_SSANNE_1F_ROOM5:0": "S.S. Anne 1F Room 5 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:9/MAP_SSANNE_1F_ROOM7:0": "S.S. Anne 1F Room 7 Entrance",
+      "MAP_SSANNE_1F_CORRIDOR:10/MAP_SSANNE_1F_ROOM6:0": "S.S. Anne 1F Room 6 Entrance"
     }
   },
   "REGION_SSANNE_KITCHEN/MAIN": {
@@ -403,11 +403,11 @@
     "exits": {},
     "warps": {
       "MAP_SSANNE_B1F_CORRIDOR:0/MAP_SSANNE_1F_CORRIDOR:3": "S.S. Anne B1F Corridor Stairs",
-      "MAP_SSANNE_B1F_CORRIDOR:1/MAP_SSANNE_B1F_ROOM1:0": "S.S. Anne B1F Room 1",
-      "MAP_SSANNE_B1F_CORRIDOR:2/MAP_SSANNE_B1F_ROOM2:0": "S.S. Anne B1F Room 2",
-      "MAP_SSANNE_B1F_CORRIDOR:3/MAP_SSANNE_B1F_ROOM3:0": "S.S. Anne B1F Room 3",
-      "MAP_SSANNE_B1F_CORRIDOR:4/MAP_SSANNE_B1F_ROOM4:0": "S.S. Anne B1F Room 4",
-      "MAP_SSANNE_B1F_CORRIDOR:5/MAP_SSANNE_B1F_ROOM5:0": "S.S. Anne B1F Room 5"
+      "MAP_SSANNE_B1F_CORRIDOR:1/MAP_SSANNE_B1F_ROOM1:0": "S.S. Anne B1F Room 1 Entrance",
+      "MAP_SSANNE_B1F_CORRIDOR:2/MAP_SSANNE_B1F_ROOM2:0": "S.S. Anne B1F Room 2 Entrance",
+      "MAP_SSANNE_B1F_CORRIDOR:3/MAP_SSANNE_B1F_ROOM3:0": "S.S. Anne B1F Room 3 Entrance",
+      "MAP_SSANNE_B1F_CORRIDOR:4/MAP_SSANNE_B1F_ROOM4:0": "S.S. Anne B1F Room 4 Entrance",
+      "MAP_SSANNE_B1F_CORRIDOR:5/MAP_SSANNE_B1F_ROOM5:0": "S.S. Anne B1F Room 5 Entrance"
     }
   },
   "REGION_SSANNE_B1F_ROOM1/MAIN": {
@@ -516,12 +516,12 @@
       "MAP_SSANNE_2F_CORRIDOR:0/MAP_SSANNE_1F_CORRIDOR:0": "S.S. Anne 2F Corridor Northwest Stairs",
       "MAP_SSANNE_2F_CORRIDOR:1/MAP_SSANNE_3F_CORRIDOR:1": "S.S. Anne 2F Corridor Southwest Stairs",
       "MAP_SSANNE_2F_CORRIDOR:2/MAP_SSANNE_CAPTAINS_OFFICE:0": "S.S. Anne 2F Corridor Northeast Stairs",
-      "MAP_SSANNE_2F_CORRIDOR:3/MAP_SSANNE_2F_ROOM1:0": "S.S. Anne 2F Room 1",
-      "MAP_SSANNE_2F_CORRIDOR:4/MAP_SSANNE_2F_ROOM2:0": "S.S. Anne 2F Room 2",
-      "MAP_SSANNE_2F_CORRIDOR:5/MAP_SSANNE_2F_ROOM3:0": "S.S. Anne 2F Room 3",
-      "MAP_SSANNE_2F_CORRIDOR:6/MAP_SSANNE_2F_ROOM4:0": "S.S. Anne 2F Room 4",
-      "MAP_SSANNE_2F_CORRIDOR:7/MAP_SSANNE_2F_ROOM5:0": "S.S. Anne 2F Room 5",
-      "MAP_SSANNE_2F_CORRIDOR:8/MAP_SSANNE_2F_ROOM6:0": "S.S. Anne 2F Room 6"
+      "MAP_SSANNE_2F_CORRIDOR:3/MAP_SSANNE_2F_ROOM1:0": "S.S. Anne 2F Room 1 Entrance",
+      "MAP_SSANNE_2F_CORRIDOR:4/MAP_SSANNE_2F_ROOM2:0": "S.S. Anne 2F Room 2 Entrance",
+      "MAP_SSANNE_2F_CORRIDOR:5/MAP_SSANNE_2F_ROOM3:0": "S.S. Anne 2F Room 3 Entrance",
+      "MAP_SSANNE_2F_CORRIDOR:6/MAP_SSANNE_2F_ROOM4:0": "S.S. Anne 2F Room 4 Entrance",
+      "MAP_SSANNE_2F_CORRIDOR:7/MAP_SSANNE_2F_ROOM5:0": "S.S. Anne 2F Room 5 Entrance",
+      "MAP_SSANNE_2F_CORRIDOR:8/MAP_SSANNE_2F_ROOM6:0": "S.S. Anne 2F Room 6 Entrance"
     }
   },
   "REGION_SSANNE_2F_ROOM1/MAIN": {
@@ -675,7 +675,7 @@
   },
   "REGION_DIGLETTS_CAVE_SOUTH_ENTRANCE/MAIN": {
     "parent_map": "MAP_DIGLETTS_CAVE_SOUTH_ENTRANCE",
-    "name": "Diglett's Cave South Entrance",
+    "name": "Diglett's Cave 1F (South)",
     "encounter_region": null,
     "has_land": false,
     "has_water": false,
@@ -685,8 +685,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_DIGLETTS_CAVE_SOUTH_ENTRANCE:0/MAP_ROUTE11:0": "Diglett's Cave South Entrance Exit",
-      "MAP_DIGLETTS_CAVE_SOUTH_ENTRANCE:1/MAP_DIGLETTS_CAVE_B1F:1": "Diglett's Cave South Entrance Ladder"
+      "MAP_DIGLETTS_CAVE_SOUTH_ENTRANCE:0/MAP_ROUTE11:0": "Diglett's Cave 1F Exit (South)",
+      "MAP_DIGLETTS_CAVE_SOUTH_ENTRANCE:1/MAP_DIGLETTS_CAVE_B1F:1": "Diglett's Cave 1F Ladder (South)"
     }
   },
   "REGION_DIGLETTS_CAVE_B1F/MAIN": {
@@ -709,7 +709,7 @@
   },
   "REGION_DIGLETTS_CAVE_NORTH_ENTRANCE/MAIN": {
     "parent_map": "MAP_DIGLETTS_CAVE_NORTH_ENTRANCE",
-    "name": "Diglett's Cave North Entrance",
+    "name": "Diglett's Cave 1F (North)",
     "encounter_region": null,
     "has_land": false,
     "has_water": false,
@@ -719,8 +719,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_DIGLETTS_CAVE_NORTH_ENTRANCE:0/MAP_DIGLETTS_CAVE_B1F:0": "Diglett's Cave North Entrance Ladder",
-      "MAP_DIGLETTS_CAVE_NORTH_ENTRANCE:1/MAP_ROUTE2:4": "Diglett's Cave North Entrance Exit"
+      "MAP_DIGLETTS_CAVE_NORTH_ENTRANCE:0/MAP_DIGLETTS_CAVE_B1F:0": "Diglett's Cave 1F Ladder (North)",
+      "MAP_DIGLETTS_CAVE_NORTH_ENTRANCE:1/MAP_ROUTE2:4": "Diglett's Cave 1F Exit (North)"
     }
   },
   "REGION_ROCK_TUNNEL_1F/NORTHEAST": {
@@ -1219,11 +1219,11 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area (South) Surfing Spot"
+      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area Surfing Spot (South)"
     },
     "warps": {
       "MAP_SAFARI_ZONE_CENTER:0,1/MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE:0": "Safari Zone Center Area Exit (South)",
-      "MAP_SAFARI_ZONE_CENTER:8/MAP_SAFARI_ZONE_CENTER_REST_HOUSE:0": "Safari Zone Center Area Rest House",
+      "MAP_SAFARI_ZONE_CENTER:8/MAP_SAFARI_ZONE_CENTER_REST_HOUSE:0": "Safari Zone Center Area Rest House Entrance",
       "MAP_SAFARI_ZONE_CENTER:6,7/MAP_SAFARI_ZONE_EAST:2,3": "Safari Zone Center Area Exit (East)"
     }
   },
@@ -1238,7 +1238,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area (Northeast) Surfing Spot"
+      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area Surfing Spot (Northeast)"
     },
     "warps": {
       "MAP_SAFARI_ZONE_CENTER:2,3/MAP_SAFARI_ZONE_NORTH:6,7": "Safari Zone Center Area Exit (North)"
@@ -1255,7 +1255,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area (Northwest) Surfing Spot"
+      "REGION_SAFARI_ZONE_CENTER/WATER": "Safari Zone Center Area Surfing Spot (Northwest)"
     },
     "warps": {
       "MAP_SAFARI_ZONE_CENTER:4,5/MAP_SAFARI_ZONE_WEST:4,5": "Safari Zone Center Area Exit (West)"
@@ -1275,9 +1275,9 @@
     ],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_CENTER/NORTHWEST": "Safari Zone Center Area (Northwest) Landing Spot",
-      "REGION_SAFARI_ZONE_CENTER/NORTHEAST": "Safari Zone Center Area (Northeast) Landing Spot",
-      "REGION_SAFARI_ZONE_CENTER/SOUTH": "Safari Zone Center Area (South) Landing Spot"
+      "REGION_SAFARI_ZONE_CENTER/SOUTH": "Safari Zone Center Area Landing Spot (South)",
+      "REGION_SAFARI_ZONE_CENTER/NORTHEAST": "Safari Zone Center Area Landing Spot (Northeast)",
+      "REGION_SAFARI_ZONE_CENTER/NORTHWEST": "Safari Zone Center Area Landing Spot (Northwest)"
     },
     "warps": {}
   },
@@ -1300,9 +1300,9 @@
       "REGION_SAFARI_ZONE_EAST/WATER": "Safari Zone East Area Surfing Spot"
     },
     "warps": {
-      "MAP_SAFARI_ZONE_EAST:0,1/MAP_SAFARI_ZONE_NORTH:4,5": "Safari Zone East Area Exit (Northwest)",
-      "MAP_SAFARI_ZONE_EAST:2,3/MAP_SAFARI_ZONE_CENTER:6,7": "Safari Zone East Area Exit (Southwest)",
-      "MAP_SAFARI_ZONE_EAST:4/MAP_SAFARI_ZONE_EAST_REST_HOUSE:0": "Safari Zone East Area Rest House"
+      "MAP_SAFARI_ZONE_EAST:0,1/MAP_SAFARI_ZONE_NORTH:4,5": "Safari Zone East Area Exit (West - Top)",
+      "MAP_SAFARI_ZONE_EAST:2,3/MAP_SAFARI_ZONE_CENTER:6,7": "Safari Zone East Area Exit (West - Bottom)",
+      "MAP_SAFARI_ZONE_EAST:4/MAP_SAFARI_ZONE_EAST_REST_HOUSE:0": "Safari Zone East Area Rest House Entrance"
     }
   },
   "REGION_SAFARI_ZONE_EAST/WATER": {
@@ -1336,11 +1336,11 @@
       "REGION_SAFARI_ZONE_NORTH/WATER": "Safari Zone North Area Surfing Spot"
     },
     "warps": {
-      "MAP_SAFARI_ZONE_NORTH:0,1/MAP_SAFARI_ZONE_WEST:0,1": "Safari Zone North Area Exit (Southwest)",
-      "MAP_SAFARI_ZONE_NORTH:2,3/MAP_SAFARI_ZONE_WEST:2,3": "Safari Zone North Area Exit (South)",
+      "MAP_SAFARI_ZONE_NORTH:0,1/MAP_SAFARI_ZONE_WEST:0,1": "Safari Zone North Area Exit (South - Left)",
+      "MAP_SAFARI_ZONE_NORTH:2,3/MAP_SAFARI_ZONE_WEST:2,3": "Safari Zone North Area Exit (South - Center)",
       "MAP_SAFARI_ZONE_NORTH:4,5/MAP_SAFARI_ZONE_EAST:0,1": "Safari Zone North Area Exit (East)",
-      "MAP_SAFARI_ZONE_NORTH:6,7/MAP_SAFARI_ZONE_CENTER:2,3": "Safari Zone North Area Exit (Southeast)",
-      "MAP_SAFARI_ZONE_NORTH:8/MAP_SAFARI_ZONE_NORTH_REST_HOUSE:0": "Safari Zone North Area Rest House"
+      "MAP_SAFARI_ZONE_NORTH:6,7/MAP_SAFARI_ZONE_CENTER:2,3": "Safari Zone North Area Exit (South - Right)",
+      "MAP_SAFARI_ZONE_NORTH:8/MAP_SAFARI_ZONE_NORTH_REST_HOUSE:0": "Safari Zone North Area Rest House Entrance"
     }
   },
   "REGION_SAFARI_ZONE_NORTH/WATER": {
@@ -1370,12 +1370,12 @@
     ],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_WEST/WATER": "Safari Zone West Area (South) Surfing Spot"
+      "REGION_SAFARI_ZONE_WEST/WATER": "Safari Zone West Area Surfing Spot (South)"
     },
     "warps": {
-      "MAP_SAFARI_ZONE_WEST:2,3/MAP_SAFARI_ZONE_NORTH:2,3": "Safari Zone West Area Exit (Northeast)",
+      "MAP_SAFARI_ZONE_WEST:2,3/MAP_SAFARI_ZONE_NORTH:2,3": "Safari Zone West Area Exit (North - Right)",
       "MAP_SAFARI_ZONE_WEST:4,5/MAP_SAFARI_ZONE_CENTER:4,5": "Safari Zone West Area Exit (East)",
-      "MAP_SAFARI_ZONE_WEST:7/MAP_SAFARI_ZONE_WEST_REST_HOUSE:0": "Safari Zone West Area Rest House"
+      "MAP_SAFARI_ZONE_WEST:7/MAP_SAFARI_ZONE_WEST_REST_HOUSE:0": "Safari Zone West Area Rest House Entrance"
     }
   },
   "REGION_SAFARI_ZONE_WEST/NORTH": {
@@ -1393,11 +1393,11 @@
     ],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_WEST/WATER": "Safari Zone West Area (North) Surfing Spot"
+      "REGION_SAFARI_ZONE_WEST/WATER": "Safari Zone West Area Surfing Spot (North)"
     },
     "warps": {
-      "MAP_SAFARI_ZONE_WEST:0,1/MAP_SAFARI_ZONE_NORTH:0,1": "Safari Zone West Area Exit (North)",
-      "MAP_SAFARI_ZONE_WEST:6/MAP_SAFARI_ZONE_SECRET_HOUSE:0": "Safari Zone Secret House"
+      "MAP_SAFARI_ZONE_WEST:0,1/MAP_SAFARI_ZONE_NORTH:0,1": "Safari Zone West Area Exit (North - Left)",
+      "MAP_SAFARI_ZONE_WEST:6/MAP_SAFARI_ZONE_SECRET_HOUSE:0": "Safari Zone Secret House Entrance"
     }
   },
   "REGION_SAFARI_ZONE_WEST/WATER": {
@@ -1411,8 +1411,8 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SAFARI_ZONE_WEST/NORTH": "Safari Zone West Area (North) Landing Spot",
-      "REGION_SAFARI_ZONE_WEST/SOUTH": "Safari Zone West Area (South) Landing Spot"
+      "REGION_SAFARI_ZONE_WEST/NORTH": "Safari Zone West Area Landing Spot (North)",
+      "REGION_SAFARI_ZONE_WEST/SOUTH": "Safari Zone West Area Landing Spot (South)"
     },
     "warps": {}
   },
@@ -2363,8 +2363,8 @@
     ],
     "events": [],
     "exits": {
-      "REGION_SEAFOAM_ISLANDS_B3F/SOUTH_WATER": "Seafoam Islands B3F (West) Surfing Spot (Bottom)",
-      "REGION_SEAFOAM_ISLANDS_B3F/NORTHWEST_WATER": "Seafoam Islands B3F (West) Surfing Spot (Top)"
+      "REGION_SEAFOAM_ISLANDS_B3F/SOUTH_WATER": "Seafoam Islands B3F Surfing Spot (West - Bottom)",
+      "REGION_SEAFOAM_ISLANDS_B3F/NORTHWEST_WATER": "Seafoam Islands B3F Surfing Spot (West - Top)"
     },
     "warps": {
       "MAP_SEAFOAM_ISLANDS_B3F:0/MAP_SEAFOAM_ISLANDS_B2F:0": "Seafoam Islands B3F Southwest Ladder",
@@ -2400,8 +2400,8 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SEAFOAM_ISLANDS_B3F/WEST": "Seafoam Islands B3F (West) Landing Spot (Bottom)",
-      "REGION_SEAFOAM_ISLANDS_B3F/EAST": "Seafoam Islands B3F (East) Landing Spot (Bottom)",
+      "REGION_SEAFOAM_ISLANDS_B3F/WEST": "Seafoam Islands B3F Landing Spot (West - Bottom)",
+      "REGION_SEAFOAM_ISLANDS_B3F/EAST": "Seafoam Islands B3F Landing Spot (East - Bottom)",
       "REGION_SEAFOAM_ISLANDS_B4F/EAST_WATER": "Seafoam Islands B3F South Waterfall (Drop)"
     },
     "warps": {
@@ -2420,8 +2420,8 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SEAFOAM_ISLANDS_B3F/SOUTH_WATER": "Seafoam Islands B3F (East) Surfing Spot (Bottom)",
-      "REGION_SEAFOAM_ISLANDS_B3F/NORTHEAST_WATER": "Seafoam Islands B3F (East) Surfing Spot (Top)"
+      "REGION_SEAFOAM_ISLANDS_B3F/SOUTH_WATER": "Seafoam Islands B3F Surfing Spot (East - Bottom)",
+      "REGION_SEAFOAM_ISLANDS_B3F/NORTHEAST_WATER": "Seafoam Islands B3F Surfing Spot (East - Top)"
     },
     "warps": {
       "MAP_SEAFOAM_ISLANDS_B3F:2/MAP_SEAFOAM_ISLANDS_B2F:2": "Seafoam Islands B3F Southeast Ladder"
@@ -2438,7 +2438,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SEAFOAM_ISLANDS_B3F/EAST": "Seafoam Islands B3F (East) Landing Spot (Top)",
+      "REGION_SEAFOAM_ISLANDS_B3F/EAST": "Seafoam Islands B3F Landing Spot (East - Top)",
       "REGION_SEAFOAM_ISLANDS_B3F/NORTHWEST_WATER": "Seafoam Islands B3F Northeast Waterfall (Climb)"
     },
     "warps": {}
@@ -2454,7 +2454,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_SEAFOAM_ISLANDS_B3F/WEST": "Seafoam Islands B3F (West) Landing Spot (Top)"
+      "REGION_SEAFOAM_ISLANDS_B3F/WEST": "Seafoam Islands B3F Landing Spot (West - Top)"
     },
     "warps": {}
   },
@@ -2507,7 +2507,7 @@
     "events": [],
     "exits": {
       "REGION_SEAFOAM_ISLANDS_B4F/MAIN": "Seafoam Islands B4F Landing Spot (Left)",
-      "REGION_SEAFOAM_ISLANDS_B4F/NEAR_ARTICUNO": "Seafoam Islands B4F (Near Articuno) Landing Spot"
+      "REGION_SEAFOAM_ISLANDS_B4F/NEAR_ARTICUNO": "Seafoam Islands B4F Landing Spot (Near Articuno)"
     },
     "warps": {
       "MAP_SEAFOAM_ISLANDS_B4F:2/MAP_SEAFOAM_ISLANDS_B3F:7": "!Seafoam Islands B3F Drop (Left)",
@@ -2945,7 +2945,7 @@
     },
     "warps": {
       "MAP_MT_EMBER_EXTERIOR:0,1/MAP_ONE_ISLAND_KINDLE_ROAD:0,1": "Mt. Ember Exterior Exit",
-      "MAP_MT_EMBER_EXTERIOR:5/MAP_MT_EMBER_RUBY_PATH_1F:0": "Mt. Ember Ruby Path"
+      "MAP_MT_EMBER_EXTERIOR:5/MAP_MT_EMBER_RUBY_PATH_1F:0": "Mt. Ember Ruby Path Entrance"
     }
   },
   "REGION_MT_EMBER_EXTERIOR/CENTER": {
@@ -2969,7 +2969,7 @@
       "REGION_MT_EMBER_EXTERIOR/NORTH": "Mt. Ember Exterior Center Ledge (Bottom)"
     },
     "warps": {
-      "MAP_MT_EMBER_EXTERIOR:2/MAP_MT_EMBER_SUMMIT_PATH_1F:0": "Mt. Ember Summit Path (Bottom)"
+      "MAP_MT_EMBER_EXTERIOR:2/MAP_MT_EMBER_SUMMIT_PATH_1F:0": "Mt. Ember Summit Path Entrance (Bottom)"
     }
   },
   "REGION_MT_EMBER_EXTERIOR/NORTH": {
@@ -2990,8 +2990,8 @@
       "REGION_MT_EMBER_EXTERIOR/CENTER": "Mt. Ember Exterior Center Ledge (Top)"
     },
     "warps": {
-      "MAP_MT_EMBER_EXTERIOR:3/MAP_MT_EMBER_SUMMIT_PATH_3F:1": "Mt. Ember Summit Path (Top)",
-      "MAP_MT_EMBER_EXTERIOR:4/MAP_MT_EMBER_SUMMIT:0": "Mt. Ember Summit"
+      "MAP_MT_EMBER_EXTERIOR:3/MAP_MT_EMBER_SUMMIT_PATH_3F:1": "Mt. Ember Summit Path Entrance (Top)",
+      "MAP_MT_EMBER_EXTERIOR:4/MAP_MT_EMBER_SUMMIT:0": "Mt. Ember Summit Entrance"
     }
   },
   "REGION_MT_EMBER_SUMMIT_PATH_1F/MAIN": {
@@ -3341,7 +3341,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH_WATER": "Icefall Cave Front (South) Surfing Spot"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH_WATER": "Icefall Cave Front Surfing Spot (South)"
     },
     "warps": {
       "MAP_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE:0/MAP_FOUR_ISLAND:3": "Icefall Cave Front Exit (South)"
@@ -3358,8 +3358,8 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH": "Icefall Cave Front (South) Landing Spot",
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/CENTER": "Icefall Cave Front (Center) Landing Spot",
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH": "Icefall Cave Front Landing Spot (South)",
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/CENTER": "Icefall Cave Front Landing Spot (Center)",
       "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/NORTH_WATER": "Icefall Cave Front Waterfall (Climb)"
     },
     "warps": {}
@@ -3375,7 +3375,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH_WATER": "Icefall Cave Front (Center) Surfing Spot"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH_WATER": "Icefall Cave Front Surfing Spot (Center)"
     },
     "warps": {
       "MAP_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE:1/MAP_FOUR_ISLAND_ICEFALL_CAVE_1F:0": "Icefall Cave Front Exit (North)"
@@ -3393,7 +3393,7 @@
     "events": [],
     "exits": {
       "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/SOUTH_WATER": "Icefall Cave Front Waterfall (Drop)",
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/NORTH": "Icefall Cave Front (North) Landing Spot"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/NORTH": "Icefall Cave Front Landing Spot (North)"
     },
     "warps": {}
   },
@@ -3408,7 +3408,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/NORTH_WATER": "Icefall Cave Front (North) Surfing Spot"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE/NORTH_WATER": "Icefall Cave Front Surfing Spot (North)"
     },
     "warps": {
       "MAP_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE:2/MAP_FOUR_ISLAND_ICEFALL_CAVE_1F:1": "Icefall Cave Front Ladder"
@@ -3465,8 +3465,8 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/NORTH": "Icefall Cave 1F Northeast Drop (Top)",
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/EAST": "Icefall Cave 1F Northeast Drop (Bottom)"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/EAST": "Icefall Cave 1F Northeast Drop (Top)",
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/SOUTH": "Icefall Cave 1F Northeast Drop (Bottom)"
     },
     "warps": {
       "MAP_FOUR_ISLAND_ICEFALL_CAVE_1F:3/MAP_FOUR_ISLAND_ICEFALL_CAVE_B1F:1": "Icefall Cave 1F Northeast Ladder"
@@ -3552,7 +3552,7 @@
     ],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/SOUTH": "Icefall Cave B1F Sliding Ice (South)"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/NORTH": "Icefall Cave B1F Sliding Ice (East)"
     },
     "warps": {}
   },
@@ -3569,7 +3569,7 @@
     ],
     "events": [],
     "exits": {
-      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/NORTH": "Icefall Cave B1F Sliding Ice (North)"
+      "REGION_FOUR_ISLAND_ICEFALL_CAVE_B1F/NORTH": "Icefall Cave B1F Sliding Ice (South)"
     },
     "warps": {
       "MAP_FOUR_ISLAND_ICEFALL_CAVE_B1F:2/MAP_FOUR_ISLAND_ICEFALL_CAVE_1F:4": "Icefall Cave B1F South Ladder"
@@ -4207,7 +4207,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F (Southeast) Surfing Spot"
+      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F Surfing Spot (Southeast)"
     },
     "warps": {
       "MAP_CERULEAN_CAVE_1F:0/MAP_CERULEAN_CITY:8": "Cerulean Cave 1F Exit"
@@ -4224,9 +4224,9 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_CERULEAN_CAVE_1F/SOUTHEAST": "Cerulean Cave 1F (Southeast) Landing Spot",
-      "REGION_CERULEAN_CAVE_1F/NORTHEAST": "Cerulean Cave 1F (Northeast) Landing Spot",
-      "REGION_CERULEAN_CAVE_1F/CENTER": "Cerulean Cave 1F (Center) Landing Spot"
+      "REGION_CERULEAN_CAVE_1F/SOUTHEAST": "Cerulean Cave 1F Landing Spot (Southeast)",
+      "REGION_CERULEAN_CAVE_1F/NORTHEAST": "Cerulean Cave 1F Landing Spot (Northeast)",
+      "REGION_CERULEAN_CAVE_1F/CENTER": "Cerulean Cave 1F Landing Spot (Center)"
     },
     "warps": {}
   },
@@ -4241,7 +4241,7 @@
     "locations": [],
     "events": [],
     "exits": {
-      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F (Northeast) Surfing Spot"
+      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F Surfing Spot (Northeast)"
     },
     "warps": {
       "MAP_CERULEAN_CAVE_1F:1/MAP_CERULEAN_CAVE_2F:0": "Cerulean Cave 1F Northeast Ladder"
@@ -4263,7 +4263,7 @@
     ],
     "events": [],
     "exits": {
-      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F (Center) Surfing Spot"
+      "REGION_CERULEAN_CAVE_1F/WATER": "Cerulean Cave 1F Surfing Spot (Center)"
     },
     "warps": {
       "MAP_CERULEAN_CAVE_1F:3/MAP_CERULEAN_CAVE_2F:1": "Cerulean Cave 1F North Ladder",

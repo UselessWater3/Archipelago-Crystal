@@ -1273,7 +1273,7 @@ MAP_PAGE_LOCATIONS: List[str] = [
     "ut_locations/routes/route_25.json"
 ]
 
-POPTRACKER_LOCATIONS: Dict[str, int] = {
+POPTRACKER_LOCATIONS: Dict[str, str] = {
     "Pallet Town/Unlock Fly Destination": "FLY_UNLOCK_VISITED_PALLET_TOWN",
     "Visit Pallet Town/Unlock Fly Destination": "FLY_UNLOCK_VISITED_PALLET_TOWN",
     "Pallet Town/PC Item": "PC_ITEM_POTION",

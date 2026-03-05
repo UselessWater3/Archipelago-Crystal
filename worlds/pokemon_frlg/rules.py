@@ -15,7 +15,6 @@ from .options import (CeruleanCaveRequirement, ElevatorsCondition, EliteFourRequ
 from .pokemon import add_hm_compatability
 from .util import HM_TO_COMPATIBILITY_ID, int_to_bool_array
 
-
 if TYPE_CHECKING:
     from . import PokemonFRLGWorld
 
@@ -59,7 +58,6 @@ EVO_METHODS_HELD_ITEM = {
 EVO_METHODS_FRIENDSHIP = {
     EvolutionMethodEnum.FRIENDSHIP
 }
-
 
 ISLAND_PASSES = ("Tri Pass", "Rainbow Pass")
 SPLIT_ISLAND_PASSES = ("One Pass", "Two Pass", "Three Pass", "Four Pass", "Five Pass", "Six Pass", "Seven Pass")
@@ -184,7 +182,7 @@ class PokemonFRLGLogic:
                 # variables, e.g. `if count == n`, can be replaced with comparing a variable and a constant, e.g.
                 # `if n == 0`.
                 n -= 1
-                # Further minor optimisation of `if n == 0` -> `if not n`
+                # Further minor optimization of `if n == 0` -> `if not n`
                 if not n:
                     return True
         return False
@@ -540,23 +538,23 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Viridian City Surfing Spot",
                   lambda state: logic.can_surf(state))
     if options.viridian_gym_requirement.value == ViridianGymRequirement.option_badges:
-        add_rule_safe("Viridian Gym",
+        add_rule_safe("Viridian Gym Entrance",
                       lambda state: logic.has_n_badges(state, options.viridian_gym_count.value))
     elif options.viridian_gym_requirement.value == ViridianGymRequirement.option_gyms:
-        add_rule_safe("Viridian Gym",
+        add_rule_safe("Viridian Gym Entrance",
                       lambda state: logic.has_n_gyms(state, options.viridian_gym_count.value))
     if options.gym_keys:
-        add_rule_safe("Viridian Gym",
+        add_rule_safe("Viridian Gym Entrance",
                       lambda state: state.has("Viridian Key", player))
 
     # Route 22
     add_rule_safe("Route 22 North Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
-    add_rule_safe("Route 22 (East) Surfing Spot",
+    add_rule_safe("Route 22 Surfing Spot (East)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Route 22 South Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
-    add_rule_safe("Route 22 (West) Surfing Spot",
+    add_rule_safe("Route 22 Surfing Spot (West)",
                   lambda state: logic.can_surf(state))
     if options.route22_gate_requirement.value == Route22GateRequirement.option_badges:
         add_rule_safe("Route 22 Gate Exit (North)",
@@ -623,7 +621,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
         add_rule_safe("Pewter City Roadblock (Right)",
                       lambda state: logic.has_n_badges(state, 1))
     if options.gym_keys:
-        add_rule_safe("Pewter Gym",
+        add_rule_safe("Pewter Gym Entrance",
                       lambda state: state.has("Pewter Key", player))
 
     # Route 3
@@ -649,12 +647,12 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     if "Remove Cerulean Roadblocks" not in options.modify_world_state.value:
         add_rule_safe("Cerulean City Cuttable Tree (Top)",
                       lambda state: state.has("Help Bill", player))
-        add_rule_safe("Robbed House (Front)",
+        add_rule_safe("Robbed House Entrance (Front)",
                       lambda state: state.has("Help Bill", player))
         add_rule_safe("Cerulean City Cuttable Tree (Bottom)",
                       lambda state: state.has("Help Bill", player))
     if options.gym_keys:
-        add_rule_safe("Cerulean Gym",
+        add_rule_safe("Cerulean Gym Entrance",
                       lambda state: state.has("Cerulean Key", player))
     add_rule_safe("Cerulean City Ledge (Top)",
                   lambda state: logic.can_jump_down_ledge(state))
@@ -669,19 +667,19 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Cerulean City Surfing Spot",
                   lambda state: logic.can_surf(state))
     if options.cerulean_cave_requirement.value == CeruleanCaveRequirement.option_vanilla:
-        add_rule_safe("Cerulean Cave",
+        add_rule_safe("Cerulean Cave Entrance",
                       lambda state: logic.has_lorelei_returned(state))
     elif options.cerulean_cave_requirement.value == CeruleanCaveRequirement.option_champion:
-        add_rule_safe("Cerulean Cave",
+        add_rule_safe("Cerulean Cave Entrance",
                       lambda state: state.has("Defeat Champion", player))
     elif options.cerulean_cave_requirement.value == CeruleanCaveRequirement.option_restore_network:
-        add_rule_safe("Cerulean Cave",
+        add_rule_safe("Cerulean Cave Entrance",
                       lambda state: state.has("Restore Pokemon Network Machine", player))
     elif options.cerulean_cave_requirement.value == CeruleanCaveRequirement.option_badges:
-        add_rule_safe("Cerulean Cave",
+        add_rule_safe("Cerulean Cave Entrance",
                       lambda state: logic.has_n_badges(state, options.cerulean_cave_count.value))
     elif options.cerulean_cave_requirement.value == CeruleanCaveRequirement.option_gyms:
-        add_rule_safe("Cerulean Cave",
+        add_rule_safe("Cerulean Cave Entrance",
                       lambda state: logic.has_n_gyms(state, options.cerulean_cave_count.value))
 
     # Route 24
@@ -749,10 +747,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
     add_rule_safe("Vermilion City Cuttable Tree (Bottom)",
                   lambda state: logic.can_cut(state))
-    add_rule_safe("Vermilion City (Near Gym) Surfing Spot",
+    add_rule_safe("Vermilion City Surfing Spot (Near Gym)",
                   lambda state: logic.can_surf(state))
     if options.gym_keys:
-        add_rule_safe("Vermilion Gym",
+        add_rule_safe("Vermilion Gym Entrance",
                       lambda state: state.has("Vermilion Key", player))
     add_rule_safe("Vermilion City Checkpoint (Bottom)",
                   lambda state: state.has("S.S. Ticket", player))
@@ -800,23 +798,23 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_down_ledge(state))
 
     # Route 10
-    add_rule_safe("Route 10 (North) Surfing Spot",
+    add_rule_safe("Route 10 Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
     if "Modify Route 10" in options.modify_world_state.value:
-        add_rule_safe("Route 10 (South) Surfing Spot",
+        add_rule_safe("Route 10 Surfing Spot (South)",
                       lambda state: logic.can_surf(state))
     else:
-        add_rule_safe("Route 10 (South) Surfing Spot",
+        add_rule_safe("Route 10 Surfing Spot (South)",
                       lambda state: False)
-        add_rule_safe("Route 10 (South) Landing Spot",
+        add_rule_safe("Route 10 Landing Spot (South)",
                       lambda state: False)
-        add_rule_safe("Route 10 (South) Fishing Battle",
+        add_rule_safe("Route 10 Fishing Battle (South)",
                       lambda state: False)
     add_rule_safe("Route 10 Waterfall (Drop)",
                   lambda state: logic.can_waterfall(state))
     add_rule_safe("Route 10 Waterfall (Climb)",
                   lambda state: logic.can_waterfall(state))
-    add_rule_safe("Route 10 (Near Power Plant) Surfing Spot",
+    add_rule_safe("Route 10 Surfing Spot (Near Power Plant)",
                   lambda state: logic.can_surf(state))
     if options.extra_key_items:
         add_rule_safe("Power Plant (Front)",
@@ -881,10 +879,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Celadon City Cuttable Tree (Bottom)",
                   lambda state: logic.can_cut(state))
     if options.gym_keys:
-        add_rule_safe("Celadon Gym",
+        add_rule_safe("Celadon Gym Entrance",
                       lambda state: state.has("Celadon Key", player))
     if options.extra_key_items:
-        add_rule_safe("Rocket Hideout",
+        add_rule_safe("Rocket Hideout Entrance",
                       lambda state: state.has("Hideout Key", player))
     if options.elevators_condition == ElevatorsCondition.option_locked:
         add_rule_safe("Celadon Department Store Elevator 1F Stop",
@@ -947,7 +945,8 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
         add_rule_safe("Pokemon Tower 6F Reveal Ghost (Bottom)",
                       lambda state: state.has("Silph Scope", player))
     add_rule_safe("Follow Mr. Fuji",
-                  lambda state: state.has("Rescue Mr. Fuji", player))
+                  lambda state: state.has("Rescue Mr. Fuji", player) and
+                                not logic.randomizing_entrances)
 
     # Route 12
     if "Route 12 Boulders" in options.modify_world_state.value:
@@ -959,9 +958,9 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: logic.can_strength(state))
     add_rule_safe("Route 12 Play Poke Flute (Left)",
                   lambda state: state.has("Poke Flute", player))
-    add_rule_safe("Route 12 (North) Surfing Spot",
+    add_rule_safe("Route 12 Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Route 12 (Center) Surfing Spot",
+    add_rule_safe("Route 12 Surfing Spot (Center)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Route 12 Play Poke Flute (Top)",
                   lambda state: state.has("Poke Flute", player))
@@ -970,7 +969,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: False)
         add_rule_safe("Route 12 Open Path (Bottom)",
                       lambda state: False)
-    add_rule_safe("Route 12 (South) Surfing Spot",
+    add_rule_safe("Route 12 Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Route 12 North Cuttable Tree",
                   lambda state: logic.can_cut(state))
@@ -1022,43 +1021,43 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
 
     # Fuchsia City
     if options.gym_keys:
-        add_rule_safe("Fuchsia Gym",
+        add_rule_safe("Fuchsia Gym Entrance",
                       lambda state: state.has("Fuchsia Key", player))
     add_rule_safe("Fuchsia City Surfing Spot",
                   lambda state: logic.can_surf(state))
     if options.extra_key_items:
-        add_rule_safe("Safari Zone",
+        add_rule_safe("Safari Zone Entrance",
                       lambda state: state.has("Safari Pass", player))
 
     # Safari Zone
-    add_rule_safe("Safari Zone Center Area (South) Surfing Spot",
+    add_rule_safe("Safari Zone Center Area Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Safari Zone Center Area (Northwest) Surfing Spot",
+    add_rule_safe("Safari Zone Center Area Surfing Spot (Northwest)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Safari Zone Center Area (Northeast) Surfing Spot",
+    add_rule_safe("Safari Zone Center Area Surfing Spot (Northeast)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Safari Zone East Area Surfing Spot",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Safari Zone North Area Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Safari Zone West Area (North) Surfing Spot",
+    add_rule_safe("Safari Zone West Area Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Safari Zone West Area (South) Surfing Spot",
+    add_rule_safe("Safari Zone West Area Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
 
     # Saffron City
     if "Remove Saffron Rockets" not in options.modify_world_state.value:
         if "Open Silph" not in options.modify_world_state.value:
-            add_rule_safe("Silph Co.",
+            add_rule_safe("Silph Co. Entrance",
                           lambda state: state.has_any(("Rescue Mr. Fuji", "Liberate Silph Co."), player))
-        add_rule_safe("Copycat's House",
+        add_rule_safe("Copycat's House Entrance",
                       lambda state: state.has("Liberate Silph Co.", player))
-        add_rule_safe("Saffron Gym",
+        add_rule_safe("Saffron Gym Entrance",
                       lambda state: state.has("Liberate Silph Co.", player))
-        add_rule_safe("Saffron Pidgey House",
+        add_rule_safe("Saffron Pidgey House Entrance",
                       lambda state: state.has("Liberate Silph Co.", player))
     if options.gym_keys:
-        add_rule_safe("Saffron Gym",
+        add_rule_safe("Saffron Gym Entrance",
                       lambda state: state.has("Saffron Key", player))
 
     # Silph Co.
@@ -1174,29 +1173,29 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Route 20
-    add_rule_safe("Route 20 (Near North Cave) Surfing Spot",
+    add_rule_safe("Route 20 Surfing Spot (Near North Cave)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Route 20 (Near South Cave) Surfing Spot",
+    add_rule_safe("Route 20 Surfing Spot (Near South Cave)",
                   lambda state: logic.can_surf(state))
 
     # Seafoam Islands
-    add_rule_safe("Seafoam Islands B3F (West) Surfing Spot (Bottom)",
+    add_rule_safe("Seafoam Islands B3F Surfing Spot (West - Bottom)",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (West) Surfing Spot (Top)",
+    add_rule_safe("Seafoam Islands B3F Surfing Spot (West - Top)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Seafoam Islands B3F (West) Landing Spot (Bottom)",
+    add_rule_safe("Seafoam Islands B3F Landing Spot (West - Bottom)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (South Water) Water Battle",
+    add_rule_safe("Seafoam Islands B3F Water Battle (South Water)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (South Water) Fishing Battle",
+    add_rule_safe("Seafoam Islands B3F Fishing Battle (South Water)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (East) Landing Spot (Bottom)",
+    add_rule_safe("Seafoam Islands B3F Landing Spot (East - Bottom)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (East) Surfing Spot (Bottom)",
+    add_rule_safe("Seafoam Islands B3F Surfing Spot (East - Bottom)",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F (East) Surfing Spot (Top)",
+    add_rule_safe("Seafoam Islands B3F Surfing Spot (East - Top)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Seafoam Islands B3F Northeast Waterfall (Climb)",
                   lambda state: logic.can_waterfall(state))
@@ -1205,23 +1204,24 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Seafoam Islands B4F Surfing Spot (Left)",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b4f_current(state))
-    add_rule_safe("Seafoam Islands B4F (Near Articuno) Landing Spot",
+    add_rule_safe("Seafoam Islands B4F Landing Spot (Near Articuno)",
                   lambda state: logic.can_stop_seafoam_b4f_current(state))
 
     # Cinnabar Island
     add_rule_safe("Cinnabar Island Surfing Spot",
                   lambda state: logic.can_surf(state))
     if options.extra_key_items:
-        add_rule_safe("Pokemon Mansion",
+        add_rule_safe("Pokemon Mansion Entrance",
                       lambda state: state.has("Letter", player))
     if options.gym_keys:
-        add_rule_safe("Cinnabar Gym",
+        add_rule_safe("Cinnabar Gym Entrance",
                       lambda state: state.has("Cinnabar Key", player))
     else:
-        add_rule_safe("Cinnabar Gym",
+        add_rule_safe("Cinnabar Gym Entrance",
                       lambda state: state.has("Secret Key", player))
     add_rule_safe("Follow Bill",
-                  lambda state: state.has("Defeat Blaine", player))
+                  lambda state: state.has("Defeat Blaine", player) and
+                                not logic.randomizing_entrances)
     add_rule_safe("Pokemon Mansion 1F Exit (East)",
                   lambda state: not logic.randomizing_entrances)
 
@@ -1244,7 +1244,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Route 23
-    add_rule_safe("Route 23 (South) Surfing Spot",
+    add_rule_safe("Route 23 Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
     if "Modify Route 23" in options.modify_world_state.value:
         add_rule_safe("Route 23 South Open Path (Bottom)",
@@ -1260,7 +1260,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: False)
         add_rule_safe("Route 23 Waterfall (Drop)",
                       lambda state: False)
-    add_rule_safe("Route 23 (Near Water) Surfing Spot",
+    add_rule_safe("Route 23 Surfing Spot (Near Water)",
                   lambda state: logic.can_surf(state))
     if "Route 23 Trees" in options.modify_world_state.value:
         add_rule_safe("Route 23 North Open Path (Bottom)",
@@ -1315,10 +1315,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
 
     # Indigo Plateau
     if options.elite_four_requirement.value == EliteFourRequirement.option_badges:
-        add_rule_safe("Pokemon League",
+        add_rule_safe("Pokemon League Entrance",
                       lambda state: logic.has_n_badges(state, options.elite_four_count.value))
     elif options.elite_four_requirement.value == EliteFourRequirement.option_gyms:
-        add_rule_safe("Pokemon League",
+        add_rule_safe("Pokemon League Entrance",
                       lambda state: logic.has_n_gyms(state, options.elite_four_count.value))
 
     # One Island Town
@@ -1326,13 +1326,13 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Kindle Road
-    add_rule_safe("Kindle Road (South) Surfing Spot",
+    add_rule_safe("Kindle Road Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road (Center) Surfing Spot (Bottom)",
+    add_rule_safe("Kindle Road Surfing Spot (Center - Bottom)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road (Center) Surfing Spot (Top)",
+    add_rule_safe("Kindle Road Surfing Spot (Center - Top)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road (North) Surfing Spot",
+    add_rule_safe("Kindle Road Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
 
     # Mt. Ember
@@ -1340,7 +1340,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_up_ledge(state))
     add_rule_safe("Mt. Ember Exterior Strength Boulders (Right)",
                   lambda state: logic.can_strength(state))
-    add_rule_safe("Mt. Ember Ruby Path",
+    add_rule_safe("Mt. Ember Ruby Path Entrance",
                   lambda state: state.has("Deliver Meteorite", player))
     add_rule_safe("Mt. Ember Exterior South Ledge (Top)",
                   lambda state: logic.can_jump_down_ledge(state))
@@ -1383,24 +1383,25 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Berry Forest Surfing Spot",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Follow Lostelle",
-                  lambda state: state.has("Rescue Lostelle", player))
+                  lambda state: state.has("Rescue Lostelle", player) and
+                                not logic.randomizing_entrances)
 
     # Four Island Town
     add_rule_safe("Four Island Town Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Four Island Town (Near Cave) Surfing Spot",
+    add_rule_safe("Four Island Town Surfing Spot (Near Cave)",
                   lambda state: logic.can_surf(state))
 
     # Icefall Cave
-    add_rule_safe("Icefall Cave Front (South) Surfing Spot",
+    add_rule_safe("Icefall Cave Front Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Icefall Cave Front Waterfall (Climb)",
                   lambda state: logic.can_waterfall(state))
     add_rule_safe("Icefall Cave Front Waterfall (Drop)",
                   lambda state: logic.can_waterfall(state))
-    add_rule_safe("Icefall Cave Front (Center) Surfing Spot",
+    add_rule_safe("Icefall Cave Front Surfing Spot (Center)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Icefall Cave Front (North) Surfing Spot",
+    add_rule_safe("Icefall Cave Front Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Icefall Cave 1F East Ledge (Left)",
                   lambda state: logic.can_jump_up_ledge(state))
@@ -1424,31 +1425,32 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Five Isle Meadow
     add_rule_safe("Five Isle Meadow Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Rocket Warehouse",
+    add_rule_safe("Rocket Warehouse Entrance",
                   lambda state: state.has_all(("Learn Goldeen Need Log", "Learn Yes Nah Chansey"), player))
 
     # Resort Gorgeous
-    add_rule_safe("Resort Gorgeous (Near Resort) Surfing Spot",
+    add_rule_safe("Resort Gorgeous Surfing Spot (Near Resort)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Resort Gorgeous (Near Cave) Surfing Spot",
+    add_rule_safe("Resort Gorgeous Surfing Spot (Near Cave)",
                   lambda state: logic.can_surf(state))
 
     # Lost Cave
     add_rule_safe("Follow Selphy",
-                  lambda state: state.has("Rescue Selphy", player))
+                  lambda state: state.has("Rescue Selphy", player) and
+                                not logic.randomizing_entrances)
 
     # Water Path
-    add_rule_safe("Water Path (South) Surfing Spot",
+    add_rule_safe("Water Path Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Water Path (North) Surfing Spot (Bottom)",
+    add_rule_safe("Water Path Surfing Spot (North - Bottom)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Water Path (North) Surfing Spot (Top)",
+    add_rule_safe("Water Path Surfing Spot (North - Top)",
                   lambda state: logic.can_surf(state))
 
     # Ruin Valley
     add_rule_safe("Ruin Valley Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Dotted Hole",
+    add_rule_safe("Dotted Hole Entrance",
                   lambda state: state.has("Help Lorelei", player) and
                                 logic.can_cut(state))
 
@@ -1469,19 +1471,19 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Tanoby Ruins
     add_rule_safe("Tanoby Ruins Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Monean Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Monean Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Liptoo Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Liptoo Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Weepth Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Weepth Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Dilford Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Dilford Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Scufib Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Scufib Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Rixy Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Rixy Island)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Tanoby Ruins (Viapois Island) Surfing Spot",
+    add_rule_safe("Tanoby Ruins Surfing Spot (Viapois Island)",
                   lambda state: logic.can_surf(state))
 
     # Monean Chamber
@@ -1513,17 +1515,17 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Unlock Ruins", player))
 
     # Trainer Tower
-    add_rule_safe("Trainer Tower Exterior (South) Surfing Spot",
+    add_rule_safe("Trainer Tower Exterior Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Trainer Tower Exterior (North) Surfing Spot",
+    add_rule_safe("Trainer Tower Exterior Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
 
     # Cerulean Cave
-    add_rule_safe("Cerulean Cave 1F (Southeast) Surfing Spot",
+    add_rule_safe("Cerulean Cave 1F Surfing Spot (Southeast)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Cerulean Cave 1F (Northeast) Surfing Spot",
+    add_rule_safe("Cerulean Cave 1F Surfing Spot (Northeast)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Cerulean Cave 1F (Center) Surfing Spot",
+    add_rule_safe("Cerulean Cave 1F Surfing Spot (Center)",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Cerulean Cave B1F Surfing Spot",
                   lambda state: logic.can_surf(state))

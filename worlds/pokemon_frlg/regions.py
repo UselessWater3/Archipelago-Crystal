@@ -198,7 +198,12 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
                     regions[region_name] = encounter_region
 
                 # Encounter region exists, just connect to it
-                region.connect(encounter_region, f"{region.name} {encounter_type.value} Battle")
+                encounter_name = f" {encounter_type.value} Battle"
+                if "(" in region.name:
+                    entrance_name = region.name.replace(" (", encounter_name + " (")
+                else:
+                    entrance_name = f"{region.name}{encounter_name}"
+                region.connect(encounter_region, entrance_name)
 
     def exclude_region(region_id: str):
         elite_four_ids = [
@@ -248,7 +253,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
         if dest_warp.parent_region_id is None:
             return True
         # These two warps need to always be included even if the destination warps parent region isn't
-        if source_warp.name in ("Pokemon League", "Champion's Room Exit (South)"):
+        if source_warp.name in ("Pokemon League Entrance", "Champion's Room Exit (South)"):
             return False
         if exclude_region(dest_warp.parent_region_id):
             return True
@@ -346,7 +351,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             dest_warp = data.warps[data.warp_map[warp]]
             dest_region_name = data.regions[dest_warp.parent_region_id].name
             if world.options.skip_elite_four:
-                if source_warp.name == "Pokemon League":
+                if source_warp.name == "Pokemon League Entrance":
                     dest_region_name = "Champion's Room"
                 elif source_warp.name == "Champion's Room Exit (South)":
                     dest_region_name = "Indigo Plateau Pokemon Center 1F"
@@ -569,11 +574,11 @@ def create_indirect_conditions(world: "PokemonFRLGWorld"):
     indirect_conditions: List[Tuple[List[str], List[str]]] = [
         (["Seafoam Islands 1F", "Seafoam Islands B1F (West)", "Seafoam Islands B1F (Northeast)",
          "Seafoam Islands B2F (Northwest)", "Seafoam Islands B2F (Northeast)"],
-         ["Seafoam Islands B3F (West) Surfing Spot (Bottom)", "Seafoam Islands B3F (West) Landing Spot (Bottom)",
-          "Seafoam Islands B3F (East) Landing Spot (Bottom)", "Seafoam Islands B3F (East) Surfing Spot (Bottom)",
-          "Seafoam Islands B3F (South Water) Water Battle"]),
+         ["Seafoam Islands B3F Surfing Spot (West - Bottom)", "Seafoam Islands B3F Landing Spot (West - Bottom)",
+          "Seafoam Islands B3F Landing Spot (East - Bottom)", "Seafoam Islands B3F Surfing Spot (East - Bottom)",
+          "Seafoam Islands B3F Water Battle (South Water)"]),
         (["Seafoam Islands B3F (West)"],
-         ["Seafoam Islands B4F Surfing Spot (Left)", "Seafoam Islands B4F (Near Articuno) Landing Spot"]),
+         ["Seafoam Islands B4F Surfing Spot (Left)", "Seafoam Islands B4F Landing Spot (Near Articuno)"]),
         (["Pokemon Mansion 1F", "Pokemon Mansion 2F", "Pokemon Mansion 3F (North)", "Pokemon Mansion B1F"],
          ["Pokemon Mansion 1F South Barrier", "Pokemon Mansion 1F Southeast Barrier",
           "Pokemon Mansion 2F Center Barrier (Top)", "Pokemon Mansion 2F Center Barrier (Bottom)",
