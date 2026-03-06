@@ -1661,7 +1661,7 @@
     ],
     "events": [],
     "exits": {
-      "REGION_SILPH_CO_4F/NORTHWEST": "Silph Co. 4F West Barrier (Bottom)",
+      "REGION_SILPH_CO_4F/WEST": "Silph Co. 4F West Barrier (Bottom)",
       "REGION_SILPH_CO_4F/NORTH": "Silph Co. 4F Center Barrier (Bottom)",
       "REGION_SILPH_CO_ELEVATOR/MAIN": "Silph Co. 4F Elevator"
     },
@@ -1693,9 +1693,9 @@
       "MAP_SILPH_CO_4F:3/MAP_SILPH_CO_10F:1": "Silph Co. 4F North Warp Tile (Left)"
     }
   },
-  "REGION_SILPH_CO_4F/NORTHWEST": {
+  "REGION_SILPH_CO_4F/WEST": {
     "parent_map": "MAP_SILPH_CO_4F",
-    "name": "Silph Co. 4F (Northwest Room)",
+    "name": "Silph Co. 4F (West Room)",
     "encounter_region": null,
     "has_land": false,
     "has_water": false,
