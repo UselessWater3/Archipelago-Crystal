@@ -1206,6 +1206,12 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                                 logic.can_stop_seafoam_b4f_current(state))
     add_rule_safe("Seafoam Islands B4F Landing Spot (Near Articuno)",
                   lambda state: logic.can_stop_seafoam_b4f_current(state))
+    add_rule_safe("Seafoam Islands B4F Water Battle (West Water)",
+                  lambda state: logic.can_stop_seafoam_b4f_current(state))
+    add_rule_safe("Seafoam Islands B4F Fishing Battle (West Water)",
+                  lambda state: logic.can_stop_seafoam_b4f_current(state))
+    add_rule_safe("Seafoam Islands B4F Fishing Battle (Near Articuno)",
+                  lambda state: logic.can_stop_seafoam_b4f_current(state))
 
     # Cinnabar Island
     add_rule_safe("Cinnabar Island Surfing Spot",
