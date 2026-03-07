@@ -75,6 +75,8 @@ class PokemonFRLGLogic:
     required_trade_pokemon: Dict[str, str]
     resort_gorgeous_pokemon: int
     wild_pokemon: List[str]
+    static_pokemon: List[str]
+    evolved_pokemon: List[str]
     world_item_id_map: Dict[int, str]
     badge_required: Dict[str, bool]
     dexsanity_requires_evos: bool
@@ -97,6 +99,8 @@ class PokemonFRLGLogic:
         self.required_trade_pokemon = {}
         self.resort_gorgeous_pokemon = data.constants["SPECIES_PIKACHU"]
         self.wild_pokemon = []
+        self.static_pokemon = []
+        self.evolved_pokemon = []
         self.world_item_id_map = item_id_to_name
         self.badge_required = {}
         self.dexsanity_requires_evos = False

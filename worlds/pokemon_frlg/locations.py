@@ -1,3 +1,4 @@
+import re
 from typing import TYPE_CHECKING, Dict, List, Set
 from BaseClasses import CollectionState, Location, LocationProgressType, Region, ItemClassification
 from Fill import FillError, fill_restrictive
@@ -234,6 +235,63 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
                 if locs_to_remove <= 0:
                     break
 
+    # Add evolutions that are possible based on the wild Pokémon that exist
+    evolution_region = regions["Evolutions"]
+    evolution_added = True
+    evolutions_added: Set[str] = set()
+    while evolution_added:
+        evolution_added = False
+        for event in data.regions["REGION_EVOLUTION"].events:
+            event_data = data.events[event]
+            if event_data.name not in evolutions_added:
+                pokemon = event_data.name.split(" - ")[1].strip()
+                pokemon_name = re.sub(r' \d+', '', pokemon)
+                evo_data = data.evolutions[pokemon]
+                if (evo_data.method in world.logic.evo_methods_required
+                        and (pokemon_name in world.logic.wild_pokemon
+                             or pokemon_name in world.logic.evolved_pokemon)):
+                    event = PokemonFRLGLocation(world.player,
+                                                event_data.name,
+                                                None,
+                                                event_data.category,
+                                                evolution_region)
+                    event.place_locked_item(PokemonFRLGItem(event_data.item,
+                                                            ItemClassification.progression,
+                                                            None,
+                                                            world.player))
+                    event.show_in_spoiler = False
+                    evolution_region.locations.append(event)
+                    evolution_name = event_data.item.replace("Evolved ", "")
+                    if evolution_name not in world.logic.evolved_pokemon:
+                        world.logic.evolved_pokemon.append(evolution_name)
+                    evolution_added = True
+                    evolutions_added.add(event_data.name)
+
+    if world.options.dexsanity != Dexsanity.special_range_names["none"] and not world.is_universal_tracker:
+        # Delete dexsanity locations that are not in logic in an all state since they aren't accessible
+        pokedex_region = regions["Pokedex"]
+        for location in pokedex_region.locations.copy():
+            pokemon_name = location.name.split(" - ")[1]
+            if (pokemon_name not in world.logic.wild_pokemon
+                    and pokemon_name not in world.logic.static_pokemon
+                    and (pokemon_name not in world.logic.evolved_pokemon or not world.logic.dexsanity_requires_evos)):
+                pokedex_region.locations.remove(location)
+
+        # Delete dexsanity locations if there are more than the amount specified in the settings
+        if len(pokedex_region.locations) > world.options.dexsanity.value:
+            pokedex_locations = pokedex_region.locations.copy()
+            priority_pokedex_locations = [loc for loc in pokedex_locations
+                                          if loc.name in world.options.priority_locations.value]
+            non_priority_pokedex_locations = [loc for loc in pokedex_locations
+                                              if loc.name not in world.options.priority_locations.value]
+            world.random.shuffle(priority_pokedex_locations)
+            world.random.shuffle(non_priority_pokedex_locations)
+            pokedex_locations = non_priority_pokedex_locations + priority_pokedex_locations
+            for location in pokedex_locations:
+                pokedex_region.locations.remove(location)
+                if len(pokedex_region.locations) <= world.options.dexsanity.value:
+                    break
+
 
 def place_unrandomized_items(world: "PokemonFRLGWorld") -> None:
     def fill_unrandomized_location(location: Location,
@@ -454,7 +512,7 @@ def shuffle_badges(world: "PokemonFRLGWorld") -> None:
             loc for loc in locations if loc.name in location_groups["Gym Prizes"] and loc.item is None
         ]
         state = world.get_world_collection_state()
-        # Try to place badges with current Pokemon and HM access
+        # Try to place badges with current Pokémon and HM access
         # If it can't, try with guaranteed HM access and fix it later
         if attempt > 1:
             world.logic.guaranteed_hm_access = True

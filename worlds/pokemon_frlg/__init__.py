@@ -325,7 +325,6 @@ class PokemonFRLGWorld(World):
         self.multiworld.regions.extend(regions.values())
         create_indirect_conditions(self)
         randomize_requested_trade_pokemon(self)
-        set_rules(self)
 
     def create_items(self) -> None:
         item_locations = [location for location in self.get_locations() if location.item is None]
@@ -424,39 +423,10 @@ class PokemonFRLGWorld(World):
                     continue
 
         verify_hm_accessibility(self)
-        state = self.get_world_collection_state()
-
-        # Delete evolutions that are not in logic in an all state so that the accessibility check doesn't fail
-        evolution_region = self.multiworld.get_region("Evolutions", self.player)
-        for location in evolution_region.locations.copy():
-            if not location.can_reach(state):
-                evolution_region.locations.remove(location)
-
-        if self.options.dexsanity != Dexsanity.special_range_names["none"] and not self.is_universal_tracker:
-            # Delete dexsanity locations that are not in logic in an all state since they aren't accessible
-            pokedex_region = self.multiworld.get_region("Pokedex", self.player)
-            for location in pokedex_region.locations.copy():
-                if not location.can_reach(state):
-                    pokedex_region.locations.remove(location)
-                    self.itempool.remove(filler_items.pop())
-
-            # Delete dexsanity locations if there are more than the amount specified in the settings
-            if len(pokedex_region.locations) > self.options.dexsanity.value:
-                pokedex_locations = pokedex_region.locations.copy()
-                priority_pokedex_locations = [loc for loc in pokedex_locations
-                                              if loc.name in self.options.priority_locations.value]
-                non_priority_pokedex_locations = [loc for loc in pokedex_locations
-                                                  if loc.name not in self.options.priority_locations.value]
-                self.random.shuffle(priority_pokedex_locations)
-                self.random.shuffle(non_priority_pokedex_locations)
-                pokedex_locations = non_priority_pokedex_locations + priority_pokedex_locations
-                for location in pokedex_locations:
-                    pokedex_region.locations.remove(location)
-                    self.itempool.remove(filler_items.pop())
-                    if len(pokedex_region.locations) <= self.options.dexsanity.value:
-                        break
-
         self.multiworld.itempool += self.itempool
+
+    def set_rules(self) -> None:
+        set_rules(self)
         # Any unreachable evolutions have been removed, so update the species items oak's aides and dexsanity check for.
         self.logic.update_species(self)
 

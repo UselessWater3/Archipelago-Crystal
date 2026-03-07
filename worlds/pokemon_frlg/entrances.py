@@ -11,7 +11,7 @@ from .universal_tracker import ut_set_entrances
 if TYPE_CHECKING:
     from . import PokemonFRLGWorld
 
-MAX_GER_ATTEMPTS = 25
+MAX_GER_ATTEMPTS = 40
 
 POKEMON_CENTER_ENTRANCES = [
     "Viridian Pokemon Center Entrance", "Pewter Pokemon Center Entrance", "Route 4 Pokemon Center Entrance",

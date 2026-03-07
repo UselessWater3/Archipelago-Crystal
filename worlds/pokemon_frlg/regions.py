@@ -229,11 +229,8 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
         if world.options.kanto_only and event_id == "EVENT_DEFEAT_CHAMPION_REMATCH":
             return True
         if data.events[event_id].category == LocationCategory.EVENT_EVOLUTION_POKEMON:
-            # Exclude the event if the evolution method is not required for logic.
-            event_data = data.events[event_id]
-            pokemon = event_data.name.split(" - ")[1].strip()
-            evo_data = data.evolutions[pokemon]
-            return evo_data.method not in world.logic.evo_methods_required
+            # Exclude evolution events for now. They will be added when locations are created.
+            return True
         return False
 
     def exclude_exit(region_id: str, exit_region_id: str):
@@ -333,6 +330,11 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
                                                     world.player))
             event.show_in_spoiler = False
             new_region.locations.append(event)
+            if (event_data.category == LocationCategory.EVENT_STATIC_POKEMON
+                    or event_data.category == LocationCategory.EVENT_LEGENDARY_POKEMON):
+                pokemon_species_name = event_data.item.replace("Static ", "")
+                if pokemon_species_name not in world.logic.static_pokemon:
+                    world.logic.static_pokemon.append(pokemon_species_name)
 
         for exit_region_id, exit_names in region_data.exits.items():
             if exclude_exit(region_id, exit_region_id):
