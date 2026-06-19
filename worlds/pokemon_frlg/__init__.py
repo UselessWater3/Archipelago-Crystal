@@ -19,7 +19,7 @@ from .client import PokemonFRLGClient
 from .data import (data, ability_name_map, ALL_SPECIES, LEGENDARY_POKEMON, NAME_TO_SPECIES_ID, POPTRACKER_CHECKSUM,
                    LocationCategory, EventData, EvolutionMethodEnum, FlyData, MapData, MiscPokemonData, MoveData,
                    move_name_map, SpeciesData, StarterData, TrainerData, TradePokemonData)
-from .entrances import set_hint_entrances, shuffle_entrances
+from .entrances import entrances_randomized, set_hint_entrances, shuffle_entrances
 from .groups import item_groups, location_groups
 from .items import (PokemonFRLGItem, PokemonFRLGGlitchedToken, add_starting_items, create_item_name_to_id_map,
                     get_random_item, get_item_classification)
@@ -30,7 +30,7 @@ from .options import (PokemonFRLGOptions, CardKey, CeruleanCaveRequirement, Dexs
                       FreeFlyLocation, GameVersion, Goal, IslandPasses, MixEntranceWarpPools, RandomizeLegendaryPokemon,
                       RandomizeMiscPokemon, RandomizeWildPokemon, ShuffleBadges, ShuffleBuildingEntrances,
                       ShuffleDungeonEntrances, ShuffleFlyUnlocks, ShuffleHiddenItems, ShufflePokedex,
-                      ShuffleRunningShoes, TownMapFlyLocation, Trainersanity, ViridianCityRoadblock)
+                      ShuffleRunningShoes, SkipIntro, TownMapFlyLocation, Trainersanity, ViridianCityRoadblock)
 from .pokemon import (add_hm_compatability, randomize_abilities, randomize_base_stats, randomize_damage_categories,
                       randomize_legendaries, randomize_misc_pokemon, randomize_moves, randomize_move_types,
                       randomize_requested_trade_pokemon, randomize_starters, randomize_tm_hm_compatibility,
@@ -48,6 +48,7 @@ try:
     from worlds._pokemon_gen3_adjuster import __init__
 except ImportError:
     pass
+
 
 class PokemonFRLGWebWorld(WebWorld):
     """
@@ -266,6 +267,15 @@ class PokemonFRLGWorld(World):
                 self.options.mix_entrance_warp_pools.value.add(key)
 
         # Modify options that are incompatible with each other
+        if self.options.skip_intro == SkipIntro.option_false and self.options.random_starting_town:
+            logging.warning("Pokemon FRLG: Setting Skip Intro on for player %s (%s) due to Random Starting Town "
+                            "Setting.", self.player, self.player_name)
+            self.options.skip_intro.value = SkipIntro.option_true
+        elif self.options.skip_intro == SkipIntro.option_false and entrances_randomized(self):
+            logging.warning("Pokemon FRLG: Setting Skip Intro on for player %s (%s) due to Entrance Randomization "
+                            "Settings.", self.player, self.player_name)
+            self.options.skip_intro.value = SkipIntro.option_true
+
         if self.options.kanto_only:
             if self.options.goal == Goal.option_champion_rematch:
                 logging.warning("Pokemon FRLG: Goal for player %s (%s) incompatible with Kanto Only. "

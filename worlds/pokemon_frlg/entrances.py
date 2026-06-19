@@ -1,4 +1,3 @@
-import logging
 from enum import IntEnum
 from typing import TYPE_CHECKING, Dict, List
 from BaseClasses import Entrance, EntranceType, Region
@@ -1025,8 +1024,8 @@ def connect_simple_entrances(er_state: ERPlacementState,
         er_state.connect(entrance, exit)
         return True
     if (er_state.world.options.shuffle_buildings == ShuffleBuildingEntrances.option_simple
-        and placed_exits[0].name in BUILDING_PAIRS
-        and paired_entrances[0].name in BUILDING_PAIRS):
+            and placed_exits[0].name in BUILDING_PAIRS
+            and paired_entrances[0].name in BUILDING_PAIRS):
         entrance = er_state.world.get_entrance(BUILDING_PAIRS[placed_exits[0].name])
         exit = er_state.entrance_lookup.find_target(BUILDING_PAIRS[paired_entrances[0].name])
         er_state.connect(entrance, exit)
@@ -1063,3 +1062,26 @@ def set_hint_entrances(world: "PokemonFRLGWorld") -> None:
         if region.name not in OUTDOOR_REGIONS and region.name in real_regions:
             check_region(region)
             region.entrance_hints = entrance_hints
+
+
+def entrances_randomized(world: "PokemonFRLGWorld") -> bool:
+    if world.options.shuffle_pokemon_centers:
+        return True
+    elif world.options.shuffle_gyms:
+        return True
+    elif world.options.shuffle_marts:
+        return True
+    elif world.options.shuffle_harbors:
+        return True
+    elif world.options.shuffle_buildings != ShuffleBuildingEntrances.option_off:
+        return True
+    elif (world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_off
+          and world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_seafoam):
+        return True
+    elif world.options.shuffle_interiors:
+        return True
+    elif world.options.shuffle_warp_tiles != ShuffleWarpTiles.option_off:
+        return True
+    elif world.options.shuffle_dropdowns != ShuffleDropdowns.option_off:
+        return True
+    return False

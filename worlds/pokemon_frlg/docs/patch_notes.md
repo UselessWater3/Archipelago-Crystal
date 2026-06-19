@@ -5,6 +5,9 @@
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
 ## Apworld Updates
 * Updated several region and entrance names for better clarity in the spoiler log and when using UT
+* New option `skip_intro`
+  * Set whether the vanilla intro sequence where you get your starter Pokémon from Oak's Lab should be skipped or not. If the intro is skipped then you will be prompted to select your starter Pokémon during Oak's initial speech
+  * This setting is forced on if Random Starting Town or any type of Entrance Randomization is on
 * Updated option `prizesanity`
   * The coin price for purchasing items at the Game Corner Prize Room will now be determined by what item it is
 * Updated option `shop_prices` and `consistent_shop_prices`
@@ -26,6 +29,7 @@
     * Boost: Encounters are chosen based on the encounter rates with a higher chance for Pokemon that haven't already been caught
     * Rotate: Encounters are chosen by rotating through the encounter slots in an area (multiple slots in a row can be the same Pokemon)
 ## Bug Fixes
+* Fixed an issue where the Pokédex was accessible in the Safari Zone even when you didn't have it
 * Fixed an issue where items that should only be purchasable once could be purcahsed multiple times at the Celadon Game Corner Prize Room Shops
 * Fixed an issue where logic could expect you to board the Seagallop from the harbor side of Vermilion City and sail to the main part of the city without any tickets/passes
 

@@ -32,6 +32,16 @@ class Goal(Choice):
     option_champion_rematch = 1
 
 
+class SkipIntro(Toggle):
+    """
+    Set whether the vanilla intro sequence where you get your starter Pokemon from Oak's Lab should be skipped or not.
+    If the intro is skipped then you will be prompted to select your starter Pokemon during Oak's initial speech.
+
+    This setting is forced on if Random Starting Town or any type of Entrance Randomization is on.
+    """
+    display_name = "Skip Intro"
+
+
 class SkipEliteFour(Toggle):
     """
     Set whether to skip the Elite Four fights and go straight to the Champion fight when entering the Pokemon League.
@@ -1621,6 +1631,7 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     game_version: GameVersion
 
     goal: Goal
+    skip_intro: SkipIntro
     skip_elite_four: SkipEliteFour
     kanto_only: KantoOnly
     random_starting_town: RandomStartingTown
