@@ -589,8 +589,8 @@
     ],
     "events": [],
     "exits": {
-      "REGION_THREE_ISLAND/VISIT": "Visit Three Island Town (South)",
       "REGION_THREE_ISLAND/NORTH": "Three Island Town Biker Blockade",
+      "REGION_THREE_ISLAND/VISIT": "Visit Three Island Town (South)",
       "REGION_THREE_ISLAND_PORT/WEST": "Three Island Town Exit (South)"
     },
     "warps": {

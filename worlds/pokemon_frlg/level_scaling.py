@@ -3,9 +3,7 @@ from typing import List, Set
 from BaseClasses import CollectionState, MultiWorld
 
 from .data import data, EncounterType, LocationCategory, TRAINER_REMATCH_MAP
-from .locations import PokemonFRLGLocation
 from .options import LevelScaling
-from .regions import PokemonFRLGRegion
 from .util import bound
 
 
@@ -26,8 +24,8 @@ def level_scaling(multiworld: MultiWorld):
     level_scaling_required = False
     state = CollectionState(multiworld)
     progression_locations = {loc for loc in multiworld.get_filled_locations() if loc.item.advancement}
-    frlg_locations: Set[PokemonFRLGLocation] = {loc for loc in multiworld.get_filled_locations()
-                                                if loc.game == "Pokemon FireRed and LeafGreen"}
+    frlg_locations = {loc for loc in multiworld.get_filled_locations()
+                      if loc.game == "Pokemon FireRed and LeafGreen"}
     scaling_locations = {loc for loc in frlg_locations if loc.category in scaling_categories}
     locations = progression_locations | scaling_locations
     collected_locations = set()
@@ -93,7 +91,7 @@ def level_scaling(multiworld: MultiWorld):
                         sphere.add(location)
 
                         if location.game == "Pokemon FireRed and LeafGreen":
-                            parent_region: PokemonFRLGRegion = location.parent_region
+                            parent_region = location.parent_region
                             if getattr(parent_region, "distance", None) is None:
                                 distance = 0
                             else:

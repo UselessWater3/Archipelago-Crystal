@@ -213,6 +213,7 @@ class DecoupleEntrancesWarps(Toggle):
     """
     display_name = "Decouple Entrances/Warps"
 
+
 class RandomizeFlyDestinations(Choice):
     """
     Randomizes where each fly point takes you. The new fly destinations can be almost any outdoor warp point in the

@@ -62,6 +62,7 @@ def add_starting_items(world: "PokemonFRLGWorld") -> None:
         world.options.start_inventory.value["Jumping Shoes"] = 1
         world.multiworld.push_precollected(world.create_item("Jumping Shoes"))
 
+
 def get_random_item(world: "PokemonFRLGWorld", item_classification: ItemClassification = None) -> str:
     if item_classification is None:
         item_classification = ItemClassification.useful if world.random.random() < 0.20 else ItemClassification.filler
@@ -69,9 +70,11 @@ def get_random_item(world: "PokemonFRLGWorld", item_classification: ItemClassifi
              if item.classification == item_classification and item.name not in item_groups["Unique Items"]]
     return world.random.choice(items).name
 
+
 def update_renewable_to_progression(item: PokemonFRLGItem) -> None:
     if item.name in RENEWABLE_PROGRESSION_ITEMS:
         item.classification = ItemClassification.progression
+
 
 def is_single_purchase_item(item: PokemonFRLGItem) -> bool:
     if (item.name in item_groups["Key Items"]

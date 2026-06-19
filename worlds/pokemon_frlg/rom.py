@@ -733,7 +733,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(address, offsets["introSpecies"], struct.pack("<H", species_id))
 
     # Set PC item ID
-    pc_item_location = world.get_location("Player's PC - PC Item")
+    pc_item_location = world.get_location("Player's PC - Item")
     if not world.options.remote_items and pc_item_location.item.player == world.player:
         item_id = pc_item_location.item.code
     else:
@@ -913,10 +913,10 @@ def _set_randomized_fly_destinations(world: "PokemonFRLGWorld") -> None:
 
 def _set_shop_data(world: "PokemonFRLGWorld") -> None:
     patch = world.patch_data
-    shop_locations= [loc for loc in world.get_locations()
-                     if loc.name in location_groups["Shops"]
-                     or loc.name in location_groups["Vending Machines"]
-                     or loc.name in location_groups["Prizes"]]
+    shop_locations = [loc for loc in world.get_locations()
+                      if loc.name in location_groups["Shops"]
+                      or loc.name in location_groups["Vending Machines"]
+                      or loc.name in location_groups["Prizes"]]
     already_set_prices: Dict[str, int] = {}
 
     for location in shop_locations:
@@ -965,6 +965,8 @@ def _set_shop_data(world: "PokemonFRLGWorld") -> None:
         if ((location.item.player and is_single_purchase_item(location.item) or location.item.player != world.player)
                 and location.address is not None):
             patch.write_token(item_address, 6, struct.pack("<B", 0))
+        else:
+            patch.write_token(item_address, 6, struct.pack("<B", 1))
 
 
 def _set_species_info(world: "PokemonFRLGWorld") -> None:

@@ -2658,7 +2658,7 @@
   },
 
   "PC_ITEM_POTION": {
-    "name": "Player's PC - PC Item",
+    "name": "Player's PC - Item",
     "tags": ["Starting Items"],
     "category": "NPC_GIFT",
     "include": []
