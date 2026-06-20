@@ -60,7 +60,7 @@ fly_item_map = {
 
 
 class PokemonFRLGLocation(Location):
-    game: str = "Pokemon FireRed and LeafGreen"
+    game: str = data.get_game()
     item_address = Dict[str, int | List[int]] | None
     default_item_id: int | None
     category: LocationCategory

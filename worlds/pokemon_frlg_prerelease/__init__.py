@@ -104,7 +104,7 @@ class PokemonFRLGWorld(World):
     Catch, train, and battle Pokémon, face off against the evil organization Team Rocket, challenge Gyms in order to
     earn Badges, help resolve the many crises on the Sevii Islands, and become the Pokémon Champion!
     """
-    game = "Pokemon FireRed and LeafGreen"
+    game = data.get_game()
     web = PokemonFRLGWebWorld()
     topology_present = True
 
@@ -461,9 +461,9 @@ class PokemonFRLGWorld(World):
         for sphere in multiworld.get_spheres():
             mon_locations_in_sphere = defaultdict(list)
             for location in sphere:
-                if location.game == "Pokemon FireRed and LeafGreen":
+                if location.game == data.get_game():
                     assert isinstance(location, PokemonFRLGLocation)
-                    if (location.item.game == "Pokemon FireRed and LeafGreen" and
+                    if (location.item.game == data.get_game() and
                             (location.item.name in pokemon or
                              "Static " in location.item.name or
                              "Evolved " in location.item.name)
@@ -648,6 +648,7 @@ class PokemonFRLGWorld(World):
             "evolution_methods_required",
             "viridian_city_roadblock",
             "pewter_city_roadblock",
+            "elevators_condition",
             "modify_world_state",
             "additional_dark_caves",
             "remove_badge_requirement",

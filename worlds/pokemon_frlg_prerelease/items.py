@@ -13,14 +13,14 @@ RENEWABLE_PROGRESSION_ITEMS = ("Fresh Water", "Soda Pop", "Lemonade", "King's Ro
 
 
 class PokemonFRLGItem(Item):
-    game: str = "Pokemon FireRed and LeafGreen"
+    game: str = data.get_game()
 
     def __init__(self, name: str, classification: ItemClassification, code: int | None, player: int) -> None:
         super().__init__(name, classification, code, player)
 
 
 class PokemonFRLGGlitchedToken(PokemonFRLGItem):
-    game: str = "Pokemon FireRed and LeafGreen"
+    game: str = data.get_game()
     TOKEN_NAME = "GLITCHED_TOKEN"
 
     def __init__(self, player) -> None:

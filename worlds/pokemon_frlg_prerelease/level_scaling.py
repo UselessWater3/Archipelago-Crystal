@@ -25,13 +25,13 @@ def level_scaling(multiworld: MultiWorld):
     state = CollectionState(multiworld)
     progression_locations = {loc for loc in multiworld.get_filled_locations() if loc.item.advancement}
     frlg_locations = {loc for loc in multiworld.get_filled_locations()
-                      if loc.game == "Pokemon FireRed and LeafGreen"}
+                      if loc.game == data.get_game()}
     scaling_locations = {loc for loc in frlg_locations if loc.category in scaling_categories}
     locations = progression_locations | scaling_locations
     collected_locations = set()
     spheres = []
 
-    for world in multiworld.get_game_worlds("Pokemon FireRed and LeafGreen"):
+    for world in multiworld.get_game_worlds(data.get_game()):
         if world.options.level_scaling != LevelScaling.option_off:
             level_scaling_required = True
         else:
@@ -55,7 +55,7 @@ def level_scaling(multiworld: MultiWorld):
             while events_found:
                 events_found = False
 
-                for world in multiworld.get_game_worlds("Pokemon FireRed and LeafGreen"):
+                for world in multiworld.get_game_worlds(data.get_game()):
                     if world.options.level_scaling != LevelScaling.option_spheres_and_distance:
                         continue
                     regions = {multiworld.get_region("Title Screen", world.player)}
@@ -90,7 +90,7 @@ def level_scaling(multiworld: MultiWorld):
                     if location.can_reach(state):
                         sphere.add(location)
 
-                        if location.game == "Pokemon FireRed and LeafGreen":
+                        if location.game == data.get_game():
                             parent_region = location.parent_region
                             if getattr(parent_region, "distance", None) is None:
                                 distance = 0
@@ -140,7 +140,7 @@ def level_scaling(multiworld: MultiWorld):
             spheres.append(locations)
             break
 
-    for world in multiworld.get_game_worlds("Pokemon FireRed and LeafGreen"):
+    for world in multiworld.get_game_worlds(data.get_game()):
         if world.options.level_scaling == LevelScaling.option_off:
             continue
 

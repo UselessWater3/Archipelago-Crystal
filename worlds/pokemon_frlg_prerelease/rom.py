@@ -60,7 +60,7 @@ _FANFARES: Dict[str, int] = {
 
 
 class PokemonFRLGPatchExtension(APPatchExtension):
-    game = "Pokemon FireRed and LeafGreen"
+    game = data.get_game()
 
     @staticmethod
     def apply_bsdiff4(caller: APProcedurePatch, rom: bytes, patch: str) -> bytes:
@@ -105,9 +105,9 @@ class PokemonFRLGPatchExtension(APPatchExtension):
 
 
 class PokemonFireRedProcedurePatch(APProcedurePatch, APTokenMixin):
-    game = "Pokemon FireRed and LeafGreen"
+    game = data.get_game()
     hash = [FIRERED_REV0_HASH, FIRERED_REV1_HASH]
-    patch_file_ending = ".apfirered"
+    patch_file_ending = data.get_firered_extension()
     result_file_ending = ".gba"
 
     procedure = [
@@ -123,9 +123,9 @@ class PokemonFireRedProcedurePatch(APProcedurePatch, APTokenMixin):
 
 
 class PokemonLeafGreenProcedurePatch(APProcedurePatch, APTokenMixin):
-    game = "Pokemon FireRed and LeafGreen"
+    game = data.get_game()
     hash = [LEAFGREEN_REV0_HASH, LEAFGREEN_REV1_HASH]
-    patch_file_ending = ".apleafgreen"
+    patch_file_ending = data.get_leafgreen_extension()
     result_file_ending = ".gba"
 
     procedure = [
@@ -650,7 +650,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(address, offsets["randomized"], struct.pack("<B", 1))
 
     # Set apworld version
-    apworld_version = f"AP v{world.world_version.as_simple_string()}"
+    apworld_version = f"AP v{data.get_version_string()}"
     for j, b in enumerate(encode_string(apworld_version, 16)):
         patch.write_token(address, offsets["version"] + j, struct.pack("<B", b))
 
@@ -703,7 +703,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     apworld_version_address = {}
     for key in patch.revision_keys:
         apworld_version_address[key] = 0x178
-    patch.write_token(apworld_version_address, 0, world.world_version.as_simple_string().encode("ascii"))
+    patch.write_token(apworld_version_address, 0, data.get_version_string().encode("ascii"))
 
 
 def _set_shuffled_entrances(world: "PokemonFRLGWorld") -> None:
