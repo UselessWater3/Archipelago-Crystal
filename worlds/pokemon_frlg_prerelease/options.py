@@ -617,6 +617,20 @@ class GymKeys(Toggle):
     display_name = "Gym Keys"
 
 
+class ItemAppearanceMatchesContents(Toggle):
+    """
+    Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain
+    useful items, and red balls contain filler or trap items.
+
+    The following item balls are not affected by this setting and will always be a red ball:
+    - Rocket Hideout B4F - Team Rocket Grunt Item
+    - Rocket Hideout B4F - Giovanni Item
+    - Dotted Hole 1F - Dropped Item
+    - Tanoby Ruins - Island Item
+    """
+    display_name = "Item Appearance Matches Contents"
+
+
 class ItemfinderRequired(Choice):
     """
     Sets whether the Itemfinder if required for Hidden Items. Some items cannot be picked up without using the
@@ -1677,6 +1691,7 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     fishing_rods: FishingRods
     split_teas: SplitTeas
     gym_keys: GymKeys
+    item_appearance_matches_contents: ItemAppearanceMatchesContents
 
     itemfinder_required: ItemfinderRequired
     flash_required: FlashRequired

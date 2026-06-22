@@ -62,6 +62,7 @@ fly_item_map = {
 class PokemonFRLGLocation(Location):
     game: str = data.get_game()
     item_address = Dict[str, int | List[int]] | None
+    graphic_address = Dict[str, int] | None
     default_item_id: int | None
     category: LocationCategory
     location_id: str | None
@@ -78,6 +79,7 @@ class PokemonFRLGLocation(Location):
             category: LocationCategory,
             parent: Region | None = None,
             item_address: Dict[str, int | List[int]] | None = None,
+            graphic_address: Dict[str, int] | None = None,
             default_item_id: int | None = None,
             location_id: str | None = None,
             scaling_ids: List[str] | None = None,
@@ -86,6 +88,7 @@ class PokemonFRLGLocation(Location):
         super().__init__(player, name, address, parent)
         self.default_item_id = default_item_id
         self.item_address = item_address
+        self.graphic_address = graphic_address
         self.category = category
         self.location_id = location_id
         self.scaling_ids = scaling_ids
@@ -125,6 +128,7 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
             location_data.category,
             region,
             location_data.address,
+            location_data.graphic_address,
             default_item,
             location_id
         )
@@ -460,9 +464,7 @@ def set_free_fly(world: "PokemonFRLGWorld") -> None:
             "Free Fly Location",
             None,
             LocationCategory.EVENT,
-            start_region,
-            None,
-            None
+            start_region
         )
         item_id = data.constants[free_fly_location_id]
         free_fly_location.place_locked_item(PokemonFRLGItem(data.items[item_id].name,
@@ -486,9 +488,7 @@ def set_free_fly(world: "PokemonFRLGWorld") -> None:
             "Town Map Fly Location",
             None,
             LocationCategory.EVENT,
-            start_region,
-            None,
-            None
+            start_region
         )
         item_id = data.constants[town_map_fly_location_id]
         town_map_fly_location.place_locked_item(PokemonFRLGItem(data.items[item_id].name,

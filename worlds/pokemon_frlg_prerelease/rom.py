@@ -181,9 +181,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     location_info: List[Tuple[int, int, str]] = []
     for location in world.get_locations():
         assert isinstance(location, PokemonFRLGLocation)
-        if location.address is None:
-            continue
-        if location.item is None:
+        if location.address is None or location.item is None:
             continue
 
         item_address = location.item_address
@@ -194,6 +192,17 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
             item_id = data.constants["ITEM_ARCHIPELAGO_PROGRESSION"]
 
         patch.write_token(item_address, 0, struct.pack("<H", item_id))
+
+        if world.options.item_appearance_matches_contents:
+            graphic_address = location.graphic_address
+            if all(v != 0 for v in graphic_address.values()):
+                if location.item.advancement:
+                    graphic_id = data.constants["OBJ_EVENT_GFX_PROG_ITEM_BALL"]
+                elif location.item.useful:
+                    graphic_id = data.constants["OBJ_EVENT_GFX_USEFUL_ITEM_BALL"]
+                else:
+                    graphic_id = data.constants["OBJ_EVENT_GFX_ITEM_BALL"]
+                patch.write_token(graphic_address, 0, struct.pack("<B", graphic_id))
 
         # Creates a list of item information to store in tables later. Those tables are used to display the item and
         # player name in a text box. In the case of not enough space, the game will default to "found an ARCHIPELAGO

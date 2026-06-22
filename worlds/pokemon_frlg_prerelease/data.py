@@ -140,6 +140,7 @@ class LocationData(NamedTuple):
     parent_region_id: str
     default_item: int
     address: Dict[str, int | List[int]]
+    graphic_address: Dict[str, int]
     flag: int
     category: LocationCategory
     include: FrozenSet[str]
@@ -985,6 +986,7 @@ def init() -> None:
                     region_id,
                     location_json["default_item"],
                     location_address,
+                    location_json["graphic_address"],
                     location_json["flag"],
                     LocationCategory[location_data[location_id]["category"]],
                     frozenset(location_data[location_id]["include"]),
@@ -997,6 +999,7 @@ def init() -> None:
                     region_id,
                     location_json["default_item"],
                     location_json["address"],
+                    location_json["graphic_address"],
                     location_json["flag"],
                     LocationCategory[location_data[location_id]["category"]],
                     frozenset(location_data[location_id]["include"]),

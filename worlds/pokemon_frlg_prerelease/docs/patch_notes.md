@@ -12,6 +12,8 @@
   * The coin price for purchasing items at the Game Corner Prize Room will now be determined by what item it is
 * Updated option `shop_prices` and `consistent_shop_prices`
   * Now applies to Game Corner Prize Room item purchases as well
+* New option `item_appearance_matches_contents`
+  * Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain useful items, and red balls contain filler or trap items
 * New option `elevators_condition`
   * Sets the conditions the Celadon Department Store and Silph Co. elevators are in. Has no logical implications unless interior warps are shuffled
     * Open: The elevators can be used normally
