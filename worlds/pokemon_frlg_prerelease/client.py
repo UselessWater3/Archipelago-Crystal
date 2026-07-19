@@ -244,7 +244,7 @@ class PokemonFRLGClient(BizHawkClient):
     local_hints: List[str]
     local_pokemon: Dict[str, List[int]]
     local_pokemon_count: int
-    local_entrances: Dict[str, str]
+    local_entrances: Dict[int, List[int]]
     previous_death_link: float
     ignore_next_death_link: bool
     current_map: Tuple[int, int]
@@ -815,40 +815,42 @@ class PokemonFRLGClient(BizHawkClient):
             entrance_name = data.entrance_name_map[entrance_map_id][entrance_warp_id]
             exit_name = data.entrance_name_map[exit_map_id][exit_warp_id]
 
-            if (entrance_name not in self.local_entrances and
-                    (entrance_name in ctx.slot_data["entrances"] or
-                     exit_name in ctx.slot_data["entrances"])):
-                if ctx.slot_data["decouple_entrances_warps"]:
-                    self.local_entrances[entrance_name] = exit_name
-                else:
-                    self.local_entrances[entrance_name] = exit_name
-                    self.local_entrances[exit_name] = entrance_name
+            if entrance_name in ctx.slot_data["entrances"] or exit_name in ctx.slot_data["entrances"]:
+                if entrance_map_id not in self.local_entrances:
+                    self.local_entrances[entrance_map_id] = []
+                if exit_map_id not in self.local_entrances:
+                    self.local_entrances[exit_map_id] = []
+                if entrance_warp_id not in self.local_entrances[entrance_map_id]:
+                    if ctx.slot_data["decouple_entrances_warps"] or entrance_name == "Pokemon Mansion 1F East Exit":
+                        self.local_entrances[entrance_map_id].append(entrance_warp_id)
+                    else:
+                        self.local_entrances[entrance_map_id].append(entrance_warp_id)
+                        self.local_entrances[exit_map_id].append(exit_warp_id)
 
-                # Send to Poptracker
-                await ctx.send_msgs([{
-                    "cmd": "Set",
-                    "key": f"pokemon_frlg_entrances_{ctx.team}_{ctx.slot}",
-                    "default": {},
-                    "want_reply": False,
-                    "operations": [{"operation": "update", "value": self.local_entrances}]
-                }])
-
-                # Send to Universal Tracker
-                await ctx.send_msgs([{
-                    "cmd": "Set",
-                    "key": f"pokemon_frlg_{ctx.slot}_{entrance_name}",
-                    "default": False,
-                    "want_reply": False,
-                    "operations": [{"operation": "replace", "value": True}]
-                }])
-                if not ctx.slot_data["decouple_entrances_warps"]:
                     await ctx.send_msgs([{
                         "cmd": "Set",
-                        "key": f"pokemon_frlg_{ctx.slot}_{exit_name}",
+                        "key": f"pokemon_frlg_entrances_{ctx.team}_{ctx.slot}",
+                        "default": {},
+                        "want_reply": False,
+                        "operations": [{"operation": "update", "value": self.local_entrances}]
+                    }])
+
+                    # Send to Universal Tracker
+                    await ctx.send_msgs([{
+                        "cmd": "Set",
+                        "key": f"pokemon_frlg_{ctx.slot}_{entrance_name}",
                         "default": False,
                         "want_reply": False,
                         "operations": [{"operation": "replace", "value": True}]
                     }])
+                    if not ctx.slot_data["decouple_entrances_warps"]:
+                        await ctx.send_msgs([{
+                            "cmd": "Set",
+                            "key": f"pokemon_frlg_{ctx.slot}_{exit_name}",
+                            "default": False,
+                            "want_reply": False,
+                            "operations": [{"operation": "replace", "value": True}]
+                        }])
 
     async def handle_death_link(self, ctx: "BizHawkClientContext", guards: Dict[str, Tuple[int, bytes, str]]) -> None:
         """

@@ -561,10 +561,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Route 22 Surfing Spot (West)",
                   lambda state: logic.can_surf(state))
     if options.route22_gate_requirement.value == Route22GateRequirement.option_badges:
-        add_rule_safe("Route 22 Gate Exit (North)",
+        add_rule_safe("Route 22 Gate North Exit",
                       lambda state: logic.has_n_badges(state, options.route22_gate_count.value))
     elif options.route22_gate_requirement.value == Route22GateRequirement.option_gyms:
-        add_rule_safe("Route 22 Gate Exit (North)",
+        add_rule_safe("Route 22 Gate North Exit",
                       lambda state: logic.has_n_gyms(state, options.route22_gate_count.value))
 
     # Route 2
@@ -651,7 +651,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     if "Remove Cerulean Roadblocks" not in options.modify_world_state.value:
         add_rule_safe("Cerulean City Cuttable Tree (Top)",
                       lambda state: state.has("Help Bill", player))
-        add_rule_safe("Robbed House Entrance (Front)",
+        add_rule_safe("Robbed House Front Entrance",
                       lambda state: state.has("Help Bill", player))
         add_rule_safe("Cerulean City Cuttable Tree (Bottom)",
                       lambda state: state.has("Help Bill", player))
@@ -663,10 +663,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Cerulean City Cuttable Tree (Bottom)",
                   lambda state: logic.can_cut(state))
     if "Modify Route 9" in options.modify_world_state.value:
-        add_rule_safe("Cerulean City Exit (East)",
+        add_rule_safe("Cerulean City East Exit",
                       lambda state: logic.can_rock_smash(state))
     else:
-        add_rule_safe("Cerulean City Exit (East)",
+        add_rule_safe("Cerulean City East Exit",
                       lambda state: logic.can_cut(state))
     add_rule_safe("Cerulean City Surfing Spot",
                   lambda state: logic.can_surf(state))
@@ -782,17 +782,17 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Route 11 Surfing Spot",
                   lambda state: logic.can_surf(state))
     if "Route 12 Boulders" in options.modify_world_state.value:
-        add_rule_safe("Route 11 Exit (East)",
+        add_rule_safe("Route 11 East Exit",
                       lambda state: logic.can_strength(state))
 
     # Route 9
     add_rule_safe("Route 9 Southwest Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
     if "Modify Route 9" in options.modify_world_state.value:
-        add_rule_safe("Route 9 Exit (West)",
+        add_rule_safe("Route 9 West Exit",
                       lambda state: logic.can_rock_smash(state))
     else:
-        add_rule_safe("Route 9 Exit (West)",
+        add_rule_safe("Route 9 West Exit",
                       lambda state: logic.can_cut(state))
     add_rule_safe("Route 9 Northwest Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
@@ -821,7 +821,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Route 10 Surfing Spot (Near Power Plant)",
                   lambda state: logic.can_surf(state))
     if options.extra_key_items:
-        add_rule_safe("Power Plant (Front)",
+        add_rule_safe("Power Plant Front Entrance",
                       lambda state: state.has("Machine Part", player))
     add_rule_safe("Route 10 Ledge (Bottom)",
                   lambda state: logic.can_jump_up_ledge(state))
@@ -830,7 +830,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
 
     # Lavender Town
     if "Route 12 Boulders" in options.modify_world_state.value:
-        add_rule_safe("Lavender Town Exit (South)",
+        add_rule_safe("Lavender Town South Exit",
                       lambda state: logic.can_strength(state))
 
     # Route 8
@@ -954,11 +954,11 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
 
     # Route 12
     if "Route 12 Boulders" in options.modify_world_state.value:
-        add_rule_safe("Route 12 Exit (West)",
+        add_rule_safe("Route 12 West Exit",
                       lambda state: logic.can_strength(state))
-        add_rule_safe("Route 12 Exit (North)",
+        add_rule_safe("Route 12 North Exit",
                       lambda state: logic.can_strength(state))
-        add_rule_safe("Route 12 Exit (South)",
+        add_rule_safe("Route 12 South Exit",
                       lambda state: logic.can_strength(state))
     add_rule_safe("Route 12 Play Poke Flute (Left)",
                   lambda state: state.has("Poke Flute", player))
@@ -984,7 +984,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
 
     # Route 13
     if "Route 12 Boulders" in options.modify_world_state.value:
-        add_rule_safe("Route 13 Exit (North)",
+        add_rule_safe("Route 13 North Exit",
                       lambda state: logic.can_strength(state))
     add_rule_safe("Route 13 Surfing Spot",
                   lambda state: logic.can_surf(state))
@@ -1183,32 +1183,32 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Seafoam Islands
-    add_rule_safe("Seafoam Islands B3F Surfing Spot (West - Bottom)",
+    add_rule_safe("Seafoam Islands B3F South Surfing Spot (West)",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F Surfing Spot (West - Top)",
+    add_rule_safe("Seafoam Islands B3F Northwest Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Seafoam Islands B3F Landing Spot (West - Bottom)",
+    add_rule_safe("Seafoam Islands B3F South Landing Spot (West)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
     add_rule_safe("Seafoam Islands B3F Water Battle (South Water)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
     add_rule_safe("Seafoam Islands B3F Fishing Battle (South Water)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F Landing Spot (East - Bottom)",
+    add_rule_safe("Seafoam Islands B3F South Landing Spot (East)",
                   lambda state: logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F Surfing Spot (East - Bottom)",
+    add_rule_safe("Seafoam Islands B3F South Surfing Spot (East)",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b3f_current(state))
-    add_rule_safe("Seafoam Islands B3F Surfing Spot (East - Top)",
+    add_rule_safe("Seafoam Islands B3F Northeast Surfing Spot",
                   lambda state: logic.can_surf(state))
     add_rule_safe("Seafoam Islands B3F Northeast Waterfall (Climb)",
                   lambda state: logic.can_waterfall(state))
-    add_rule_safe("Seafoam Islands B4F Surfing Spot (Right)",
+    add_rule_safe("Seafoam Islands B4F East Surfing Spot",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Seafoam Islands B4F Surfing Spot (Left)",
+    add_rule_safe("Seafoam Islands B4F West Surfing Spot",
                   lambda state: logic.can_surf(state) and
                                 logic.can_stop_seafoam_b4f_current(state))
-    add_rule_safe("Seafoam Islands B4F Landing Spot (Near Articuno)",
+    add_rule_safe("Seafoam Islands B4F West Landing Spot (Near Articuno)",
                   lambda state: logic.can_stop_seafoam_b4f_current(state))
     add_rule_safe("Seafoam Islands B4F Water Battle (West Water)",
                   lambda state: logic.can_stop_seafoam_b4f_current(state))
@@ -1232,7 +1232,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Follow Bill",
                   lambda state: state.has("Defeat Blaine", player) and
                                 not logic.randomizing_entrances)
-    add_rule_safe("Pokemon Mansion 1F Exit (East)",
+    add_rule_safe("Pokemon Mansion 1F East Exit",
                   lambda state: not logic.randomizing_entrances)
 
     # Pokemon Mansion
@@ -1336,13 +1336,13 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Kindle Road
-    add_rule_safe("Kindle Road Surfing Spot (South)",
+    add_rule_safe("Kindle Road South Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road Surfing Spot (Center - Bottom)",
+    add_rule_safe("Kindle Road South Surfing Spot (Center)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road Surfing Spot (Center - Top)",
+    add_rule_safe("Kindle Road North Surfing Spot (Center)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Kindle Road Surfing Spot (North)",
+    add_rule_safe("Kindle Road North Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
 
     # Mt. Ember
@@ -1450,11 +1450,11 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                                 not logic.randomizing_entrances)
 
     # Water Path
-    add_rule_safe("Water Path Surfing Spot (South)",
+    add_rule_safe("Water Path South Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Water Path Surfing Spot (North - Bottom)",
+    add_rule_safe("Water Path South Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
-    add_rule_safe("Water Path Surfing Spot (North - Top)",
+    add_rule_safe("Water Path North Surfing Spot",
                   lambda state: logic.can_surf(state))
 
     # Ruin Valley

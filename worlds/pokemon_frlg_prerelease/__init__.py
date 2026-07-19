@@ -692,6 +692,7 @@ class PokemonFRLGWorld(World):
         if self.options.randomize_fly_destinations:
             slot_data["fly_destinations"] = {}
             for exit in self.get_region("Sky").exits:
+
                 slot_data["fly_destinations"][exit.name] = exit.connected_region.name
 
         if self.er_placement_state is not None:

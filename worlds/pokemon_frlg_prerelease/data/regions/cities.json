@@ -29,7 +29,7 @@
     "exits": {
       "REGION_PALLET_TOWN/WATER": "Pallet Town Surfing Spot",
       "REGION_PALLET_TOWN/VISIT": "Visit Pallet Town",
-      "REGION_ROUTE1/MAIN": "Pallet Town Exit (North)"
+      "REGION_ROUTE1/MAIN": "Pallet Town North Exit"
     },
     "warps": {
       "MAP_PALLET_TOWN:0/MAP_PALLET_TOWN_PLAYERS_HOUSE_1F:0": "Player's House Entrance",
@@ -49,7 +49,7 @@
     "events": [],
     "exits": {
       "REGION_PALLET_TOWN/MAIN": "Pallet Town Landing Spot",
-      "REGION_ROUTE21/WATER": "Pallet Town Exit (South)"
+      "REGION_ROUTE21/WATER": "Pallet Town South Exit"
     },
     "warps": {}
   },
@@ -159,8 +159,8 @@
       "REGION_VIRIDIAN_CITY/NORTH": ["Viridian City Roadblock (Bottom)", "Viridian City Ledge (Bottom)", "Viridian City Cuttable Tree (Left)"],
       "REGION_VIRIDIAN_CITY/WATER": "Viridian City Surfing Spot",
       "REGION_VIRIDIAN_CITY/VISIT": "Visit Viridian City (South)",
-      "REGION_ROUTE1/MAIN": "Viridian City Exit (South)",
-      "REGION_ROUTE22/EAST": "Viridian City Exit (West)"
+      "REGION_ROUTE1/MAIN": "Viridian City South Exit",
+      "REGION_ROUTE22/EAST": "Viridian City West Exit"
     },
     "warps": {
       "MAP_VIRIDIAN_CITY:0/MAP_VIRIDIAN_CITY_POKEMON_CENTER_1F:0": "Viridian Pokemon Center Entrance",
@@ -184,7 +184,7 @@
     "exits": {
       "REGION_VIRIDIAN_CITY/SOUTH": ["Viridian City Roadblock (Top)", "Viridian City Ledge (Top)", "Viridian City Cuttable Tree (Right)"],
       "REGION_VIRIDIAN_CITY/VISIT": "Visit Viridian City (North)",
-      "REGION_ROUTE2/SOUTHWEST": "Viridian City Exit (North)"
+      "REGION_ROUTE2/SOUTHWEST": "Viridian City North Exit"
     },
     "warps": {
       "MAP_VIRIDIAN_CITY:2/MAP_VIRIDIAN_CITY_GYM:0": "Viridian Gym Entrance"
@@ -353,10 +353,10 @@
       "REGION_PEWTER_CITY/NEAR_ROADBLOCK": "Pewter City Roadblock (Left)",
       "REGION_PEWTER_CITY/NEAR_MUSEUM": ["Pewter City Ledge (Bottom)", "Pewter City Cuttable Tree (Right)"],
       "REGION_PEWTER_CITY/VISIT": "Visit Pewter City",
-      "REGION_ROUTE2/NORTHWEST": "Pewter City Exit (South)"
+      "REGION_ROUTE2/NORTHWEST": "Pewter City South Exit"
     },
     "warps": {
-      "MAP_PEWTER_CITY:0/MAP_PEWTER_CITY_MUSEUM_1F:0": "Pewter Museum Entrance (West)",
+      "MAP_PEWTER_CITY:0/MAP_PEWTER_CITY_MUSEUM_1F:0": "Pewter Museum West Entrance",
       "MAP_PEWTER_CITY:2/MAP_PEWTER_CITY_GYM:0": "Pewter Gym Entrance",
       "MAP_PEWTER_CITY:3/MAP_PEWTER_CITY_MART:0": "Pewter Poke Mart Entrance",
       "MAP_PEWTER_CITY:4/MAP_PEWTER_CITY_HOUSE1:0": "Pewter Nidoran House Entrance",
@@ -378,7 +378,7 @@
     "events": [],
     "exits": {
       "REGION_PEWTER_CITY/MAIN": "Pewter City Roadblock (Right)",
-      "REGION_ROUTE3/MAIN": "Pewter City Exit (East)"
+      "REGION_ROUTE3/MAIN": "Pewter City East Exit"
     },
     "warps": {}
   },
@@ -397,7 +397,7 @@
       "REGION_PEWTER_CITY/VISIT": "Visit Pewter City (Near Museum)"
     },
     "warps": {
-      "MAP_PEWTER_CITY:1/MAP_PEWTER_CITY_MUSEUM_1F:1": "Pewter Museum Entrance (East)"
+      "MAP_PEWTER_CITY:1/MAP_PEWTER_CITY_MUSEUM_1F:1": "Pewter Museum East Entrance"
     }
   },
   "REGION_PEWTER_CITY_MUSEUM_1F/WEST": {
@@ -412,7 +412,7 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_PEWTER_CITY_MUSEUM_1F:0/MAP_PEWTER_CITY:0": "Pewter Museum 1F Exit (West)",
+      "MAP_PEWTER_CITY_MUSEUM_1F:0/MAP_PEWTER_CITY:0": "Pewter Museum 1F West Exit",
       "MAP_PEWTER_CITY_MUSEUM_1F:2/MAP_PEWTER_CITY_MUSEUM_2F:0": "Pewter Museum 1F Stairs"
     }
   },
@@ -431,7 +431,7 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_PEWTER_CITY_MUSEUM_1F:1/MAP_PEWTER_CITY:1": "Pewter Museum 1F Exit (East)"
+      "MAP_PEWTER_CITY_MUSEUM_1F:1/MAP_PEWTER_CITY:1": "Pewter Museum 1F East Exit"
     }
   },
   "REGION_PEWTER_CITY_MUSEUM_2F/MAIN": {
@@ -592,12 +592,12 @@
     "exits": {
       "REGION_CERULEAN_CITY/OUTSKIRTS": ["Cerulean City Ledge (Bottom)", "Cerulean City Cuttable Tree (Top)"],
       "REGION_CERULEAN_CITY/VISIT": "Visit Cerulean City",
-      "REGION_ROUTE4/SOUTHEAST": "Cerulean City Exit (West - Bottom)",
-      "REGION_ROUTE24/MAIN": "Cerulean City Exit (North - Right)"
+      "REGION_ROUTE4/SOUTHEAST": "Cerulean City West Exit",
+      "REGION_ROUTE24/MAIN": "Cerulean City North Exit"
     },
     "warps": {
-      "MAP_CERULEAN_CITY:0/MAP_CERULEAN_CITY_HOUSE1:0": "Badge Guy's House Entrance (Front)",
-      "MAP_CERULEAN_CITY:1/MAP_CERULEAN_CITY_HOUSE2:0": "Robbed House Entrance (Front)",
+      "MAP_CERULEAN_CITY:0/MAP_CERULEAN_CITY_HOUSE1:0": "Badge Guy's House Front Entrance",
+      "MAP_CERULEAN_CITY:1/MAP_CERULEAN_CITY_HOUSE2:0": "Robbed House Front Entrance",
       "MAP_CERULEAN_CITY:2/MAP_CERULEAN_CITY_HOUSE3:0": "Cerulean Trade House Entrance",
       "MAP_CERULEAN_CITY:3/MAP_CERULEAN_CITY_POKEMON_CENTER_1F:0": "Cerulean Pokemon Center Entrance",
       "MAP_CERULEAN_CITY:4/MAP_CERULEAN_CITY_GYM:0": "Cerulean Gym Entrance",
@@ -623,7 +623,7 @@
       "REGION_CERULEAN_CITY/VISIT": "Visit Cerulean City (Backyard)"
     },
     "warps": {
-      "MAP_CERULEAN_CITY:9/MAP_CERULEAN_CITY_HOUSE1:1": "Badge Guy's House Entrance (Back)"
+      "MAP_CERULEAN_CITY:9/MAP_CERULEAN_CITY_HOUSE1:1": "Badge Guy's House Back Entrance"
     }
   },
   "REGION_CERULEAN_CITY/OUTSKIRTS": {
@@ -642,11 +642,11 @@
     "exits": {
       "REGION_CERULEAN_CITY/MAIN": ["Cerulean City Ledge (Top)", "Cerulean City Cuttable Tree (Bottom)"],
       "REGION_CERULEAN_CITY/VISIT": "Visit Cerulean City (Outskirts)",
-      "REGION_ROUTE5/MAIN": "Cerulean City Exit (South)",
-      "REGION_ROUTE9/WEST": "Cerulean City Exit (East)"
+      "REGION_ROUTE5/MAIN": "Cerulean City South Exit",
+      "REGION_ROUTE9/WEST": "Cerulean City East Exit"
     },
     "warps": {
-      "MAP_CERULEAN_CITY:10/MAP_CERULEAN_CITY_HOUSE2:1": "Robbed House Entrance (Back)"
+      "MAP_CERULEAN_CITY:10/MAP_CERULEAN_CITY_HOUSE2:1": "Robbed House Back Entrance"
     }
   },
   "REGION_CERULEAN_CITY/WATER": {
@@ -661,8 +661,8 @@
     "events": [],
     "exits": {
       "REGION_CERULEAN_CITY/NEAR_CAVE": "Cerulean City Landing Spot",
-      "REGION_ROUTE4/WATER": "Cerulean City Exit (West - Center)",
-      "REGION_ROUTE24/WATER": "Cerulean City Exit (North - Left)"
+      "REGION_ROUTE4/WATER": "Cerulean City West Exit (Water)",
+      "REGION_ROUTE24/WATER": "Cerulean City North Exit (Water)"
     },
     "warps": {}
   },
@@ -679,7 +679,7 @@
     "exits": {
       "REGION_CERULEAN_CITY/WATER": "Cerulean City Surfing Spot",
       "REGION_CERULEAN_CITY/VISIT": "Visit Cerulean City (Near Cave)",
-      "REGION_ROUTE4/NORTHEAST": "Cerulean City Exit (West - Top)"
+      "REGION_ROUTE4/NORTHEAST": "Cerulean City West Exit (Near Cave)"
     },
     "warps": {
       "MAP_CERULEAN_CITY:8/MAP_CERULEAN_CAVE_1F:0": "Cerulean Cave Entrance"
@@ -697,8 +697,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_CERULEAN_CITY_HOUSE1:0/MAP_CERULEAN_CITY:0": "Badge Guy's House Exit (Front)",
-      "MAP_CERULEAN_CITY_HOUSE1:1/MAP_CERULEAN_CITY:9": "Badge Guy's House Exit (Back)"
+      "MAP_CERULEAN_CITY_HOUSE1:0/MAP_CERULEAN_CITY:0": "Badge Guy's House Front Exit",
+      "MAP_CERULEAN_CITY_HOUSE1:1/MAP_CERULEAN_CITY:9": "Badge Guy's House Back Exit"
     }
   },
   "REGION_CERULEAN_CITY_HOUSE2/MAIN": {
@@ -713,8 +713,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_CERULEAN_CITY_HOUSE2:0/MAP_CERULEAN_CITY:1": "Robbed House Exit (Front)",
-      "MAP_CERULEAN_CITY_HOUSE2:1/MAP_CERULEAN_CITY:10": "Robbed House Exit (Back)"
+      "MAP_CERULEAN_CITY_HOUSE2:0/MAP_CERULEAN_CITY:1": "Robbed House Front Exit",
+      "MAP_CERULEAN_CITY_HOUSE2:1/MAP_CERULEAN_CITY:10": "Robbed House Back Exit"
     }
   },
   "REGION_CERULEAN_CITY_HOUSE3/MAIN": {
@@ -901,8 +901,8 @@
       "REGION_VERMILION_CITY/NEAR_SIGN": "Vermilion City Read Sign (Top)",
       "REGION_VERMILION_CITY/WATER": "Vermilion City Surfing Spot",
       "REGION_VERMILION_CITY/VISIT": "Visit Vermilion City",
-      "REGION_ROUTE6/MAIN": "Vermilion City Exit (North)",
-      "REGION_ROUTE11/WEST": "Vermilion City Exit (East)",
+      "REGION_ROUTE6/MAIN": "Vermilion City North Exit",
+      "REGION_ROUTE11/WEST": "Vermilion City East Exit",
       "REGION_SEAGALLOP": "Board Seagallop (Vermilion City)"
     },
     "warps": {
@@ -1162,9 +1162,9 @@
     "events": [],
     "exits": {
       "REGION_LAVENDER_TOWN/VISIT": "Visit Lavender Town",
-      "REGION_ROUTE8/MAIN": "Lavender Town Exit (West)",
-      "REGION_ROUTE10/SOUTH": "Lavender Town Exit (North)",
-      "REGION_ROUTE12/NORTH": "Lavender Town Exit (South)"
+      "REGION_ROUTE8/MAIN": "Lavender Town West Exit",
+      "REGION_ROUTE10/SOUTH": "Lavender Town North Exit",
+      "REGION_ROUTE12/NORTH": "Lavender Town South Exit"
     },
     "warps": {
       "MAP_LAVENDER_TOWN:0/MAP_POKEMON_TOWER_1F:0": "Pokemon Tower Entrance",
@@ -1314,20 +1314,20 @@
       "REGION_CELADON_CITY/NEAR_GYM": "Celadon City Cuttable Tree (Top)",
       "REGION_CELADON_CITY/WATER": "Celadon City Surfing Spot",
       "REGION_CELADON_CITY/VISIT": "Visit Celadon City",
-      "REGION_ROUTE7/MAIN": "Celadon City Exit (East)",
-      "REGION_ROUTE16/SOUTHEAST": "Celadon City Exit (West)"
+      "REGION_ROUTE7/MAIN": "Celadon City East Exit",
+      "REGION_ROUTE16/SOUTHEAST": "Celadon City West Exit"
     },
     "warps": {
       "MAP_CELADON_CITY:0/MAP_CELADON_CITY_GAME_CORNER:0": "Celadon Game Corner Entrance",
-      "MAP_CELADON_CITY:1/MAP_CELADON_CITY_DEPARTMENT_STORE_1F:0": "Celadon Department Store Entrance (West)",
-      "MAP_CELADON_CITY:2/MAP_CELADON_CITY_DEPARTMENT_STORE_1F:1": "Celadon Department Store Entrance (East)",
-      "MAP_CELADON_CITY:3/MAP_CELADON_CITY_CONDOMINIUMS_1F:0": "Celadon Condominiums Entrance (Front)",
+      "MAP_CELADON_CITY:1/MAP_CELADON_CITY_DEPARTMENT_STORE_1F:0": "Celadon Department Store West Entrance",
+      "MAP_CELADON_CITY:2/MAP_CELADON_CITY_DEPARTMENT_STORE_1F:1": "Celadon Department Store East Entrance",
+      "MAP_CELADON_CITY:3/MAP_CELADON_CITY_CONDOMINIUMS_1F:0": "Celadon Condominiums Front Entrance",
       "MAP_CELADON_CITY:4/MAP_CELADON_CITY_POKEMON_CENTER_1F:0": "Celadon Pokemon Center Entrance",
       "MAP_CELADON_CITY:5/MAP_CELADON_CITY_GAME_CORNER_PRIZE_ROOM:0": "Celadon Game Corner Prize Room Entrance",
       "MAP_CELADON_CITY:7/MAP_CELADON_CITY_RESTAURANT:0": "Celadon Restaurant Entrance",
       "MAP_CELADON_CITY:8/MAP_CELADON_CITY_HOUSE1:0": "Celadon Rocket House Entrance",
       "MAP_CELADON_CITY:9/MAP_CELADON_CITY_HOTEL:0": "Celadon Hotel Entrance",
-      "MAP_CELADON_CITY:10/MAP_CELADON_CITY_CONDOMINIUMS_1F:3": "Celadon Condominiums Entrance (Back)"
+      "MAP_CELADON_CITY:10/MAP_CELADON_CITY_CONDOMINIUMS_1F:3": "Celadon Condominiums Back Entrance"
     }
   },
   "REGION_CELADON_CITY/NEAR_GYM": {
@@ -1410,8 +1410,8 @@
       "REGION_CELADON_CITY_DEPARTMENT_STORE_ELEVATOR/MAIN": "Celadon Department Store 1F Elevator"
     },
     "warps": {
-      "MAP_CELADON_CITY_DEPARTMENT_STORE_1F:0/MAP_CELADON_CITY:1": "Celadon Department Store 1F Exit (West)",
-      "MAP_CELADON_CITY_DEPARTMENT_STORE_1F:1/MAP_CELADON_CITY:2": "Celadon Department Store 1F Exit (East)",
+      "MAP_CELADON_CITY_DEPARTMENT_STORE_1F:0/MAP_CELADON_CITY:1": "Celadon Department Store 1F West Exit",
+      "MAP_CELADON_CITY_DEPARTMENT_STORE_1F:1/MAP_CELADON_CITY:2": "Celadon Department Store 1F East Exit",
       "MAP_CELADON_CITY_DEPARTMENT_STORE_1F:3/MAP_CELADON_CITY_DEPARTMENT_STORE_2F:1": "Celadon Department Store 1F Stairs"
     }
   },
@@ -1591,7 +1591,7 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_CELADON_CITY_CONDOMINIUMS_1F:0/MAP_CELADON_CITY:3": "Celadon Condominiums 1F Exit (Front)",
+      "MAP_CELADON_CITY_CONDOMINIUMS_1F:0/MAP_CELADON_CITY:3": "Celadon Condominiums 1F Front Exit",
       "MAP_CELADON_CITY_CONDOMINIUMS_1F:2/MAP_CELADON_CITY_CONDOMINIUMS_2F:3": "Celadon Condominiums 1F Northeast Stairs"
     }
   },
@@ -1608,7 +1608,7 @@
     "exits": {},
     "warps": {
       "MAP_CELADON_CITY_CONDOMINIUMS_1F:1/MAP_CELADON_CITY_CONDOMINIUMS_2F:0": "Celadon Condominiums 1F Northwest Stairs",
-      "MAP_CELADON_CITY_CONDOMINIUMS_1F:3/MAP_CELADON_CITY:10": "Celadon Condominiums 1F Exit (Back)"
+      "MAP_CELADON_CITY_CONDOMINIUMS_1F:3/MAP_CELADON_CITY:10": "Celadon Condominiums 1F Back Exit"
     }
   },
   "REGION_CELADON_CITY_CONDOMINIUMS_2F/FRONT": {
@@ -1917,9 +1917,9 @@
     "events": [],
     "exits": {
       "REGION_FUCHSIA_CITY/VISIT": "Visit Fuchsia City",
-      "REGION_ROUTE15/SOUTHWEST": "Fuchsia City Exit (East)",
-      "REGION_ROUTE18/EAST": "Fuchsia City Exit (West)",
-      "REGION_ROUTE19/MAIN": "Fuchsia City Exit (South)"
+      "REGION_ROUTE15/SOUTHWEST": "Fuchsia City East Exit",
+      "REGION_ROUTE18/EAST": "Fuchsia City West Exit",
+      "REGION_ROUTE19/MAIN": "Fuchsia City South Exit"
     },
     "warps": {
       "MAP_FUCHSIA_CITY:0/MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE:1": "Safari Zone Lobby Entrance",
@@ -1929,7 +1929,7 @@
       "MAP_FUCHSIA_CITY:4/MAP_FUCHSIA_CITY_GYM:0": "Fuchsia Gym Entrance",
       "MAP_FUCHSIA_CITY:5/MAP_FUCHSIA_CITY_HOUSE1:0": "Bill's Grandpa's House Entrance",
       "MAP_FUCHSIA_CITY:6/MAP_FUCHSIA_CITY_POKEMON_CENTER_1F:0": "Fuchsia Pokemon Center Entrance",
-      "MAP_FUCHSIA_CITY:7/MAP_FUCHSIA_CITY_HOUSE2:0": "Fuchsia Fishing House Entrance (Front)",
+      "MAP_FUCHSIA_CITY:7/MAP_FUCHSIA_CITY_HOUSE2:0": "Fuchsia Fishing House Front Entrance",
       "MAP_FUCHSIA_CITY:9/MAP_FUCHSIA_CITY_HOUSE3:0": "Move Deleter's House Entrance"
     }
   },
@@ -1950,7 +1950,7 @@
       "REGION_FUCHSIA_CITY/VISIT": "Visit Fuchsia City (Backyard)"
     },
     "warps": {
-      "MAP_FUCHSIA_CITY:8/MAP_FUCHSIA_CITY_HOUSE2:1": "Fuchsia Fishing House Entrance (Back)"
+      "MAP_FUCHSIA_CITY:8/MAP_FUCHSIA_CITY_HOUSE2:1": "Fuchsia Fishing House Back Entrance"
     }
   },
   "REGION_FUCHSIA_CITY/WATER": {
@@ -2131,8 +2131,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_FUCHSIA_CITY_HOUSE2:0/MAP_FUCHSIA_CITY:7": "Fuchsia Fishing House Exit (Front)",
-      "MAP_FUCHSIA_CITY_HOUSE2:1/MAP_FUCHSIA_CITY:8": "Fuchsia Fishing House Exit (Back)"
+      "MAP_FUCHSIA_CITY_HOUSE2:0/MAP_FUCHSIA_CITY:7": "Fuchsia Fishing House Front Exit",
+      "MAP_FUCHSIA_CITY_HOUSE2:1/MAP_FUCHSIA_CITY:8": "Fuchsia Fishing House Back Exit"
     }
   },
   "REGION_FUCHSIA_CITY_HOUSE3/MAIN": {
@@ -2190,10 +2190,10 @@
       "MAP_SAFFRON_CITY:5/MAP_SAFFRON_CITY_MART:0": "Saffron Poke Mart Entrance",
       "MAP_SAFFRON_CITY:6/MAP_SAFFRON_CITY_POKEMON_CENTER_1F:0": "Saffron Pokemon Center Entrance",
       "MAP_SAFFRON_CITY:7/MAP_SAFFRON_CITY_MR_PSYCHICS_HOUSE:0": "Mr. Psychic's House Entrance",
-      "MAP_SAFFRON_CITY:8/MAP_ROUTE7_EAST_ENTRANCE:1": "Route 7 Gate Entrance (East)",
-      "MAP_SAFFRON_CITY:9,10/MAP_ROUTE5_SOUTH_ENTRANCE:1": "Route 5 Gate Entrance (South)",
-      "MAP_SAFFRON_CITY:11/MAP_ROUTE8_WEST_ENTRANCE:0": "Route 8 Gate Entrance (West)",
-      "MAP_SAFFRON_CITY:12,13/MAP_ROUTE6_NORTH_ENTRANCE:0": "Route 6 Gate Entrance (North)",
+      "MAP_SAFFRON_CITY:8/MAP_ROUTE7_EAST_ENTRANCE:1": "Route 7 Gate East Entrance",
+      "MAP_SAFFRON_CITY:9,10/MAP_ROUTE5_SOUTH_ENTRANCE:1": "Route 5 Gate South Entrance",
+      "MAP_SAFFRON_CITY:11/MAP_ROUTE8_WEST_ENTRANCE:0": "Route 8 Gate West Entrance",
+      "MAP_SAFFRON_CITY:12,13/MAP_ROUTE6_NORTH_ENTRANCE:0": "Route 6 Gate North Entrance",
       "MAP_SAFFRON_CITY:14/MAP_SAFFRON_CITY_POKEMON_TRAINER_FAN_CLUB:0": "Pokemon Trainer Fan Club Entrance"
     }
   },
@@ -2570,7 +2570,7 @@
     "exits": {
       "REGION_CINNABAR_ISLAND/WATER": "Cinnabar Island Surfing Spot",
       "REGION_CINNABAR_ISLAND/VISIT": "Visit Cinnabar Island",
-      "REGION_ROUTE21/MAIN": "Cinnabar Island Exit (North)"
+      "REGION_ROUTE21/MAIN": "Cinnabar Island North Exit"
     },
     "warps": {
       "MAP_CINNABAR_ISLAND:0/MAP_POKEMON_MANSION_1F:0": "Pokemon Mansion Entrance",
@@ -2592,7 +2592,7 @@
     "events": [],
     "exits": {
       "REGION_CINNABAR_ISLAND/MAIN": "Cinnabar Island Landing Spot",
-      "REGION_ROUTE20/WEST": "Cinnabar Island Exit (East)"
+      "REGION_ROUTE20/WEST": "Cinnabar Island East Exit"
     },
     "warps": {}
   },
@@ -2790,7 +2790,7 @@
     "events": [],
     "exits": {
       "REGION_INDIGO_PLATEAU_EXTERIOR/VISIT": "Visit Indigo Plateau",
-      "REGION_ROUTE23/NORTH": "Indigo Plateau Exit (South)"
+      "REGION_ROUTE23/NORTH": "Indigo Plateau South Exit"
     },
     "warps": {
       "MAP_INDIGO_PLATEAU_EXTERIOR:0/MAP_INDIGO_PLATEAU_POKEMON_CENTER_1F:0": "Indigo Plateau Pokemon Center Entrance"
@@ -2857,8 +2857,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_POKEMON_LEAGUE_LORELEIS_ROOM:0/MAP_INDIGO_PLATEAU_POKEMON_CENTER_1F:1": "Lorelei's Room Exit (South)",
-      "MAP_POKEMON_LEAGUE_LORELEIS_ROOM:1/MAP_POKEMON_LEAGUE_BRUNOS_ROOM:0": "Lorelei's Room Exit (North)"
+      "MAP_POKEMON_LEAGUE_LORELEIS_ROOM:0/MAP_INDIGO_PLATEAU_POKEMON_CENTER_1F:1": "Lorelei's Room South Exit",
+      "MAP_POKEMON_LEAGUE_LORELEIS_ROOM:1/MAP_POKEMON_LEAGUE_BRUNOS_ROOM:0": "Lorelei's Room North Exit"
     }
   },
   "REGION_POKEMON_LEAGUE_BRUNOS_ROOM/MAIN": {
@@ -2878,8 +2878,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_POKEMON_LEAGUE_BRUNOS_ROOM:0/MAP_POKEMON_LEAGUE_LORELEIS_ROOM:1": "Bruno's Room Exit (South)",
-      "MAP_POKEMON_LEAGUE_BRUNOS_ROOM:1/MAP_POKEMON_LEAGUE_AGATHAS_ROOM:0": "Bruno's Room Exit (North)"
+      "MAP_POKEMON_LEAGUE_BRUNOS_ROOM:0/MAP_POKEMON_LEAGUE_LORELEIS_ROOM:1": "Bruno's Room South Exit",
+      "MAP_POKEMON_LEAGUE_BRUNOS_ROOM:1/MAP_POKEMON_LEAGUE_AGATHAS_ROOM:0": "Bruno's Room North Exit"
     }
   },
   "REGION_POKEMON_LEAGUE_AGATHAS_ROOM/MAIN": {
@@ -2900,8 +2900,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_POKEMON_LEAGUE_AGATHAS_ROOM:0/MAP_POKEMON_LEAGUE_BRUNOS_ROOM:1": "Agatha's Room Exit (South)",
-      "MAP_POKEMON_LEAGUE_AGATHAS_ROOM:1/MAP_POKEMON_LEAGUE_LANCES_ROOM:0": "Agatha's Room Exit (North)"
+      "MAP_POKEMON_LEAGUE_AGATHAS_ROOM:0/MAP_POKEMON_LEAGUE_BRUNOS_ROOM:1": "Agatha's Room South Exit",
+      "MAP_POKEMON_LEAGUE_AGATHAS_ROOM:1/MAP_POKEMON_LEAGUE_LANCES_ROOM:0": "Agatha's Room North Exit"
     }
   },
   "REGION_POKEMON_LEAGUE_LANCES_ROOM/MAIN": {
@@ -2921,8 +2921,8 @@
     "events": [],
     "exits": {},
     "warps": {
-      "MAP_POKEMON_LEAGUE_LANCES_ROOM:0/MAP_POKEMON_LEAGUE_AGATHAS_ROOM:1": "Lance's Room Exit (South)",
-      "MAP_POKEMON_LEAGUE_LANCES_ROOM:1/MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:0": "Lance's Room Exit (North)"
+      "MAP_POKEMON_LEAGUE_LANCES_ROOM:0/MAP_POKEMON_LEAGUE_AGATHAS_ROOM:1": "Lance's Room South Exit",
+      "MAP_POKEMON_LEAGUE_LANCES_ROOM:1/MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:0": "Lance's Room North Exit"
     }
   },
   "REGION_POKEMON_LEAGUE_CHAMPIONS_ROOM/MAIN": {
@@ -2943,8 +2943,8 @@
     ],
     "exits": {},
     "warps": {
-      "MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:0/MAP_POKEMON_LEAGUE_LANCES_ROOM:1": "Champion's Room Exit (South)",
-      "MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:1/MAP_POKEMON_LEAGUE_HALL_OF_FAME:0": "Champion's Room Exit (North)"
+      "MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:0/MAP_POKEMON_LEAGUE_LANCES_ROOM:1": "Champion's Room South Exit",
+      "MAP_POKEMON_LEAGUE_CHAMPIONS_ROOM:1/MAP_POKEMON_LEAGUE_HALL_OF_FAME:0": "Champion's Room North Exit"
     }
   },
   "REGION_POKEMON_LEAGUE_HALL_OF_FAME/MAIN": {

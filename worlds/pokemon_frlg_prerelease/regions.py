@@ -250,7 +250,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
         if dest_warp.parent_region_id is None:
             return True
         # These two warps need to always be included even if the destination warps parent region isn't
-        if source_warp.name in ("Pokemon League Entrance", "Champion's Room Exit (South)"):
+        if source_warp.name in ("Pokemon League Entrance", "Champion's Room South Exit"):
             return False
         if exclude_region(dest_warp.parent_region_id):
             return True
@@ -355,7 +355,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             if world.options.skip_elite_four:
                 if source_warp.name == "Pokemon League Entrance":
                     dest_region_name = "Champion's Room"
-                elif source_warp.name == "Champion's Room Exit (South)":
+                elif source_warp.name == "Champion's Room South Exit":
                     dest_region_name = "Indigo Plateau Pokemon Center 1F"
             connections.append((source_warp.name, region_name, dest_region_name))
 
@@ -518,9 +518,11 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             blacklisted_starting_towns = [v for k, v in starting_town_blacklist_map.items()
                                           if k in world.options.starting_town_blacklist.value]
             allowed_starting_towns = [town for town in starting_town_map.keys()
-                                      if town not in forbidden_starting_towns and town not in blacklisted_starting_towns]
+                                      if town not in forbidden_starting_towns
+                                      and town not in blacklisted_starting_towns]
             if len(allowed_starting_towns) == 0:
-                allowed_starting_towns = [town for town in starting_town_map.keys() if town not in forbidden_starting_towns]
+                allowed_starting_towns = [town for town in starting_town_map.keys()
+                                          if town not in forbidden_starting_towns]
             world.starting_town = world.random.choice(allowed_starting_towns)
             world.starting_respawn = world.starting_town
         else:
@@ -576,11 +578,11 @@ def create_indirect_conditions(world: "PokemonFRLGWorld"):
     indirect_conditions: List[Tuple[List[str], List[str]]] = [
         (["Seafoam Islands 1F", "Seafoam Islands B1F (West)", "Seafoam Islands B1F (Northeast)",
          "Seafoam Islands B2F (Northwest)", "Seafoam Islands B2F (Northeast)"],
-         ["Seafoam Islands B3F Surfing Spot (West - Bottom)", "Seafoam Islands B3F Landing Spot (West - Bottom)",
-          "Seafoam Islands B3F Landing Spot (East - Bottom)", "Seafoam Islands B3F Surfing Spot (East - Bottom)",
+         ["Seafoam Islands B3F South Surfing Spot (West)", "Seafoam Islands B3F South Landing Spot (West)",
+          "Seafoam Islands B3F South Landing Spot (East)", "Seafoam Islands B3F South Surfing Spot (East)",
           "Seafoam Islands B3F Water Battle (South Water)"]),
         (["Seafoam Islands B3F (West)"],
-         ["Seafoam Islands B4F Surfing Spot (Left)", "Seafoam Islands B4F Landing Spot (Near Articuno)"]),
+         ["Seafoam Islands B4F West Surfing Spot", "Seafoam Islands B4F West Landing Spot (Near Articuno)"]),
         (["Pokemon Mansion 1F", "Pokemon Mansion 2F", "Pokemon Mansion 3F (North)", "Pokemon Mansion B1F"],
          ["Pokemon Mansion 1F South Barrier", "Pokemon Mansion 1F Southeast Barrier",
           "Pokemon Mansion 2F Center Barrier (Top)", "Pokemon Mansion 2F Center Barrier (Bottom)",

@@ -366,7 +366,6 @@ def place_shop_items(world: "PokemonFRLGWorld") -> None:
                     not world.get_location(data.locations[location_id].name).is_event):
                 non_progression_shop_locations.append(world.get_location(data.locations[location_id].name))
 
-
     renewable_items = []
     if world.options.vending_machines:
         renewable_items.extend(["Fresh Water", "Soda Pop", "Lemonade"])
@@ -492,12 +491,13 @@ def set_free_fly(world: "PokemonFRLGWorld") -> None:
         )
         item_id = data.constants[town_map_fly_location_id]
         town_map_fly_location.place_locked_item(PokemonFRLGItem(data.items[item_id].name,
-                                                                 ItemClassification.progression,
-                                                                 None,
-                                                                 world.player))
+                                                                ItemClassification.progression,
+                                                                None,
+                                                                world.player))
         town_map_fly_location.access_rule = lambda state: state.has("Town Map", world.player)
         town_map_fly_location.show_in_spoiler = False
         start_region.locations.append(town_map_fly_location)
+
 
 def shuffle_badges(world: "PokemonFRLGWorld") -> None:
     if world.is_universal_tracker:
