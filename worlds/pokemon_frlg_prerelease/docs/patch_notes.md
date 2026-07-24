@@ -5,6 +5,7 @@
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
 ## Apworld Updates
 * Updated several region and entrance names for better clarity in the spoiler log and when using UT
+* Option groups have been added
 * New option `skip_intro`
   * Set whether the vanilla intro sequence where you get your starter Pokémon from Oak's Lab should be skipped or not. If the intro is skipped then you will be prompted to select your starter Pokémon during Oak's initial speech
   * This setting is forced on if Random Starting Town or any type of Entrance Randomization is on
@@ -14,6 +15,8 @@
   * Now applies to Game Corner Prize Room item purchases as well
 * New option `item_appearance_matches_contents`
   * Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain useful items, and red balls contain filler or trap items
+* Removed option `modify_world_state`
+  * The options that were originally under this have been broken into individual options to allow greater control over them
 * New option `elevators_condition`
   * Sets the conditions the Celadon Department Store and Silph Co. elevators are in. Has no logical implications unless interior warps are shuffled
     * Open: The elevators can be used normally

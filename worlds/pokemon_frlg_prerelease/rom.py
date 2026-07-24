@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Dict, List, Tuple
 from worlds.Files import APPatchExtension, APProcedurePatch, APTokenMixin, APTokenTypes
 from settings import get_settings
 from .data import data, GAME_OPTIONS, EvolutionMethodEnum, TrainerPokemonDataTypeEnum
-from.groups import location_groups
+from .groups import location_groups
 from .items import is_single_purchase_item
 from .locations import PokemonFRLGLocation
 from .options import (CardKey, Dexsanity, FlashRequired, ForceFullyEvolved, IslandPasses, ItemfinderRequired,
@@ -20,7 +20,7 @@ from .pokemon import randomize_tutor_moves
 from .util import bool_array_to_int, bound, encode_string
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 FIRERED_REV0_HASH = "e26ee0d44e809351c8ce2d73c7400cdd"
 FIRERED_REV1_HASH = "51901a6e40661b3914aa333c802e24e8"
@@ -383,67 +383,67 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(address, offsets["route3Requirement"], struct.pack("<B", route_3_condition))
 
     # Set Cerulean City roadblocks
-    open_cerulean = 1 if "Remove Cerulean Roadblocks" in world.options.modify_world_state.value else 0
+    open_cerulean = world.options.remove_cerulean_city_roadblocks.value
     patch.write_token(address, offsets["openCeruleanCity"], struct.pack("<B", open_cerulean))
 
-    # Set Route 2 modification
-    route_2_modified = 1 if "Modify Route 2" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["modifyRoute2"], struct.pack("<B", route_2_modified))
+    # Set Diglett's Cave access
+    digletts_cave_access = world.options.digletts_cave_roadblock.value
+    patch.write_token(address, offsets["diglettsCaveRoadblock"], struct.pack("<B", digletts_cave_access))
 
-    # Set Route 9 modification
-    route_9_modified = 1 if "Modify Route 9" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["modifyRoute9"], struct.pack("<B", route_9_modified))
+    # Set Route 9 access
+    route_9_access = world.options.route_9_roadblock.value
+    patch.write_token(address, offsets["route9Roadblock"], struct.pack("<B", route_9_access))
 
-    # Set Underground Tunnels blocked
-    block_tunnels = 1 if "Block Tunnels" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["blockTunnels"], struct.pack("<B", block_tunnels))
+    # Set Underground Paths blocked
+    block_paths = world.options.block_underground_paths.value
+    patch.write_token(address, offsets["blockUndergroundPaths"], struct.pack("<B", block_paths))
 
     # Set Route 12 boulders
-    route_12_boulders = 1 if "Route 12 Boulders" in world.options.modify_world_state.value else 0
+    route_12_boulders = world.options.route_12_boulders.value
     patch.write_token(address, offsets["route12Boulders"], struct.pack("<B", route_12_boulders))
 
-    # Set Route 10 modification
-    route_10_modified = 1 if "Modify Route 10" in world.options.modify_world_state.value else 0
-    patch.write_token(address, data.ap_offsets["modifyRoute10"], struct.pack("<B", route_10_modified))
+    # Set Route 10 waterfall
+    route_10_waterfall = world.options.route_10_waterfall.value
+    patch.write_token(address, data.ap_offsets["route10Waterfall"], struct.pack("<B", route_10_waterfall))
 
-    # Set Route 12 modification
-    route_12_modified = 1 if "Modify Route 12" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["modifyRoute12"], struct.pack("<B", route_12_modified))
+    # Set Route 12 rocks
+    route_12_rocks = world.options.route_12_rocks.value
+    patch.write_token(address, offsets["route12Rocks"], struct.pack("<B", route_12_rocks))
 
-    # Set Route 16 modification
-    route_16_modified = 1 if "Modify Route 16" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["modifyRoute16"], struct.pack("<B", route_16_modified))
+    # Set Route 16 rock
+    route_16_rock = world.options.route_16_rock.value
+    patch.write_token(address, offsets["route16Rock"], struct.pack("<B", route_16_rock))
 
     # Set open Silph Co.
-    open_silph = 1 if "Open Silph" in world.options.modify_world_state.value else 0
+    open_silph = world.options.open_silph_co.value
     patch.write_token(address, offsets["openSilphCo"], struct.pack("<B", open_silph))
 
     # Set remove Saffron Rockets
-    remove_saffron_rockets = 1 if "Remove Saffron Rockets" in world.options.modify_world_state.value else 0
+    remove_saffron_rockets = world.options.remove_saffron_rockets.value
     patch.write_token(address, offsets["removeSaffronRockets"], struct.pack("<B", remove_saffron_rockets))
 
-    # Set Route 23 modification
-    route_23_modified = 1 if "Modify Route 23" in world.options.modify_world_state.value else 0
-    patch.write_token(address, offsets["modifyRoute23"], struct.pack("<B", route_23_modified))
+    # Set Route 23 waterfall
+    route_23_waterfall = world.options.route_23_waterfall.value
+    patch.write_token(address, offsets["route23Waterfall"], struct.pack("<B", route_23_waterfall))
 
     # Set Route 23 trees
-    route_23_trees = 1 if "Route 23 Trees" in world.options.modify_world_state.value else 0
+    route_23_trees = world.options.route_23_trees.value
     patch.write_token(address, offsets["route23Trees"], struct.pack("<B", route_23_trees))
 
     # Set Pokémon Tower blocked
-    block_tower = 1 if "Block Tower" in world.options.modify_world_state.value else 0
+    block_tower = world.options.block_pokemon_tower.value
     patch.write_token(address, offsets["blockPokemonTower"], struct.pack("<B", block_tower))
 
     # Set Victory Road rocks
-    victory_road_rocks = 1 if "Victory Road Rocks" in world.options.modify_world_state.value else 0
+    victory_road_rocks = world.options.victory_road_rocks.value
     patch.write_token(address, offsets["victoryRoadRocks"], struct.pack("<B", victory_road_rocks))
 
     # Set early gossipers
-    early_gossipers = 1 if "Early Gossipers" in world.options.modify_world_state.value else 0
+    early_gossipers = world.options.early_gossipers.value
     patch.write_token(address, offsets["earlyFameGossip"], struct.pack("<B", early_gossipers))
 
     # Set block Vermilion sailing
-    block_vermilion_sailing = 1 if "Block Vermilion Sailing" in world.options.modify_world_state.value else 0
+    block_vermilion_sailing = world.options.block_vermilion_sailing.value
     patch.write_token(address, offsets["blockSailing"], struct.pack("<B", block_vermilion_sailing))
 
     # Set all elevators locked
@@ -664,7 +664,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
         patch.write_token(address, offsets["version"] + j, struct.pack("<B", b))
 
     # Set total darkness
-    if "Total Darkness" in world.options.modify_world_state.value:
+    if world.options.total_darkness:
         flash_level_address = data.rom_addresses["sFlashLevelToRadius"]
         patch.write_token(flash_level_address, 8, struct.pack("<H", 0))
 

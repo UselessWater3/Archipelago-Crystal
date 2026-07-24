@@ -10,7 +10,7 @@ from .locations import PokemonFRLGLocation
 from .options import LevelScaling, PewterCityRoadblock, RandomizeFlyDestinations
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 STATIC_POKEMON_SPOILER_NAMES = {
     "TRADE_POKEMON_MR_MIME": "Route 2 Trade House",
@@ -279,11 +279,9 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             return True
         if not world.cerulean_cave_included and scaling_id in cerulean_cave_ids:
             return True
-        if ("Block Tower" in world.options.modify_world_state.value and
-                scaling_id == "STATIC_SCALING_POKEMON_TOWER_6F/MAIN"):
+        if world.options.block_pokemon_tower and scaling_id == "STATIC_SCALING_POKEMON_TOWER_6F/MAIN":
             return True
-        if ("Block Tower" not in world.options.modify_world_state.value and
-                scaling_id == "STATIC_SCALING_POKEMON_TOWER_1F/MAIN"):
+        if not world.options.block_pokemon_tower and scaling_id == "STATIC_SCALING_POKEMON_TOWER_1F/MAIN":
             return True
         return False
 

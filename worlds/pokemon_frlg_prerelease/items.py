@@ -5,7 +5,7 @@ from .groups import item_groups
 from .options import ShufflePokedex, ShuffleRunningShoes
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 
 RENEWABLE_PROGRESSION_ITEMS = ("Fresh Water", "Soda Pop", "Lemonade", "King's Rock", "Metal Coat", "Dragon Scale",

@@ -8,7 +8,7 @@ from .options import (ShuffleBuildingEntrances, ShuffleDropdowns, ShuffleDungeon
 from .universal_tracker import ut_set_entrances
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 MAX_GER_ATTEMPTS = 40
 

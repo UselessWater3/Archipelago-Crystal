@@ -9,7 +9,7 @@ from .options import (CardKey, Dexsanity, Goal, IslandPasses, ShuffleFlyUnlocks,
                       ShuffleRunningShoes, Trainersanity)
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 fly_item_id_map = {
     "ITEM_FLY_NONE": 0,
@@ -161,8 +161,7 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
         if not world.options.post_goal_locations and world.options.goal == Goal.option_champion:
             if location_id in post_champion_locations:
                 return True
-            if ("Early Gossipers" not in world.options.modify_world_state.value and
-                    location_id in post_champion_gossiper_locations):
+            if not world.options.early_gossipers and location_id in post_champion_gossiper_locations:
                 return True
         return False
 

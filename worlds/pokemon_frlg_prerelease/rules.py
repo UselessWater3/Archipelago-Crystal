@@ -9,14 +9,15 @@ from worlds.generic.Rules import CollectionRule, add_rule
 from .data import data, NAME_TO_SPECIES_ID, EvolutionMethodEnum, LocationCategory
 from .items import PokemonFRLGGlitchedToken
 from .locations import PokemonFRLGLocation
-from .options import (CeruleanCaveRequirement, ElevatorsCondition, EliteFourRequirement, EliteFourRematchRequirement,
-                      FlashRequired, Goal, IslandPasses, ItemfinderRequired, PewterCityRoadblock,
-                      Route22GateRequirement, Route23GuardRequirement, ViridianCityRoadblock, ViridianGymRequirement)
+from .options import (CeruleanCaveRequirement, DiglettsCaveRoadblock, ElevatorsCondition, EliteFourRequirement,
+                      EliteFourRematchRequirement, FlashRequired, Goal, IslandPasses, ItemfinderRequired,
+                      PewterCityRoadblock, Route9Roadblock, Route22GateRequirement, Route23GuardRequirement,
+                      ViridianCityRoadblock, ViridianGymRequirement)
 from .pokemon import add_hm_compatability
 from .util import HM_TO_COMPATIBILITY_ID, int_to_bool_array
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 BADGE_REQUIREMENTS: Dict[str, str] = {
     "Cut": "Cascade Badge",
@@ -479,7 +480,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Fly Unlock (Seven Island)", player))
 
     # Seagallop
-    if "Block Vermilion Sailing" in options.modify_world_state.value:
+    if options.block_vermilion_sailing:
         add_rule_safe("Depart Seagallop (Vermilion City)",
                       lambda state: state.has("S.S. Ticket", player))
     if options.island_passes.value in {IslandPasses.option_vanilla, IslandPasses.option_progressive}:
@@ -570,7 +571,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Route 2
     add_rule_safe("Route 2 South Cuttable Trees (Left)",
                   lambda state: logic.can_cut(state))
-    if "Modify Route 2" in options.modify_world_state.value:
+    if options.digletts_cave_roadblock.value == DiglettsCaveRoadblock.option_rock_smash:
         add_rule_safe("Route 2 North Cuttable Tree (Top)",
                       lambda state: False)
         add_rule_safe("Route 2 Smashable Rock (Top)",
@@ -579,7 +580,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: False)
         add_rule_safe("Route 2 Smashable Rock (Bottom)",
                       lambda state: logic.can_rock_smash(state))
-    else:
+    elif options.digletts_cave_roadblock.value == DiglettsCaveRoadblock.option_vanilla:
         add_rule_safe("Route 2 North Cuttable Tree (Top)",
                       lambda state: logic.can_cut(state))
         add_rule_safe("Route 2 Smashable Rock (Top)",
@@ -648,7 +649,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_up_ledge(state))
     add_rule_safe("Cerulean City Cuttable Tree (Top)",
                   lambda state: logic.can_cut(state))
-    if "Remove Cerulean Roadblocks" not in options.modify_world_state.value:
+    if not options.remove_cerulean_city_roadblocks:
         add_rule_safe("Cerulean City Cuttable Tree (Top)",
                       lambda state: state.has("Help Bill", player))
         add_rule_safe("Robbed House Front Entrance",
@@ -662,10 +663,10 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_down_ledge(state))
     add_rule_safe("Cerulean City Cuttable Tree (Bottom)",
                   lambda state: logic.can_cut(state))
-    if "Modify Route 9" in options.modify_world_state.value:
+    if options.route_9_roadblock.value == Route9Roadblock.option_rock_smash:
         add_rule_safe("Cerulean City East Exit",
                       lambda state: logic.can_rock_smash(state))
-    else:
+    elif options.route_9_roadblock.value == Route9Roadblock.option_vanilla:
         add_rule_safe("Cerulean City East Exit",
                       lambda state: logic.can_cut(state))
     add_rule_safe("Cerulean City Surfing Spot",
@@ -701,7 +702,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_down_ledge(state))
     add_rule_safe("Route 5 South Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
-    if "Block Tunnels" in options.modify_world_state.value:
+    if options.block_underground_paths:
         add_rule_safe("Route 5 Open Path (Top)",
                       lambda state: False)
         add_rule_safe("Route 5 Smashable Rocks (Top)",
@@ -721,7 +722,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has_any(("Tea", "Blue Tea"), player))
 
     # Route 6
-    if "Block Tunnels" in options.modify_world_state.value:
+    if options.block_underground_paths:
         add_rule_safe("Route 6 Open Path (Bottom)",
                       lambda state: False)
         add_rule_safe("Route 6 Smashable Rocks (Bottom)",
@@ -781,17 +782,17 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Route 11
     add_rule_safe("Route 11 Surfing Spot",
                   lambda state: logic.can_surf(state))
-    if "Route 12 Boulders" in options.modify_world_state.value:
+    if options.route_12_boulders:
         add_rule_safe("Route 11 East Exit",
                       lambda state: logic.can_strength(state))
 
     # Route 9
     add_rule_safe("Route 9 Southwest Ledge",
                   lambda state: logic.can_jump_down_ledge(state))
-    if "Modify Route 9" in options.modify_world_state.value:
+    if options.route_9_roadblock.value == Route9Roadblock.option_rock_smash:
         add_rule_safe("Route 9 West Exit",
                       lambda state: logic.can_rock_smash(state))
-    else:
+    elif options.route_9_roadblock.value == Route9Roadblock.option_vanilla:
         add_rule_safe("Route 9 West Exit",
                       lambda state: logic.can_cut(state))
     add_rule_safe("Route 9 Northwest Ledge",
@@ -804,7 +805,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Route 10
     add_rule_safe("Route 10 Surfing Spot (North)",
                   lambda state: logic.can_surf(state))
-    if "Modify Route 10" in options.modify_world_state.value:
+    if options.route_10_waterfall:
         add_rule_safe("Route 10 Surfing Spot (South)",
                       lambda state: logic.can_surf(state))
     else:
@@ -829,14 +830,14 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_jump_down_ledge(state))
 
     # Lavender Town
-    if "Route 12 Boulders" in options.modify_world_state.value:
+    if options.route_12_boulders:
         add_rule_safe("Lavender Town South Exit",
                       lambda state: logic.can_strength(state))
 
     # Route 8
     add_rule_safe("Route 8 Cuttable Trees",
                   lambda state: logic.can_cut(state))
-    if "Block Tunnels" in options.modify_world_state.value:
+    if options.block_underground_paths:
         add_rule_safe("Route 8 Open Path (Bottom)",
                       lambda state: False)
         add_rule_safe("Route 8 Smashable Rocks (Bottom)",
@@ -856,7 +857,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has_any(("Tea", "Purple Tea"), player))
 
     # Route 7
-    if "Block Tunnels" in options.modify_world_state.value:
+    if options.block_underground_paths:
         add_rule_safe("Route 7 Open Path (Top Right)",
                       lambda state: False)
         add_rule_safe("Route 7 Smashable Rocks (Top Right)",
@@ -922,7 +923,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Lift Key", player))
 
     # Pokemon Tower
-    if "Block Tower" in options.modify_world_state.value:
+    if options.block_pokemon_tower:
         add_rule_safe("Pokemon Tower 1F Open Path (Left)",
                       lambda state: False)
         add_rule_safe("Pokemon Tower 1F Reveal Ghost (Left)",
@@ -953,7 +954,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                                 not logic.randomizing_entrances)
 
     # Route 12
-    if "Route 12 Boulders" in options.modify_world_state.value:
+    if options.route_12_boulders:
         add_rule_safe("Route 12 West Exit",
                       lambda state: logic.can_strength(state))
         add_rule_safe("Route 12 North Exit",
@@ -968,7 +969,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
     add_rule_safe("Route 12 Play Poke Flute (Top)",
                   lambda state: state.has("Poke Flute", player))
-    if "Modify Route 12" in options.modify_world_state.value:
+    if options.route_12_rocks:
         add_rule_safe("Route 12 Open Path (Top)",
                       lambda state: False)
         add_rule_safe("Route 12 Open Path (Bottom)",
@@ -983,7 +984,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Poke Flute", player))
 
     # Route 13
-    if "Route 12 Boulders" in options.modify_world_state.value:
+    if options.route_12_boulders:
         add_rule_safe("Route 13 North Exit",
                       lambda state: logic.can_strength(state))
     add_rule_safe("Route 13 Surfing Spot",
@@ -1010,7 +1011,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Poke Flute", player))
     add_rule_safe("Route 16 Cuttable Tree (Top)",
                   lambda state: logic.can_cut(state))
-    if "Modify Route 16" in options.modify_world_state.value:
+    if options.route_16_rock:
         add_rule_safe("Route 16 Smashable Rock (Top)",
                       lambda state: logic.can_rock_smash(state))
         add_rule_safe("Route 16 Smashable Rock (Bottom)",
@@ -1050,8 +1051,8 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Saffron City
-    if "Remove Saffron Rockets" not in options.modify_world_state.value:
-        if "Open Silph" not in options.modify_world_state.value:
+    if not options.remove_saffron_rockets:
+        if not options.open_silph_co:
             add_rule_safe("Silph Co. Entrance",
                           lambda state: state.has_any(("Rescue Mr. Fuji", "Liberate Silph Co."), player))
         add_rule_safe("Copycat's House Entrance",
@@ -1256,7 +1257,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Route 23
     add_rule_safe("Route 23 Surfing Spot (South)",
                   lambda state: logic.can_surf(state))
-    if "Modify Route 23" in options.modify_world_state.value:
+    if options.route_23_waterfall:
         add_rule_safe("Route 23 South Open Path (Bottom)",
                       lambda state: False)
         add_rule_safe("Route 23 Waterfall (Climb)",
@@ -1272,7 +1273,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                       lambda state: False)
     add_rule_safe("Route 23 Surfing Spot (Near Water)",
                   lambda state: logic.can_surf(state))
-    if "Route 23 Trees" in options.modify_world_state.value:
+    if options.route_23_trees:
         add_rule_safe("Route 23 North Open Path (Bottom)",
                       lambda state: False)
         add_rule_safe("Route 23 Cuttable Trees (Bottom)",
@@ -1300,7 +1301,7 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
     # Victory Road
     add_rule_safe("Victory Road 1F Rock Barrier (Left)",
                   lambda state: logic.can_strength(state))
-    if "Victory Road Rocks" in options.modify_world_state.value:
+    if options.victory_road_rocks:
         add_rule_safe("Victory Road 1F Rock Barrier (Left)",
                       lambda state: logic.can_rock_smash(state))
         add_rule_safe("Victory Road 2F West Rock Barrier (Left)",
@@ -1541,12 +1542,12 @@ def set_entrance_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.can_surf(state))
 
     # Navel Rock
-    if "Block Vermilion Sailing" in options.modify_world_state.value:
+    if options.block_vermilion_sailing:
         add_rule_safe("Board Seagallop (Navel Rock)",
                       lambda state: state.has("S.S. Ticket", player))
 
     # Birth Island
-    if "Block Vermilion Sailing" in options.modify_world_state.value:
+    if options.block_vermilion_sailing:
         add_rule_safe("Board Seagallop (Birth Island)",
                       lambda state: state.has("S.S. Ticket", player))
 
@@ -1576,7 +1577,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Oak's Parcel", player))
     add_rule_safe("Professor Oak's Lab - Oak Gift (Post Route 22 Rival)",
                   lambda state: state.has("Defeat Route 22 Rival", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Professor Oak's Lab - Oak's Aide M Info (Right)",
                       lambda state: state.has("Defeat Champion", player))
         add_rule_safe("Professor Oak's Lab - Oak's Aide M Info (Left)",
@@ -1643,7 +1644,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
     add_rule_safe("Cerulean Trade House - Trade Pokemon",
                   lambda state: logic.has_trade_pokemon(state, "Cerulean Trade House - Trade Pokemon") and
                                 state.has("Pokedex", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Cerulean Pokemon Center 1F - Bookshelf Info",
                       lambda state: state.has("Defeat Champion", player))
     add_rule_safe("Cerulean Gym - Hidden Item in Water",
@@ -1711,7 +1712,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
     # Vermilion City
     add_rule_safe("Vermilion Pokemon Center 1F - Bookshelf Info",
                   lambda state: state.has("Defeat Lt. Surge", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Pokemon Fan Club - Worker Info",
                       lambda state: state.has("Defeat Champion", player))
     add_rule_safe("Vermilion Trade House - Trade Pokemon",
@@ -1768,7 +1769,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                                 state.has("Pokedex", player))
 
     # Lavender Town
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Lavender Pokemon Center 1F - Balding Man Info",
                       lambda state: state.has("Defeat Champion", player))
     add_rule_safe("Volunteer Pokemon House - Mr. Fuji Gift",
@@ -1874,7 +1875,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Defeat Misty", player))
     add_rule_safe("Celadon Condominiums 1F - Erika Gift",
                   lambda state: state.has("Defeat Erika", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Celadon Condominiums 1F - Tea Woman Info",
                       lambda state: state.has("Defeat Champion", player))
         add_rule_safe("Celadon Department Store 2F - Woman Info",
@@ -1998,7 +1999,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                                 state.has("Pokedex", player))
 
     # Fuchsia City
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Fuchsia City - Koga's Daughter Info",
                       lambda state: state.has("Defeat Champion", player))
     add_rule_safe("Safari Zone Warden's House - Warden Gift (Return Teeth)",
@@ -2009,7 +2010,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Defeat Koga", player))
 
     # Saffron City
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Saffron City - Battle Girl Info",
                       lambda state: state.has("Defeat Champion", player))
         add_rule_safe("Pokemon Trainer Fan Club - Bookshelf Info",
@@ -2063,7 +2064,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Old Amber", player))
     add_rule_safe("Cinnabar Pokemon Center 1F - Bill Gift",
                   lambda state: state.has("Defeat Blaine", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Cinnabar Pokemon Center 1F - Bookshelf Info",
                       lambda state: state.has("Defeat Champion", player))
 
@@ -2146,7 +2147,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
         add_rule_safe("Champion Rematch Scaling",
                       lambda state: logic.has_lorelei_returned(state) and
                                     logic.has_n_gyms(state, options.elite_four_rematch_count.value))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Indigo Plateau Pokemon Center 1F - Black Belt Info 1",
                       lambda state: state.has("Defeat Champion", player))
         add_rule_safe("Indigo Plateau Pokemon Center 1F - Black Belt Info 2",
@@ -2203,7 +2204,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: logic.trainer_rematch_4(state))
 
     # Ember Spa
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Ember Spa - Black Belt Info",
                       lambda state: state.has("Defeat Champion", player))
 
@@ -2285,7 +2286,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Restore Pokemon Network Machine", player))
 
     # Five Island Town
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Five Island Pokemon Center 1F - Bookshelf Info",
                       lambda state: state.has("Defeat Champion", player))
 
@@ -2365,7 +2366,7 @@ def set_location_rules(world: "PokemonFRLGWorld") -> None:
                   lambda state: state.has("Scanner", player))
     add_rule_safe("Seven Island Town - Scientist Gift 2 (Trade Scanner)",
                   lambda state: state.has("Scanner", player))
-    if "Early Gossipers" not in options.modify_world_state.value:
+    if not options.early_gossipers:
         add_rule_safe("Seven Island Pokemon Center 1F - Bookshelf Info",
                       lambda state: state.has("Defeat Champion", player))
 
