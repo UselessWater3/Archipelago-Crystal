@@ -3,10 +3,12 @@ Functions related to AP regions for Pokémon FireRed and LeafGreen (see ./data/r
 """
 from typing import TYPE_CHECKING, Dict, List, Set, Tuple, Callable
 from BaseClasses import CollectionState, ItemClassification, Region
+from rule_builder.rules import Rule
 from .data import (data, EncounterType, LocationCategory, fly_destination_areas, fly_destination_maps,
                    fly_destination_random, fly_destination_regions, fly_plando_maps, starting_town_blacklist_map)
 from .items import PokemonFRLGItem
 from .locations import PokemonFRLGLocation
+from .logic import HasGoodRod, HasOldRod, HasSuperRod
 from .options import LevelScaling, PewterCityRoadblock, RandomizeFlyDestinations
 
 if TYPE_CHECKING:
@@ -116,13 +118,13 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
     # Used in connect_to_map_encounters. Splits encounter categories into "subcategories" and gives them names
     # and rules so the rods can only access their specific slots.
     encounter_categories: Dict[EncounterType,
-                               List[Tuple[str | None, range, Callable[[CollectionState], bool] | None]]] = {
+                               List[Tuple[str | None, range, Rule | None]]] = {
         EncounterType.LAND: [(None, range(0, 12), None)],
         EncounterType.WATER: [(None, range(0, 5), None)],
         EncounterType.FISHING: [
-            ("Old Rod", range(0, 2), lambda state: world.logic.has_old_rod(state)),
-            ("Good Rod", range(2, 5), lambda state: world.logic.has_good_rod(state)),
-            ("Super Rod", range(5, 10), lambda state: world.logic.has_super_rod(state)),
+            ("Old Rod", range(0, 2), HasOldRod()),
+            ("Good Rod", range(2, 5), HasGoodRod()),
+            ("Super Rod", range(5, 10), HasSuperRod()),
         ],
     }
 
@@ -181,7 +183,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
 
                             # Add access rules
                             if subcategory[2] is not None:
-                                encounter_location.access_rule = subcategory[2]
+                                world.set_rule(encounter_location, subcategory[2])
 
                             # Fill the location with an event for catching that species
                             encounter_location.place_locked_item(PokemonFRLGItem(
@@ -453,7 +455,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
                                                                         world.player))
                         scaling_event.show_in_spoiler = False
                         if event[2] is not None:
-                            scaling_event.access_rule = event[2]
+                            world.set_rule(scaling_event, event[2])
                         region.locations.append(scaling_event)
 
         for region in regions.values():

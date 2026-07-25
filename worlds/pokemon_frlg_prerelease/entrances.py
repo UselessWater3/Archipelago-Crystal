@@ -1,8 +1,10 @@
 from enum import IntEnum
 from typing import TYPE_CHECKING, Dict, List
-from BaseClasses import Entrance, EntranceType, Region
+from BaseClasses import Callable, CollectionState, Entrance, EntranceType, Region
 from entrance_rando import (ERPlacementState, EntranceRandomizationError, disconnect_entrance_for_randomization,
                             randomize_entrances)
+from rule_builder.rules import False_
+
 from .data import data
 from .options import (ShuffleBuildingEntrances, ShuffleDropdowns, ShuffleDungeonEntrances, ShuffleWarpTiles)
 from .universal_tracker import ut_set_entrances
@@ -606,13 +608,6 @@ def _set_seafoam_entrances(world: "PokemonFRLGWorld") -> None:
 
 
 def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
-    def get_entrance_safe(entrance_name: str) -> Entrance | None:
-        try:
-            entrance = world.get_entrance(entrance_name)
-        except KeyError:
-            return None
-        return entrance
-
     def get_entrance_type(entrance_name: str) -> EntranceType:
         if (entrance_name in SEAFOAM_ISLANDS_DROPS
                 or entrance_name in POKEMON_MANSION_DROPS
@@ -666,8 +661,8 @@ def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
         shuffled_entrances.extend(DOTTED_HOLE_DROPS)
 
     for entrance_name in shuffled_entrances:
-        entrance = get_entrance_safe(entrance_name)
-        if entrance:
+        try:
+            entrance = world.get_entrance(entrance_name)
             entrance.randomization_group = ENTRANCE_GROUPS[entrance_name]
             entrance.randomization_type = get_entrance_type(entrance_name)
             if entrance.randomization_type == EntranceType.ONE_WAY:
@@ -675,8 +670,9 @@ def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
             else:
                 target_name = None
             world.er_entrances.append((entrance, entrance.connected_region))
-            # logging.info(f"{entrance.name}")
             disconnect_entrance_for_randomization(entrance, entrance.randomization_group, target_name)
+        except KeyError:
+            continue
 
     return len(shuffled_entrances) > 0
 
@@ -948,8 +944,8 @@ def _randomize_entrances(world: "PokemonFRLGWorld",
             else:
                 world.er_placement_state = randomize_entrances(world, coupled, entrance_group_lookup,
                                                                on_connect=connect_simple_entrances)
-            world.logic.randomizing_entrances = False
             world.logic.guaranteed_hm_access = False
+            world.logic.randomizing_entrances = False
             if (world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_off
                     and world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_seafoam):
                 _set_pokemon_mansion_exit(world)

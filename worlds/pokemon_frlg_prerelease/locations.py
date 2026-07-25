@@ -298,7 +298,7 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
 
 def place_unrandomized_items(world: "PokemonFRLGWorld") -> None:
     def fill_unrandomized_location(location: Location,
-                                            as_event: bool) -> None:
+                                   as_event: bool) -> None:
         item = world.create_item_by_id(location.default_item_id)
         if as_event:
             item.code = None
