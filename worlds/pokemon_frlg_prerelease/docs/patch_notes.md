@@ -4,11 +4,17 @@
 * Added 3000 coins and 5000 coins purchase options at the Celadon Game Corner
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
 ## Apworld Updates
+* Converted logic to use Rule Builder (requires AP version 0.6.7 or higher)
 * Updated several region and entrance names for better clarity in the spoiler log and when using UT
 * Option groups have been added
 * New option `skip_intro`
   * Set whether the vanilla intro sequence where you get your starter Pokémon from Oak's Lab should be skipped or not. If the intro is skipped then you will be prompted to select your starter Pokémon during Oak's initial speech
   * This setting is forced on if Random Starting Town or any type of Entrance Randomization is on
+* Updated option `mix_entrance_warp_pools`
+  * Added `Warp Tiles` as an option
+    * Warp Tiles will only be mixed if using `full` Warp Tiles shuffle
+  * Added `Dropdowns` as an option
+    * Dropdowns will only be mixed is using `full` Dropdown shuffle and entrances/warps are decoupled
 * Updated option `prizesanity`
   * The coin price for purchasing items at the Game Corner Prize Room will now be determined by what item it is
 * Updated option `shop_prices` and `consistent_shop_prices`

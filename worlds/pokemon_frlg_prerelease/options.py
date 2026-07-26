@@ -209,9 +209,11 @@ class MixEntranceWarpPools(OptionSet):
     - Buildings
     - Dungeons
     - Interiors
+    - Warp Tiles
+    - Dropdowns
     """
     display_name = "Mix Entrance/Warp Pools"
-    valid_keys = ["Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "All"]
+    valid_keys = ["Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "Warp Tiles", "Dropdowns", "All"]
 
 
 class DecoupleEntrancesWarps(Toggle):

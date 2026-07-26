@@ -692,11 +692,25 @@ def _create_entrance_group_lookup(world: "PokemonFRLGWorld") -> Dict[EntranceGro
                      and world.options.shuffle_dungeons == ShuffleDungeonEntrances.option_restricted))):
         restricted_entrances_mixed = True
 
-    # Create the mixed entrance/exit groups. If interiors are included in the mixed pool then the restriction
-    # that entrances -> exits and vice versa can be ignored. Any warp in the mixed pool can go to any other warp.
+    # Create the mixed entrance/exit groups. If interiors/warp tiles/dropdowns are included in the mixed pool then the
+    # restriction that entrances -> exits and vice versa can be ignored. Any warp in the mixed pool can go to any other
+    # warp.
     if "Interiors" in world.options.mix_entrance_warp_pools.value and world.options.shuffle_interiors:
         mixed_entrance_group.append(EntranceGroup.INTERIOR_WARP)
         mixed_exit_group.append(EntranceGroup.INTERIOR_WARP)
+        unrestricted_entrances = True
+
+    if ("Warp Tiles" in world.options.mix_entrance_warp_pools.value
+            and world.options.shuffle_warp_tiles == ShuffleWarpTiles.option_full):
+        mixed_entrance_group.extend(WARP_TILE_GROUPS)
+        mixed_exit_group.extend(WARP_TILE_GROUPS)
+        unrestricted_entrances = True
+
+    if ("Dropdowns" in world.options.mix_entrance_warp_pools.value
+            and world.options.shuffle_dropdowns == ShuffleDropdowns.option_full
+            and world.options.decouple_entrances_warps):
+        mixed_entrance_group.extend(DROPDOWN_GROUPS)
+        mixed_exit_group.extend(DROPDOWN_GROUPS)
         unrestricted_entrances = True
 
     if "Gyms" in world.options.mix_entrance_warp_pools.value and world.options.shuffle_gyms:
@@ -845,17 +859,27 @@ def _create_entrance_group_lookup(world: "PokemonFRLGWorld") -> Dict[EntranceGro
             entrance_group_lookup[EntranceGroup.INTERIOR_WARP] = [EntranceGroup.INTERIOR_WARP]
 
     if world.options.shuffle_warp_tiles == ShuffleWarpTiles.option_full:
-        entrance_group_lookup[EntranceGroup.SILPH_CO_WARP_TILE] = WARP_TILE_GROUPS
-        entrance_group_lookup[EntranceGroup.SAFFRON_GYM_WARP_TILE] = WARP_TILE_GROUPS
+        if "Warp Tiles" in world.options.mix_entrance_warp_pools.value:
+            entrance_group_lookup[EntranceGroup.SILPH_CO_WARP_TILE] = mixed_exit_group
+            entrance_group_lookup[EntranceGroup.SAFFRON_GYM_WARP_TILE] = mixed_exit_group
+        else:
+            entrance_group_lookup[EntranceGroup.SILPH_CO_WARP_TILE] = WARP_TILE_GROUPS
+            entrance_group_lookup[EntranceGroup.SAFFRON_GYM_WARP_TILE] = WARP_TILE_GROUPS
     elif world.options.shuffle_warp_tiles == ShuffleWarpTiles.option_simple:
         entrance_group_lookup[EntranceGroup.SILPH_CO_WARP_TILE] = [EntranceGroup.SILPH_CO_WARP_TILE]
         entrance_group_lookup[EntranceGroup.SAFFRON_GYM_WARP_TILE] = [EntranceGroup.SAFFRON_GYM_WARP_TILE]
 
     if world.options.shuffle_dropdowns == ShuffleDropdowns.option_full:
-        entrance_group_lookup[EntranceGroup.SEAFOAM_ISLANDS_DROP] = DROPDOWN_GROUPS
-        entrance_group_lookup[EntranceGroup.POKEMON_MANSION_DROP] = DROPDOWN_GROUPS
-        entrance_group_lookup[EntranceGroup.VICTORY_ROAD_DROP] = DROPDOWN_GROUPS
-        entrance_group_lookup[EntranceGroup.DOTTED_HOLE_DROP] = DROPDOWN_GROUPS
+        if "Dropdowns" in world.options.mix_entrance_warp_pools.value and world.options.decouple_entrances_warps:
+            entrance_group_lookup[EntranceGroup.SEAFOAM_ISLANDS_DROP] = mixed_exit_group
+            entrance_group_lookup[EntranceGroup.POKEMON_MANSION_DROP] = mixed_exit_group
+            entrance_group_lookup[EntranceGroup.VICTORY_ROAD_DROP] = mixed_exit_group
+            entrance_group_lookup[EntranceGroup.DOTTED_HOLE_DROP] = mixed_exit_group
+        else:
+            entrance_group_lookup[EntranceGroup.SEAFOAM_ISLANDS_DROP] = DROPDOWN_GROUPS
+            entrance_group_lookup[EntranceGroup.POKEMON_MANSION_DROP] = DROPDOWN_GROUPS
+            entrance_group_lookup[EntranceGroup.VICTORY_ROAD_DROP] = DROPDOWN_GROUPS
+            entrance_group_lookup[EntranceGroup.DOTTED_HOLE_DROP] = DROPDOWN_GROUPS
     elif world.options.shuffle_dropdowns == ShuffleDropdowns.option_simple:
         entrance_group_lookup[EntranceGroup.SEAFOAM_ISLANDS_DROP] = [EntranceGroup.SEAFOAM_ISLANDS_DROP]
         entrance_group_lookup[EntranceGroup.POKEMON_MANSION_DROP] = [EntranceGroup.POKEMON_MANSION_DROP]
