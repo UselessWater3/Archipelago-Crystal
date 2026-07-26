@@ -1,5 +1,6 @@
 # 1.1.0
 ## Game Updates
+* Using Teleport on the field will return you to the interior of the last Pokémon Center you visited if Pokémon Centers are shuffled 
 * Increased the amount of coins that you can hold to 50000
 * Added 3000 coins and 5000 coins purchase options at the Celadon Game Corner
 * Dexsanity rewards for Pokémon you catch before getting the Pokédex will now be given to you immediately upon getting the Pokédex. You no longer need to get the Pokédex rated by Oak or at a PC
@@ -10,7 +11,11 @@
 * New option `skip_intro`
   * Set whether the vanilla intro sequence where you get your starter Pokémon from Oak's Lab should be skipped or not. If the intro is skipped then you will be prompted to select your starter Pokémon during Oak's initial speech
   * This setting is forced on if Random Starting Town or any type of Entrance Randomization is on
+* Updated option `shuffle_pokemon_centers`
+  * Now includes the Player's House though your starting town's Pokémon Center entrance will never lead there
 * Updated option `mix_entrance_warp_pools`
+  * Added `Pokemon Centers` as an option
+    * Your starting town's Pokémon Center entrance is guaranteed to lead to a Pokémon Center
   * Added `Warp Tiles` as an option
     * Warp Tiles will only be mixed if using `full` Warp Tiles shuffle
   * Added `Dropdowns` as an option

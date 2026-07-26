@@ -1,9 +1,8 @@
 from enum import IntEnum
-from typing import TYPE_CHECKING, Dict, List
-from BaseClasses import Callable, CollectionState, Entrance, EntranceType, Region
+from typing import TYPE_CHECKING, Dict, List, Tuple
+from BaseClasses import Entrance, EntranceType, Region
 from entrance_rando import (ERPlacementState, EntranceRandomizationError, disconnect_entrance_for_randomization,
                             randomize_entrances)
-from rule_builder.rules import False_
 
 from .data import data
 from .options import (ShuffleBuildingEntrances, ShuffleDropdowns, ShuffleDungeonEntrances, ShuffleWarpTiles)
@@ -15,23 +14,23 @@ if TYPE_CHECKING:
 MAX_GER_ATTEMPTS = 40
 
 POKEMON_CENTER_ENTRANCES = [
-    "Viridian Pokemon Center Entrance", "Pewter Pokemon Center Entrance", "Route 4 Pokemon Center Entrance",
-    "Cerulean Pokemon Center Entrance", "Vermilion Pokemon Center Entrance", "Route 10 Pokemon Center Entrance",
-    "Lavender Pokemon Center Entrance", "Celadon Pokemon Center Entrance", "Fuchsia Pokemon Center Entrance",
-    "Saffron Pokemon Center Entrance", "Cinnabar Pokemon Center Entrance", "Indigo Plateau Pokemon Center Entrance",
-    "One Island Pokemon Center Entrance", "Two Island Pokemon Center Entrance", "Three Island Pokemon Center Entrance",
-    "Four Island Pokemon Center Entrance", "Five Island Pokemon Center Entrance", "Six Island Pokemon Center Entrance",
-    "Seven Island Pokemon Center Entrance"
+    "Player's House Entrance", "Viridian Pokemon Center Entrance", "Pewter Pokemon Center Entrance",
+    "Route 4 Pokemon Center Entrance", "Cerulean Pokemon Center Entrance", "Vermilion Pokemon Center Entrance",
+    "Route 10 Pokemon Center Entrance", "Lavender Pokemon Center Entrance", "Celadon Pokemon Center Entrance",
+    "Fuchsia Pokemon Center Entrance", "Saffron Pokemon Center Entrance", "Cinnabar Pokemon Center Entrance",
+    "Indigo Plateau Pokemon Center Entrance", "One Island Pokemon Center Entrance",
+    "Two Island Pokemon Center Entrance", "Three Island Pokemon Center Entrance", "Four Island Pokemon Center Entrance",
+    "Five Island Pokemon Center Entrance", "Six Island Pokemon Center Entrance", "Seven Island Pokemon Center Entrance"
 ]
 
 POKEMON_CENTER_EXITS = [
-    "Viridian Pokemon Center 1F Exit", "Pewter Pokemon Center 1F Exit", "Route 4 Pokemon Center 1F Exit",
-    "Cerulean Pokemon Center 1F Exit", "Vermilion Pokemon Center 1F Exit", "Route 10 Pokemon Center 1F Exit",
-    "Lavender Pokemon Center 1F Exit", "Celadon Pokemon Center 1F Exit", "Fuchsia Pokemon Center 1F Exit",
-    "Saffron Pokemon Center 1F Exit", "Cinnabar Pokemon Center 1F Exit", "Indigo Plateau Pokemon Center 1F Exit",
-    "One Island Pokemon Center 1F Exit", "Two Island Pokemon Center 1F Exit", "Three Island Pokemon Center 1F Exit",
-    "Four Island Pokemon Center 1F Exit", "Five Island Pokemon Center 1F Exit", "Six Island Pokemon Center 1F Exit",
-    "Seven Island Pokemon Center 1F Exit"
+    "Player's House 1F Exit", "Viridian Pokemon Center 1F Exit", "Pewter Pokemon Center 1F Exit",
+    "Route 4 Pokemon Center 1F Exit", "Cerulean Pokemon Center 1F Exit", "Vermilion Pokemon Center 1F Exit",
+    "Route 10 Pokemon Center 1F Exit", "Lavender Pokemon Center 1F Exit", "Celadon Pokemon Center 1F Exit",
+    "Fuchsia Pokemon Center 1F Exit", "Saffron Pokemon Center 1F Exit", "Cinnabar Pokemon Center 1F Exit",
+    "Indigo Plateau Pokemon Center 1F Exit", "One Island Pokemon Center 1F Exit", "Two Island Pokemon Center 1F Exit",
+    "Three Island Pokemon Center 1F Exit", "Four Island Pokemon Center 1F Exit", "Five Island Pokemon Center 1F Exit",
+    "Six Island Pokemon Center 1F Exit", "Seven Island Pokemon Center 1F Exit"
 ]
 
 GYM_ENTRANCES = [
@@ -559,6 +558,8 @@ for entrance_name in VICTORY_ROAD_DROPS:
 for entrance_name in DOTTED_HOLE_DROPS:
     ENTRANCE_GROUPS[entrance_name] = EntranceGroup.DOTTED_HOLE_DROP
 
+POKEMON_CENTER_GROUPS = [EntranceGroup.POKEMON_CENTER_ENTRANCE, EntranceGroup.POKEMON_CENTER_EXIT]
+
 GYM_GROUPS = [EntranceGroup.GYM_ENTRANCE, EntranceGroup.GYM_EXIT]
 
 MART_GROUPS = [EntranceGroup.MART_ENTRANCE, EntranceGroup.MART_EXIT]
@@ -607,7 +608,78 @@ def _set_seafoam_entrances(world: "PokemonFRLGWorld") -> None:
         region.entrances.append(entrance)
 
 
-def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
+def _set_starting_pokemon_center(world: "PokemonFRLGWorld") -> List[str]:
+    spawn_map = {
+        "SPAWN_PALLET_TOWN": "Player's House Entrance",
+        "SPAWN_VIRIDIAN_CITY": "Viridian Pokemon Center Entrance",
+        "SPAWN_PEWTER_CITY": "Pewter Pokemon Center Entrance",
+        "SPAWN_CERULEAN_CITY": "Cerulean Pokemon Center Entrance",
+        "SPAWN_LAVENDER_TOWN": "Lavender Pokemon Center Entrance",
+        "SPAWN_VERMILION_CITY": "Vermilion Pokemon Center Entrance",
+        "SPAWN_CELADON_CITY": "Celadon Pokemon Center Entrance",
+        "SPAWN_FUCHSIA_CITY": "Fuchsia Pokemon Center Entrance",
+        "SPAWN_CINNABAR_ISLAND": "Cinnabar Pokemon Center Entrance",
+        "SPAWN_INDIGO_PLATEAU": "Indigo Plateau Pokemon Center Entrance",
+        "SPAWN_SAFFRON_CITY": "Saffron Pokemon Center Entrance",
+        "SPAWN_ROUTE4": "Route 4 Pokemon Center Entrance",
+        "SPAWN_ROUTE10": "Route 10 Pokemon Center Entrance",
+        "SPAWN_ONE_ISLAND": "One Island Pokemon Center Entrance",
+        "SPAWN_TWO_ISLAND": "Two Island Pokemon Center Entrance",
+        "SPAWN_THREE_ISLAND": "Three Island Pokemon Center Entrance",
+        "SPAWN_FOUR_ISLAND": "Four Island Pokemon Center Entrance",
+        "SPAWN_FIVE_ISLAND": "Five Island Pokemon Center Entrance",
+        "SPAWN_SEVEN_ISLAND": "Seven Island Pokemon Center Entrance",
+        "SPAWN_SIX_ISLAND": "Six Island Pokemon Center Entrance"
+    }
+    kanto_respawn_map = {
+        "Viridian Pokemon Center 1F Exit": "SPAWN_VIRIDIAN_CITY",
+        "Pewter Pokemon Center 1F Exit": "SPAWN_PEWTER_CITY",
+        "Cerulean Pokemon Center 1F Exit": "SPAWN_CERULEAN_CITY",
+        "Lavender Pokemon Center 1F Exit": "SPAWN_LAVENDER_TOWN",
+        "Vermilion Pokemon Center 1F Exit": "SPAWN_VERMILION_CITY",
+        "Celadon Pokemon Center 1F Exit": "SPAWN_CELADON_CITY",
+        "Fuchsia Pokemon Center 1F Exit": "SPAWN_FUCHSIA_CITY",
+        "Cinnabar Pokemon Center 1F Exit": "SPAWN_CINNABAR_ISLAND",
+        "Indigo Plateau Pokemon Center 1F Exit": "SPAWN_INDIGO_PLATEAU",
+        "Saffron Pokemon Center 1F Exit": "SPAWN_SAFFRON_CITY",
+        "Route 4 Pokemon Center 1F Exit": "SPAWN_ROUTE4",
+        "Route 10 Pokemon Center 1F Exit": "SPAWN_ROUTE10",
+    }
+    respawn_map = kanto_respawn_map.copy()
+    respawn_map.update({
+        "One Island Pokemon Center 1F Exit": "SPAWN_ONE_ISLAND",
+        "Two Island Pokemon Center 1F Exit": "SPAWN_TWO_ISLAND",
+        "Three Island Pokemon Center 1F Exit": "SPAWN_THREE_ISLAND",
+        "Four Island Pokemon Center 1F Exit": "SPAWN_FOUR_ISLAND",
+        "Five Island Pokemon Center 1F Exit": "SPAWN_FIVE_ISLAND",
+        "Seven Island Pokemon Center 1F Exit": "SPAWN_SEVEN_ISLAND",
+        "Six Island Pokemon Center 1F Exit": "SPAWN_SIX_ISLAND"
+    })
+    plando_entrances: List[str] = []
+
+    if world.options.shuffle_pokemon_centers:
+        starting_center_entrance = world.get_entrance(spawn_map[world.starting_town])
+        if world.options.kanto_only:
+            starting_center_exit = world.get_entrance(world.random.choice(list(kanto_respawn_map.keys())))
+        else:
+            starting_center_exit = world.get_entrance(world.random.choice(list(respawn_map.keys())))
+
+        entrance_region = starting_center_entrance.parent_region
+        exit_region = starting_center_exit.parent_region
+        starting_center_entrance.connected_region.entrances.remove(starting_center_entrance)
+        starting_center_entrance.connect(exit_region)
+        plando_entrances.append(starting_center_entrance.name)
+        world.er_pairings.append((starting_center_entrance.name, starting_center_exit.name))
+        starting_center_exit.connected_region.entrances.remove(starting_center_exit)
+        starting_center_exit.connect(entrance_region)
+        plando_entrances.append(starting_center_exit.name)
+        world.er_pairings.append((starting_center_exit.name, starting_center_entrance.name))
+        world.starting_respawn = respawn_map[starting_center_exit.name]
+
+    return plando_entrances
+
+
+def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> None:
     def get_entrance_type(entrance_name: str) -> EntranceType:
         if (entrance_name in SEAFOAM_ISLANDS_DROPS
                 or entrance_name in POKEMON_MANSION_DROPS
@@ -660,7 +732,11 @@ def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
         shuffled_entrances.extend(VICTORY_ROAD_DROPS)
         shuffled_entrances.extend(DOTTED_HOLE_DROPS)
 
+    plando_entrances = _set_starting_pokemon_center(world)
+
     for entrance_name in shuffled_entrances:
+        if entrance_name in plando_entrances:
+            continue
         try:
             entrance = world.get_entrance(entrance_name)
             entrance.randomization_group = ENTRANCE_GROUPS[entrance_name]
@@ -673,8 +749,6 @@ def _disconnect_shuffled_entrances(world: "PokemonFRLGWorld") -> bool:
             disconnect_entrance_for_randomization(entrance, entrance.randomization_group, target_name)
         except KeyError:
             continue
-
-    return len(shuffled_entrances) > 0
 
 
 def _create_entrance_group_lookup(world: "PokemonFRLGWorld") -> Dict[EntranceGroup, List[EntranceGroup]]:
@@ -712,6 +786,14 @@ def _create_entrance_group_lookup(world: "PokemonFRLGWorld") -> Dict[EntranceGro
         mixed_entrance_group.extend(DROPDOWN_GROUPS)
         mixed_exit_group.extend(DROPDOWN_GROUPS)
         unrestricted_entrances = True
+
+    if "Pokemon Centers" in world.options.mix_entrance_warp_pools.value:
+        if unrestricted_entrances:
+            mixed_entrance_group.extend(POKEMON_CENTER_GROUPS)
+            mixed_exit_group.extend(POKEMON_CENTER_GROUPS)
+        else:
+            mixed_entrance_group.append(EntranceGroup.POKEMON_CENTER_EXIT)
+            mixed_exit_group.append(EntranceGroup.POKEMON_CENTER_ENTRANCE)
 
     if "Gyms" in world.options.mix_entrance_warp_pools.value and world.options.shuffle_gyms:
         if unrestricted_entrances:
@@ -771,8 +853,12 @@ def _create_entrance_group_lookup(world: "PokemonFRLGWorld") -> Dict[EntranceGro
 
     # Set the entrance groups that an entrance/exit can shuffle with
     if world.options.shuffle_pokemon_centers:
-        entrance_group_lookup[EntranceGroup.POKEMON_CENTER_ENTRANCE] = [EntranceGroup.POKEMON_CENTER_EXIT]
-        entrance_group_lookup[EntranceGroup.POKEMON_CENTER_EXIT] = [EntranceGroup.POKEMON_CENTER_ENTRANCE]
+        if "Pokemon Centers" in world.options.mix_entrance_warp_pools.value:
+            entrance_group_lookup[EntranceGroup.POKEMON_CENTER_ENTRANCE] = mixed_entrance_group
+            entrance_group_lookup[EntranceGroup.POKEMON_CENTER_EXIT] = mixed_exit_group
+        else:
+            entrance_group_lookup[EntranceGroup.POKEMON_CENTER_ENTRANCE] = [EntranceGroup.POKEMON_CENTER_EXIT]
+            entrance_group_lookup[EntranceGroup.POKEMON_CENTER_EXIT] = [EntranceGroup.POKEMON_CENTER_ENTRANCE]
 
     if world.options.shuffle_gyms:
         if "Gyms" in world.options.mix_entrance_warp_pools.value:
@@ -895,62 +981,10 @@ def _set_pokemon_mansion_exit(world: "PokemonFRLGWorld") -> None:
     mansion_other_entrance = world.get_entrance("Pokemon Mansion 1F East Exit")
     cinnabar_region.entrances.remove(mansion_other_entrance)
     mansion_other_entrance.connect(mansion_shuffled_entrance.connected_region)
-    for source, dest in world.er_placement_state.pairings:
+    for source, dest in world.er_pairings:
         if source == "Pokemon Mansion 1F West Exit":
-            world.er_placement_state.pairings.append((mansion_other_entrance.name, dest))
+            world.er_pairings.append((mansion_other_entrance.name, dest))
             break
-
-
-def _set_respawn_town(world: "PokemonFRLGWorld") -> None:
-    spawn_map = {
-        "SPAWN_VIRIDIAN_CITY": "Viridian Pokemon Center Entrance",
-        "SPAWN_PEWTER_CITY": "Pewter Pokemon Center Entrance",
-        "SPAWN_CERULEAN_CITY": "Cerulean Pokemon Center Entrance",
-        "SPAWN_LAVENDER_TOWN": "Lavender Pokemon Center Entrance",
-        "SPAWN_VERMILION_CITY": "Vermilion Pokemon Center Entrance",
-        "SPAWN_CELADON_CITY": "Celadon Pokemon Center Entrance",
-        "SPAWN_FUCHSIA_CITY": "Fuchsia Pokemon Center Entrance",
-        "SPAWN_CINNABAR_ISLAND": "Cinnabar Pokemon Center Entrance",
-        "SPAWN_INDIGO_PLATEAU": "Indigo Plateau Pokemon Center Entrance",
-        "SPAWN_SAFFRON_CITY": "Saffron Pokemon Center Entrance",
-        "SPAWN_ROUTE4": "Route 4 Pokemon Center Entrance",
-        "SPAWN_ROUTE10": "Route 10 Pokemon Center Entrance",
-        "SPAWN_ONE_ISLAND": "One Island Pokemon Center Entrance",
-        "SPAWN_TWO_ISLAND": "Two Island Pokemon Center Entrance",
-        "SPAWN_THREE_ISLAND": "Three Island Pokemon Center Entrance",
-        "SPAWN_FOUR_ISLAND": "Four Island Pokemon Center Entrance",
-        "SPAWN_FIVE_ISLAND": "Five Island Pokemon Center Entrance",
-        "SPAWN_SEVEN_ISLAND": "Seven Island Pokemon Center Entrance",
-        "SPAWN_SIX_ISLAND": "Six Island Pokemon Center Entrance",
-    }
-    respawn_map = {
-        "Viridian Pokemon Center 1F Exit": "SPAWN_VIRIDIAN_CITY",
-        "Pewter Pokemon Center 1F Exit": "SPAWN_PEWTER_CITY",
-        "Cerulean Pokemon Center 1F Exit": "SPAWN_CERULEAN_CITY",
-        "Lavender Pokemon Center 1F Exit": "SPAWN_LAVENDER_TOWN",
-        "Vermilion Pokemon Center 1F Exit": "SPAWN_VERMILION_CITY",
-        "Celadon Pokemon Center 1F Exit": "SPAWN_CELADON_CITY",
-        "Fuchsia Pokemon Center 1F Exit": "SPAWN_FUCHSIA_CITY",
-        "Cinnabar Pokemon Center 1F Exit": "SPAWN_CINNABAR_ISLAND",
-        "Indigo Plateau Pokemon Center 1F Exit": "SPAWN_INDIGO_PLATEAU",
-        "Saffron Pokemon Center 1F Exit": "SPAWN_SAFFRON_CITY",
-        "Route 4 Pokemon Center 1F Exit": "SPAWN_ROUTE4",
-        "Route 10 Pokemon Center 1F Exit": "SPAWN_ROUTE10",
-        "One Island Pokemon Center 1F Exit": "SPAWN_ONE_ISLAND",
-        "Two Island Pokemon Center 1F Exit": "SPAWN_TWO_ISLAND",
-        "Three Island Pokemon Center 1F Exit": "SPAWN_THREE_ISLAND",
-        "Four Island Pokemon Center 1F Exit": "SPAWN_FOUR_ISLAND",
-        "Five Island Pokemon Center 1F Exit": "SPAWN_FIVE_ISLAND",
-        "Seven Island Pokemon Center 1F Exit": "SPAWN_SEVEN_ISLAND",
-        "Six Island Pokemon Center 1F Exit": "SPAWN_SIX_ISLAND",
-    }
-
-    if world.starting_town in spawn_map:
-        starting_center = spawn_map[world.starting_town]
-        for entrance, exit in world.er_placement_state.pairings:
-            if entrance == starting_center:
-                world.starting_respawn = respawn_map[exit]
-                break
 
 
 def _randomize_entrances(world: "PokemonFRLGWorld",
@@ -964,17 +998,16 @@ def _randomize_entrances(world: "PokemonFRLGWorld",
         try:
             if (world.options.shuffle_buildings != ShuffleBuildingEntrances.option_simple
                     and world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_simple):
-                world.er_placement_state = randomize_entrances(world, coupled, entrance_group_lookup)
+                er_placement_state = randomize_entrances(world, coupled, entrance_group_lookup)
             else:
-                world.er_placement_state = randomize_entrances(world, coupled, entrance_group_lookup,
-                                                               on_connect=connect_simple_entrances)
+                er_placement_state = randomize_entrances(world, coupled, entrance_group_lookup,
+                                                         on_connect=connect_simple_entrances)
+            world.er_pairings.extend(er_placement_state.pairings)
             world.logic.guaranteed_hm_access = False
             world.logic.randomizing_entrances = False
             if (world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_off
                     and world.options.shuffle_dungeons != ShuffleDungeonEntrances.option_seafoam):
                 _set_pokemon_mansion_exit(world)
-            if world.options.shuffle_pokemon_centers:
-                _set_respawn_town(world)
             break
         except EntranceRandomizationError as error:
             if i >= MAX_GER_ATTEMPTS - 1:
@@ -1016,9 +1049,11 @@ def shuffle_entrances(world: "PokemonFRLGWorld") -> bool:
         ut_set_entrances(world)
         return False
 
-    entrance_rando = _disconnect_shuffled_entrances(world)
+    entrance_rando = entrances_randomized(world)
 
     if entrance_rando:
+        world.er_pairings = []
+        _disconnect_shuffled_entrances(world)
         entrance_group_lookup = _create_entrance_group_lookup(world)
         world.logic.randomizing_entrances = True
         _randomize_entrances(world, entrance_group_lookup)

@@ -79,7 +79,7 @@ class ShufflePokemonCenterEntrances(Toggle):
     """
     Shuffles the Pokemon Center entrances amongst each other.
 
-    The Player's House is included in this pool but will not be shuffled.
+    The Player's House is included in this pool but will never be shuffled as your starting town's Pokemon Center.
     """
     display_name = "Shuffle Pokemon Center Entrances"
 
@@ -202,7 +202,12 @@ class MixEntranceWarpPools(OptionSet):
     entrances/warps aren't shuffled. Entrances/warps can only be mixed with other entrance/warps that have the same
     restrictions. Can specify "All" as a shortcut for adding in all entrances/warps that can be mixed.
 
+    Your starting town's Pokemon Center entrance (Player's House entrance if starting in Pallet Town) is guaranteed to go to a Pokemon Center.
+
+    Dropdowns are only added to the mixed pool if entrances/warps are decoupled.
+
     The avaialble pools that can be mixed are:
+    - Pokemon Centers
     - Gyms
     - Marts
     - Harbors
@@ -213,7 +218,8 @@ class MixEntranceWarpPools(OptionSet):
     - Dropdowns
     """
     display_name = "Mix Entrance/Warp Pools"
-    valid_keys = ["Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "Warp Tiles", "Dropdowns", "All"]
+    valid_keys = ["Pokemon Centers", "Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "Warp Tiles",
+                  "Dropdowns", "All"]
 
 
 class DecoupleEntrancesWarps(Toggle):

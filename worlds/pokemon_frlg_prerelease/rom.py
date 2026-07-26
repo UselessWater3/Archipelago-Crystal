@@ -651,6 +651,10 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     shuffle_interiors = 1 if world.options.shuffle_interiors else 0
     patch.write_token(address, offsets["internalEntrancesRandomized"], struct.pack("<B", shuffle_interiors))
 
+    # Set Pokémon Center ER
+    shuffle_pokemon_centers = 1 if world.options.shuffle_pokemon_centers else 0
+    patch.write_token(address, offsets["pokemonCenterEntrancesRandomized"], struct.pack("<B", shuffle_pokemon_centers))
+
     # Set skip intro
     skip_intro = 1 if world.options.skip_intro else 0
     patch.write_token(address, offsets["skipIntro"], struct.pack("<B", skip_intro))
@@ -716,11 +720,11 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
 
 
 def _set_shuffled_entrances(world: "PokemonFRLGWorld") -> None:
-    if world.er_placement_state is None:
+    if world.er_pairings is None:
         return
 
     patch = world.patch_data
-    for source_name, dest_name in world.er_placement_state.pairings:
+    for source_name, dest_name in world.er_pairings:
         source_id = data.warp_name_map[source_name]
         dest_id = data.warp_name_map[dest_name]
         source_warp_data = data.warps[source_id]
