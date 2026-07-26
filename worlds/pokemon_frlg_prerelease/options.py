@@ -629,7 +629,7 @@ class GymKeys(Toggle):
 class ItemAppearanceMatchesContents(Toggle):
     """
     Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain
-    useful items, and red balls contain filler or trap items.
+    useful items, and red balls contain filler items. Traps will be a random color between the three.
 
     The following item balls are not affected by this setting and will always be a red ball:
     - Rocket Hideout B4F - Team Rocket Grunt Item

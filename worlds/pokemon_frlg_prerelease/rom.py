@@ -200,6 +200,10 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
                     graphic_id = data.constants["OBJ_EVENT_GFX_PROG_ITEM_BALL"]
                 elif location.item.useful:
                     graphic_id = data.constants["OBJ_EVENT_GFX_USEFUL_ITEM_BALL"]
+                elif location.item.trap:
+                    graphic_id = world.random.choice([data.constants["OBJ_EVENT_GFX_PROG_ITEM_BALL"],
+                                                      data.constants["OBJ_EVENT_GFX_USEFUL_ITEM_BALL"],
+                                                      data.constants["OBJ_EVENT_GFX_ITEM_BALL"]])
                 else:
                     graphic_id = data.constants["OBJ_EVENT_GFX_ITEM_BALL"]
                 patch.write_token(graphic_address, 0, struct.pack("<B", graphic_id))
