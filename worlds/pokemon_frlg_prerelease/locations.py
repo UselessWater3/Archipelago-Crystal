@@ -5,8 +5,8 @@ from Fill import FillError, fill_restrictive
 from .data import data, LocationCategory, fly_blacklist_map, TRAINER_REMATCH_MAP
 from .groups import location_groups
 from .items import PokemonFRLGItem, get_random_item, update_renewable_to_progression
-from .options import (CardKey, Dexsanity, Goal, IslandPasses, ShuffleFlyUnlocks, ShuffleHiddenItems, ShufflePokedex,
-                      ShuffleRunningShoes, Trainersanity)
+from .options import (CardKey, Dexsanity, Goal, IslandPasses, KantoTrainersanity, SeviiTrainersanity, ShuffleFlyUnlocks,
+                      ShuffleHiddenItems, ShufflePokedex, ShuffleRunningShoes)
 
 if TYPE_CHECKING:
     from .world import PokemonFRLGWorld
@@ -173,7 +173,8 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
         included_types.add("Hidden Items")
     if world.options.extra_key_items:
         included_types.add("Extra Key Items")
-    if world.options.trainersanity != Trainersanity.special_range_names["none"]:
+    if (world.options.kanto_trainersanity != KantoTrainersanity.special_range_names["none"]
+            or world.options.sevii_trainersanity != SeviiTrainersanity.special_range_names["none"]):
         included_types.add("Trainersanity")
         if world.options.rematchsanity:
             included_types.add("Rematchsanity")
@@ -215,27 +216,54 @@ def create_locations(world: "PokemonFRLGWorld", regions: Dict[str, Region]) -> N
             region.locations.append(create_location(location_id))
 
     # Remove trainersanity locations if there are more than the amount specified in the settings
-    if world.options.trainersanity != Trainersanity.special_range_names["none"] and not world.is_universal_tracker:
+    if ((world.options.kanto_trainersanity != KantoTrainersanity.special_range_names["none"]
+         or world.options.sevii_trainersanity != SeviiTrainersanity.special_range_names["none"])
+            and not world.is_universal_tracker):
         locations: List[PokemonFRLGLocation] = world.get_locations()
         trainer_locations = [loc for loc in locations if loc.category == LocationCategory.TRAINER]
-        locs_to_remove = len(trainer_locations) - world.options.trainersanity.value
-        if locs_to_remove > 0:
+        kanto_trainer_locations = [loc for loc in trainer_locations
+                                   if loc.name in world.location_name_groups["Kanto"]]
+        sevii_trainer_locations = [loc for loc in trainer_locations
+                                   if loc.name in world.location_name_groups["Sevii Islands"]]
+        kanto_locs_to_remove = len(kanto_trainer_locations) - world.options.kanto_trainersanity.value
+        sevii_locs_to_remove = len(sevii_trainer_locations) - world.options.sevii_trainersanity.value
+
+        if kanto_locs_to_remove > 0:
             rematchsanity = world.options.rematchsanity
-            priority_trainer_locations = [loc for loc in trainer_locations
+            priority_trainer_locations = [loc for loc in kanto_trainer_locations
                                           if loc.name in world.options.priority_locations.value]
-            non_priority_trainer_locations = [loc for loc in trainer_locations
+            non_priority_trainer_locations = [loc for loc in kanto_trainer_locations
                                               if loc.name not in world.options.priority_locations.value]
             world.random.shuffle(priority_trainer_locations)
             world.random.shuffle(non_priority_trainer_locations)
-            trainer_locations = non_priority_trainer_locations + priority_trainer_locations
-            for location in trainer_locations:
+            kanto_trainer_locations = non_priority_trainer_locations + priority_trainer_locations
+            for location in kanto_trainer_locations:
                 region = location.parent_region
                 region.locations.remove(location)
                 if rematchsanity and location.location_id in TRAINER_REMATCH_MAP:
                     for location_id in TRAINER_REMATCH_MAP[location.location_id]:
                         region.locations.remove(world.get_location(data.locations[location_id].name))
-                locs_to_remove -= 1
-                if locs_to_remove <= 0:
+                kanto_locs_to_remove -= 1
+                if kanto_locs_to_remove <= 0:
+                    break
+
+        if sevii_locs_to_remove > 0:
+            rematchsanity = world.options.rematchsanity
+            priority_trainer_locations = [loc for loc in sevii_trainer_locations
+                                          if loc.name in world.options.priority_locations.value]
+            non_priority_trainer_locations = [loc for loc in sevii_trainer_locations
+                                              if loc.name not in world.options.priority_locations.value]
+            world.random.shuffle(priority_trainer_locations)
+            world.random.shuffle(non_priority_trainer_locations)
+            sevii_trainer_locations = non_priority_trainer_locations + priority_trainer_locations
+            for location in sevii_trainer_locations:
+                region = location.parent_region
+                region.locations.remove(location)
+                if rematchsanity and location.location_id in TRAINER_REMATCH_MAP:
+                    for location_id in TRAINER_REMATCH_MAP[location.location_id]:
+                        region.locations.remove(world.get_location(data.locations[location_id].name))
+                sevii_locs_to_remove -= 1
+                if sevii_locs_to_remove <= 0:
                     break
 
     # Add evolutions that are possible based on the wild Pokémon that exist

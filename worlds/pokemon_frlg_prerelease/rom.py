@@ -12,10 +12,10 @@ from .groups import location_groups
 from .items import is_single_purchase_item
 from .locations import PokemonFRLGLocation
 from .options import (CardKey, Dexsanity, FlashRequired, ForceFullyEvolved, IslandPasses, ItemfinderRequired,
-                      HmCompatibility, LevelScaling, RandomizeDamageCategories, RandomizeLegendaryPokemon,
-                      RandomizeMiscPokemon, RandomizeMoveTypes, RandomizeStarters, RandomizeTrainerParties,
-                      RandomizeWildPokemon, ShopPrices, ShuffleFlyUnlocks, ShuffleHiddenItems, TmTutorCompatibility,
-                      Trainersanity, ViridianCityRoadblock)
+                      HmCompatibility, KantoTrainersanity, LevelScaling, RandomizeDamageCategories,
+                      RandomizeLegendaryPokemon, RandomizeMiscPokemon, RandomizeMoveTypes, RandomizeStarters,
+                      RandomizeTrainerParties, RandomizeWildPokemon, SeviiTrainersanity, ShopPrices, ShuffleFlyUnlocks,
+                      ShuffleHiddenItems, TmTutorCompatibility, ViridianCityRoadblock)
 from .pokemon import randomize_tutor_moves
 from .util import bool_array_to_int, bound, encode_string
 
@@ -213,7 +213,7 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
         # ITEM"
         location_info.append((location.address, location.item.player, location.item.name))
 
-    if world.options.trainersanity:
+    if world.options.kanto_trainersanity:
         rival_rewards = ["RIVAL_OAKS_LAB", "RIVAL_ROUTE22_EARLY", "RIVAL_CERULEAN", "RIVAL_SS_ANNE",
                          "RIVAL_POKEMON_TOWER", "RIVAL_SILPH", "RIVAL_ROUTE22_LATE", "CHAMPION_FIRST"]
         if not world.options.kanto_only:
@@ -550,7 +550,10 @@ def write_tokens(world: "PokemonFRLGWorld") -> None:
     patch.write_token(address, offsets["reccuringHiddenItems"], struct.pack("<B", recurring_hidden_items))
 
     # Set trainersanity
-    trainersanity = 1 if world.options.trainersanity.value != Trainersanity.special_range_names["none"] else 0
+    trainersanity = 1 if (world.options.kanto_trainersanity.value
+                          != KantoTrainersanity.special_range_names["none"]
+                          or world.options.sevii_trainersanity.value
+                          != SeviiTrainersanity.special_range_names["none"]) else 0
     patch.write_token(address, offsets["isTrainersanity"], struct.pack("<B", trainersanity))
 
     # Set dexsanity

@@ -14,7 +14,6 @@ from typing import Any, ClassVar, Dict, List, Set, TextIO, Tuple
 
 from BaseClasses import CollectionState, Entrance, Item, ItemClassification, MultiWorld, Region, Tutorial
 from worlds.AutoWorld import WebWorld, World
-from entrance_rando import ERPlacementState
 from .data import (data, ability_name_map, LEGENDARY_POKEMON, NAME_TO_SPECIES_ID, POPTRACKER_CHECKSUM, LocationCategory,
                    EventData, FlyData, MapData, MiscPokemonData, MoveData, move_name_map, SpeciesData, StarterData,
                    TrainerData, TradePokemonData)
@@ -26,9 +25,9 @@ from .level_scaling import level_scaling
 from .locations import (PokemonFRLGLocation, create_location_name_to_id_map, create_locations,
                         place_unrandomized_items, place_shop_items, set_free_fly, shuffle_badges)
 from .options import (PokemonFRLGOptions, CardKey, CeruleanCaveRequirement, Dexsanity, FishingRods, GameVersion, Goal,
-                      IslandPasses, MixEntranceWarpPools, RandomizeLegendaryPokemon, RandomizeMiscPokemon,
-                      RandomizeWildPokemon, ShuffleBuildingEntrances, ShuffleDungeonEntrances, SkipIntro, Trainersanity,
-                      ViridianCityRoadblock, OPTION_GROUPS)
+                      IslandPasses, KantoTrainersanity, MixEntranceWarpPools, RandomizeLegendaryPokemon,
+                      RandomizeMiscPokemon, RandomizeWildPokemon, SeviiTrainersanity, ShuffleBuildingEntrances,
+                      ShuffleDungeonEntrances, SkipIntro, ViridianCityRoadblock, OPTION_GROUPS)
 from .pokemon import (randomize_abilities, randomize_base_stats, randomize_damage_categories, randomize_legendaries,
                       randomize_misc_pokemon, randomize_moves, randomize_move_types, randomize_requested_trade_pokemon,
                       randomize_starters, randomize_tm_hm_compatibility, randomize_tm_moves, randomize_trainer_parties,
@@ -692,7 +691,10 @@ class PokemonFRLGWorld(World):
 
         game_version = self.options.game_version.current_key
 
-        slot_data["trainersanity"] = 1 if self.options.trainersanity != Trainersanity.special_range_names["none"] else 0
+        slot_data["trainersanity"] = 1 if (self.options.kanto_trainersanity !=
+                                           KantoTrainersanity.special_range_names["none"]
+                                           or self.options.sevii_trainersanity !=
+                                           SeviiTrainersanity.special_range_names["none"]) else 0
         slot_data["trainersanity_locations"] = [loc.address for loc in self.get_locations()
                                                 if loc.category == LocationCategory.TRAINER
                                                 or loc.category == LocationCategory.TRAINER_REMATCH]

@@ -24,6 +24,8 @@
   * The coin price for purchasing items at the Game Corner Prize Room will now be determined by what item it is
 * Updated option `shop_prices` and `consistent_shop_prices`
   * Now applies to Game Corner Prize Room item purchases as well
+* Updated option `trainersanity`
+  * Split into `kanto_trainersanity` and `sevii_trainersanity` options
 * New option `item_appearance_matches_contents`
   * Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain useful items, and red balls contain filler or trap items
 * Removed option `modify_world_state`

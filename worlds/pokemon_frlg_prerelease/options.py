@@ -391,23 +391,41 @@ class ConsistentShopPrices(Toggle):
     display_name = "Consistent Shop Prices"
 
 
-class Trainersanity(NamedRange):
+class KantoTrainersanity(NamedRange):
     """
-    Beating a trainer gives you an item.
+    Beating a Kanto trainer gives you an item.
 
-    You can specify how many Trainers should be a check between 0 and 456. If you have Kanto Only on, the amount of
-    Trainer checks might be lower than the amount you specify. Trainers that have checks will periodically have an
-    exclamation mark appear above their head in game.
+    You can specify how many Trainers should be a check between 0 and 357. Trainers that have checks will periodically
+    have an exclamation mark appear above their head in game.
 
     Trainers are no longer missable. Each trainer will add a random filler item into the pool.
     """
-    display_name = "Trainersanity"
+    display_name = " Kanto Trainersanity"
     default = 0
     range_start = 0
-    range_end = 456
+    range_end = 357
     special_range_names = {
         "none": 0,
-        "all": 456,
+        "all": 357,
+    }
+
+
+class SeviiTrainersanity(NamedRange):
+    """
+    Beating a Sevii trainer gives you an item.
+
+    You can specify how many Trainers should be a check between 0 and 99. Trainers that have checks will periodically
+    have an exclamation mark appear above their head in game.
+
+    Trainers are no longer missable. Each trainer will add a random filler item into the pool.
+    """
+    display_name = "Sevii Trainersanity"
+    default = 0
+    range_start = 0
+    range_end = 99
+    special_range_names = {
+        "none": 0,
+        "all": 99,
     }
 
 
@@ -1782,7 +1800,8 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     shop_slots: ShopSlots
     shop_prices: ShopPrices
     consistent_shop_prices: ConsistentShopPrices
-    trainersanity: Trainersanity
+    kanto_trainersanity: KantoTrainersanity
+    sevii_trainersanity: SeviiTrainersanity
     rematchsanity: Rematchsanity
     rematch_requirements: RematchRequirements
     dexsanity: Dexsanity
@@ -1929,7 +1948,8 @@ OPTION_GROUPS = [
             ShopSlots,
             ShopPrices,
             ConsistentShopPrices,
-            Trainersanity,
+            KantoTrainersanity,
+            SeviiTrainersanity,
             Rematchsanity,
             RematchRequirements,
             Dexsanity,
