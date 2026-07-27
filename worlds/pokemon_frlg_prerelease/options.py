@@ -3,8 +3,8 @@ Option definitions for Pokémon FireRed/LeafGreen
 """
 from dataclasses import dataclass
 from schema import And, Optional, Or, Schema
-from Options import (Choice, DeathLink, DefaultOnToggle, NamedRange, OptionDict, OptionSet, PerGameCommonOptions, Range,
-                     Toggle)
+from Options import (Choice, DeathLink, DefaultOnToggle, NamedRange, OptionDict, OptionGroup, OptionSet,
+                     PerGameCommonOptions, Range, Toggle)
 from .data import (data, ability_name_map, fly_blacklist_map, fly_plando_maps, move_name_map,
                    starting_town_blacklist_map, GAME_OPTIONS)
 
@@ -79,7 +79,7 @@ class ShufflePokemonCenterEntrances(Toggle):
     """
     Shuffles the Pokemon Center entrances amongst each other.
 
-    The Player's House is included in this pool but will not be shuffled.
+    The Player's House is included in this pool but will never be shuffled as your starting town's Pokemon Center.
     """
     display_name = "Shuffle Pokemon Center Entrances"
 
@@ -202,16 +202,24 @@ class MixEntranceWarpPools(OptionSet):
     entrances/warps aren't shuffled. Entrances/warps can only be mixed with other entrance/warps that have the same
     restrictions. Can specify "All" as a shortcut for adding in all entrances/warps that can be mixed.
 
+    Your starting town's Pokemon Center entrance (Player's House entrance if starting in Pallet Town) is guaranteed to go to a Pokemon Center.
+
+    Dropdowns are only added to the mixed pool if entrances/warps are decoupled.
+
     The avaialble pools that can be mixed are:
+    - Pokemon Centers
     - Gyms
     - Marts
     - Harbors
     - Buildings
     - Dungeons
     - Interiors
+    - Warp Tiles
+    - Dropdowns
     """
     display_name = "Mix Entrance/Warp Pools"
-    valid_keys = ["Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "All"]
+    valid_keys = ["Pokemon Centers", "Gyms", "Marts", "Harbors", "Buildings", "Dungeons", "Interiors", "Warp Tiles",
+                  "Dropdowns", "All"]
 
 
 class DecoupleEntrancesWarps(Toggle):
@@ -340,6 +348,7 @@ class Prizesanity(Toggle):
     """
     display_name = "Prizesanity"
 
+
 class ShopSlots(NamedRange):
     """
     Sets the number of slots per shop that can have progression items when shopsanity is on. Shop slots that cannot be
@@ -382,23 +391,41 @@ class ConsistentShopPrices(Toggle):
     display_name = "Consistent Shop Prices"
 
 
-class Trainersanity(NamedRange):
+class KantoTrainersanity(NamedRange):
     """
-    Beating a trainer gives you an item.
+    Beating a Kanto trainer gives you an item.
 
-    You can specify how many Trainers should be a check between 0 and 456. If you have Kanto Only on, the amount of
-    Trainer checks might be lower than the amount you specify. Trainers that have checks will periodically have an
-    exclamation mark appear above their head in game.
+    You can specify how many Trainers should be a check between 0 and 357. Trainers that have checks will periodically
+    have an exclamation mark appear above their head in game.
 
     Trainers are no longer missable. Each trainer will add a random filler item into the pool.
     """
-    display_name = "Trainersanity"
+    display_name = " Kanto Trainersanity"
     default = 0
     range_start = 0
-    range_end = 456
+    range_end = 357
     special_range_names = {
         "none": 0,
-        "all": 456,
+        "all": 357,
+    }
+
+
+class SeviiTrainersanity(NamedRange):
+    """
+    Beating a Sevii trainer gives you an item.
+
+    You can specify how many Trainers should be a check between 0 and 99. Trainers that have checks will periodically
+    have an exclamation mark appear above their head in game.
+
+    Trainers are no longer missable. Each trainer will add a random filler item into the pool.
+    """
+    display_name = "Sevii Trainersanity"
+    default = 0
+    range_start = 0
+    range_end = 99
+    special_range_names = {
+        "none": 0,
+        "all": 99,
     }
 
 
@@ -620,7 +647,7 @@ class GymKeys(Toggle):
 class ItemAppearanceMatchesContents(Toggle):
     """
     Changes the color of item balls to match their contents. Green balls contain progression items, blue balls contain
-    useful items, and red balls contain filler or trap items.
+    useful items, and red balls contain filler items. Traps will be a random color between the three.
 
     The following item balls are not affected by this setting and will always be a red ball:
     - Rocket Hideout B4F - Team Rocket Grunt Item
@@ -685,6 +712,7 @@ class AcrobaticBicycle(Toggle):
     """
     display_name = "Acrobatic Bicycle"
 
+
 class EvolutionsRequired(OptionSet):
     """
     Sets which types of locations and/or access rules that evolutions may be logically required for.
@@ -705,7 +733,7 @@ class EvolutionMethodsRequired(OptionSet):
 
 class ViridianCityRoadblock(Choice):
     """
-    Sets the requirement for passing the Viridian City Roadblock.
+    Sets the requirement for passing the Old Man in Viridian City.
 
     - Vanilla: The Old Man moves out of the way after delivering Oak's Parcel
     - Early Parcel: Same as Vanilla but Oak's Parcel will be available at the beginning of your game. This option will have no effect and be treated as Vanilla if Random Starting Town is on
@@ -720,13 +748,13 @@ class ViridianCityRoadblock(Choice):
 
 class PewterCityRoadblock(Choice):
     """
-    Sets the requirement for passing the Pewter City Roadblock.
+    Sets the requirement for moving between Pewter City and Route 3.
 
-    - Open: The boy will not stop you from entering Route 3
-    - Brock: The boy will stop you from entering Route 3 until you defeat Brock
-    - Any Gym Leader: The boy will stop you from entering Route 3 until you defeat any Gym Leader
-    - Boulder Badge: The boy will stop you from entering Route 3 until you have the Boulder Badge
-    - Any Badge: The boy will stop you from entering Route 3 until you have a Badge
+    - Open: The boy will not stop you from moving between Pewter City and Route 3
+    - Brock: The boy will stop you from moving between Pewter City and Route 3 until you defeat Brock
+    - Any Gym Leader: The boy will stop you from moving between Pewter City and Route 3 until you defeat any Gym Leader
+    - Boulder Badge: The boy will stop you from moving between Pewter City and Route 3 until you have the Boulder Badge
+    - Any Badge: The boy will stop you from moving between Pewter City and Route 3 until you have a Badge
     """
     display_name = "Pewter City Roadblock"
     default = 1
@@ -735,6 +763,138 @@ class PewterCityRoadblock(Choice):
     option_any_gym = 2
     option_boulder_badge = 3
     option_any_badge = 4
+
+
+class DiglettsCaveRoadblock(Choice):
+    """
+    Sets the roadblock for accessing Diglett's Cave from Pewter City.
+
+    - Vanilla: A cut tree will block your access to Diglett's Cave
+    - Rock Smash: A smashable rock will block the access to Diglett's Cave
+    """
+    display_name = "Digletts Cave Roadblock"
+    default = 0
+    option_vanilla = 0
+    option_rock_smash = 1
+
+
+class RemoveCeruleanCityRoadblocks(Toggle):
+    """
+    Moves the Policeman and Slowpoke that are blocking the exits of Cerulean City without needing to save Bill.
+    """
+    display_name = "Remove Cerulean City Roadblocks"
+
+
+class BlockUndergroundPaths(Toggle):
+    """
+    Blocks the entrances to the underground paths with smashable rocks.
+    """
+    display_name = "Block Underground Paths"
+
+
+class Route9Roadblock(Choice):
+    """
+    Sets the roadblock for moving between Cerulean City and Route 9.
+
+    - Vanilla: A cut tree will block you from moving between Cerulean City and Route 9
+    - Rock Smash: A smashable rock will block you from moving between Cerulean City and Route 9
+    """
+    display_name = "Route 9 Roadblock"
+    default = 0
+    option_vanilla = 0
+    option_rock_smash = 1
+
+
+class Route10Waterfall(Toggle):
+    """
+    Adds a waterfall to Route 10 that connects the north and south sides
+    """
+    display_name = "Route 10 Waterfall"
+
+
+class BlockPokemonTower(Toggle):
+    """
+    Moves the forced ghost battle in Pokemon Tower to be in front of the 1F stairs.
+    """
+    display_name = "Block Pokemon Tower"
+
+
+class Route12Boulders(Toggle):
+    """
+    Adds boulders to Route 12 that block the exits to Lavender Town, Route 11, and Route 13.
+    """
+    display_name = "Route 12 Boulders"
+
+
+class Route12Rocks(Toggle):
+    """
+    Adds impassable rocks to Route 12 that prevent surfing around Snorlax.
+    """
+    display_name = "Route 12 Rocks"
+
+
+class Route16Rock(Toggle):
+    """
+    Adds a smashable rock to Route 16 that allows you to bypass the Snorlax.
+    """
+    display_name = "Route 16 Rock"
+
+
+class OpenSilphCo(Toggle):
+    """
+    The Team Rocket Grunt that blocks the entrance to Silph Co. will be moved out of the way without needing to rescue
+    Mr. Fuji.
+    """
+    display_name = "Open Silph Co."
+
+
+class RemoveSaffronRockets(Toggle):
+    """
+    Removes the Team Rocket Grunts from Saffron City without needing to liberate Silph Co.
+    """
+    display_name = "Remove Saffron Rockets"
+
+
+class Route23Trees(Toggle):
+    """
+    Adds cuttable trees to Route 23 under the sixth checkpoint.
+    """
+    display_name = "Route 23 Trees"
+
+
+class Route23Waterfall(Toggle):
+    """
+    Adds a waterfall to Route 23 at the end of the water section.
+    """
+    display_name = "Route 23 Waterfall"
+
+
+class VictoryRoadRocks(Toggle):
+    """
+    Adds smashable rocks to Victory Road that block the floor switches.
+    """
+    display_name = "Victory Road Rocks"
+
+
+class BlockVermilionSailing(Toggle):
+    """
+    Prevents you from sailing to Vermilion City on the Seagallop until you have gotten the S.S. Ticket.
+    """
+    display_name = "Block Vermilion Sailing"
+
+
+class EarlyGossipers(Toggle):
+    """
+    Removes the requirement to have entered the Hall of Fame from various Famesanity locations.
+    """
+    display_name = "Early Gossipers"
+
+
+class TotalDarkness(Toggle):
+    """
+    Changes dark caves to be completely black and provide no vision without Flash.
+    """
+    display_name = "Total Darkness"
 
 
 class ElevatorsCondition(Choice):
@@ -751,37 +911,6 @@ class ElevatorsCondition(Choice):
     option_open = 0
     option_locked = 1
     option_disabled = 2
-
-
-class ModifyWorldState(OptionSet):
-    """
-    Set various changes to the world's state that changes how you can access various regions and locations.
-
-    The valid options and their effects are the following:
-    - Modify Route 2: Replaces the northmost cuttable tree with a smashable rock
-    - Remove Cerulean Roadblocks: Removes the policeman and slowpoke that block the exits of the city
-    - Block Tunnels: Blocks the entrances to the underground tunnels with smashable rocks
-    - Modify Route 9: Replaces the cuttable tree with a smashable rock
-    - Modify Route 10: Adds a waterfall to Route 10 that connects the north and south sides
-    - Block Tower: Blocks the 1F stairs of Pokemon Tower with a ghost battle
-    - Route 12 Boulders: Adds boulders to Route 12 that block the exits to Route 11 & 13
-    - Modify Route 12: Adds impassable rocks to Route 12 that prevent surfing around Snorlax
-    - Modify Route 16: Adds a smashable rock to Route 16 that allows you to bypass the Snorlax
-    - Open Silph: Moves the Team Rocket Grunt that blocks the entrance to Silph Co.
-    - Remove Saffron Rockets: Removed the Team Rocket Grunts from Saffron City
-    - Route 23 Trees: Adds cuttable trees to Route 23 under the sixth checkpoint
-    - Modify Route 23: Adds a waterfall to Route 23 at the end of the water section
-    - Victory Road Rocks: Adds smashable rocks to Victory Road that block the floor switches
-    - Early Gossipers: Removes the requirement to have entered the Hall of Fame from various Famesanity locations
-    - Total Darkness: Changes dark caves to be completely black and provide no vision without Flash
-    - Block Vermilion Sailing: Prevents you from sailing to Vermilion City on the Seagallop until you have gotten
-                               the S.S. Ticket
-    """
-    display_name = "Modify World State"
-    valid_keys = ["Modify Route 2", "Remove Cerulean Roadblocks", "Block Tunnels", "Modify Route 9",
-                  "Modify Route 10", "Block Tower", "Route 12 Boulders", "Modify Route 12", "Modify Route 16",
-                  "Open Silph", "Remove Saffron Rockets", "Route 23 Trees", "Modify Route 23", "Victory Road Rocks",
-                  "Early Gossipers", "Total Darkness", "Block Vermilion Sailing"]
 
 
 class AdditionalDarkCaves(OptionSet):
@@ -1643,7 +1772,6 @@ class PokemonFRLGDeathLink(DeathLink):
 @dataclass
 class PokemonFRLGOptions(PerGameCommonOptions):
     game_version: GameVersion
-
     goal: Goal
     skip_intro: SkipIntro
     skip_elite_four: SkipEliteFour
@@ -1663,7 +1791,6 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     decouple_entrances_warps: DecoupleEntrancesWarps
     randomize_fly_destinations: RandomizeFlyDestinations
     fly_destination_plando: FlyDestinationPlando
-
     shuffle_badges: ShuffleBadges
     shuffle_hidden: ShuffleHiddenItems
     extra_key_items: ExtraKeyItems
@@ -1673,7 +1800,8 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     shop_slots: ShopSlots
     shop_prices: ShopPrices
     consistent_shop_prices: ConsistentShopPrices
-    trainersanity: Trainersanity
+    kanto_trainersanity: KantoTrainersanity
+    sevii_trainersanity: SeviiTrainersanity
     rematchsanity: Rematchsanity
     rematch_requirements: RematchRequirements
     dexsanity: Dexsanity
@@ -1692,7 +1820,6 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     split_teas: SplitTeas
     gym_keys: GymKeys
     item_appearance_matches_contents: ItemAppearanceMatchesContents
-
     itemfinder_required: ItemfinderRequired
     flash_required: FlashRequired
     fame_checker_required: FameCheckerRequired
@@ -1702,18 +1829,32 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     evolution_methods_required: EvolutionMethodsRequired
     viridian_city_roadblock: ViridianCityRoadblock
     pewter_city_roadblock: PewterCityRoadblock
+    digletts_cave_roadblock: DiglettsCaveRoadblock
+    remove_cerulean_city_roadblocks: RemoveCeruleanCityRoadblocks
+    block_underground_paths: BlockUndergroundPaths
+    route_9_roadblock: Route9Roadblock
+    route_10_waterfall: Route10Waterfall
+    block_pokemon_tower: BlockPokemonTower
+    route_12_boulders: Route12Boulders
+    route_12_rocks: Route12Rocks
+    route_16_rock: Route16Rock
+    open_silph_co: OpenSilphCo
+    remove_saffron_rockets: RemoveSaffronRockets
+    route_23_trees: Route23Trees
+    route_23_waterfall: Route23Waterfall
+    victory_road_rocks: VictoryRoadRocks
+    block_vermilion_sailing: BlockVermilionSailing
+    total_darkness: TotalDarkness
+    early_gossipers: EarlyGossipers
     elevators_condition: ElevatorsCondition
-    modify_world_state: ModifyWorldState
     additional_dark_caves: AdditionalDarkCaves
     remove_badge_requirement: RemoveBadgeRequirement
-
     oaks_aide_route_2: OaksAideRoute2
     oaks_aide_route_10: OaksAideRoute10
     oaks_aide_route_11: OaksAideRoute11
     oaks_aide_route_16: OaksAideRoute16
     oaks_aide_route_15: OaksAideRoute15
     fossil_count: PokemonLabFossilCount
-
     viridian_gym_requirement: ViridianGymRequirement
     viridian_gym_count: ViridianGymCount
     route22_gate_requirement: Route22GateRequirement
@@ -1726,11 +1867,9 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     elite_four_rematch_count: EliteFourRematchCount
     cerulean_cave_requirement: CeruleanCaveRequirement
     cerulean_cave_count: CeruleanCaveCount
-
     level_scaling: LevelScaling
     modify_trainer_levels: ModifyTrainerLevels
     force_fully_evolved: ForceFullyEvolved
-
     wild_pokemon: RandomizeWildPokemon
     wild_pokemon_groups: WildPokemonGroups
     wild_pokemon_blacklist: WildPokemonBlacklist
@@ -1757,7 +1896,6 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     tm_tutor_compatibility: TmTutorCompatibility
     tm_tutor_moves: TmTutorMoves
     tm_tutor_moves_blacklist: TmTutorMoveBlacklist
-
     reusable_tm_tutors: ReusableTmsTutors
     min_catch_rate: MinCatchRate
     all_pokemon_seen: AllPokemonSeen
@@ -1768,11 +1906,207 @@ class PokemonFRLGOptions(PerGameCommonOptions):
     free_fly_blacklist: FreeFlyBlacklist
     town_map_fly_location: TownMapFlyLocation
     town_map_fly_blacklist: TownMapFlyBlacklist
-
     remote_items: RemoteItems
     randomize_music: RandomizeMusic
     randomize_fanfares: RandomizeFanfares
     game_options: GameOptions
     provide_hints: ProvideHints
-
     death_link: PokemonFRLGDeathLink
+
+
+OPTION_GROUPS = [
+    OptionGroup(
+        "World",
+        [
+            KantoOnly,
+            RandomStartingTown,
+            StartingTownBlacklist,
+            ShufflePokemonCenterEntrances,
+            ShuffleGymEntrances,
+            ShuffleMartEntrances,
+            ShuffleHarborEntrances,
+            ShuffleBuildingEntrances,
+            ShuffleDungeonEntrances,
+            ShuffleInteriorWarps,
+            ShuffleWarpTiles,
+            ShuffleDropdowns,
+            MixEntranceWarpPools,
+            DecoupleEntrancesWarps,
+            RandomizeFlyDestinations,
+            FlyDestinationPlando
+        ]
+    ),
+    OptionGroup(
+        "Shuffle",
+        [
+            ShuffleBadges,
+            ShuffleHiddenItems,
+            ExtraKeyItems,
+            Shopsanity,
+            VendingMachines,
+            Prizesanity,
+            ShopSlots,
+            ShopPrices,
+            ConsistentShopPrices,
+            KantoTrainersanity,
+            SeviiTrainersanity,
+            Rematchsanity,
+            RematchRequirements,
+            Dexsanity,
+            Famesanity,
+            ShuffleFlyUnlocks,
+            PokemonRequestLocations,
+            ShufflePokedex,
+            ShuffleRunningShoes,
+            ShuffleBerryPouch,
+            ShuffleTMCase,
+            ShuffleJumpingShoes,
+            PostGoalLocations,
+            CardKey,
+            IslandPasses,
+            FishingRods,
+            SplitTeas,
+            GymKeys
+        ]
+    ),
+    OptionGroup(
+        "Item Logic",
+        [
+            ItemfinderRequired,
+            FlashRequired,
+            FameCheckerRequired,
+            BicycleRequiresJumpingShoes,
+            AcrobaticBicycle,
+            RemoveBadgeRequirement,
+            OaksAideRoute2,
+            OaksAideRoute10,
+            OaksAideRoute11,
+            OaksAideRoute16,
+            OaksAideRoute15,
+            PokemonLabFossilCount
+        ]
+    ),
+    OptionGroup(
+        "World Logic",
+        [
+            ViridianCityRoadblock,
+            PewterCityRoadblock,
+            DiglettsCaveRoadblock,
+            RemoveCeruleanCityRoadblocks,
+            BlockUndergroundPaths,
+            Route9Roadblock,
+            Route10Waterfall,
+            BlockPokemonTower,
+            Route12Boulders,
+            Route12Rocks,
+            Route16Rock,
+            OpenSilphCo,
+            RemoveSaffronRockets,
+            Route23Trees,
+            Route23Waterfall,
+            VictoryRoadRocks,
+            BlockVermilionSailing,
+            EarlyGossipers,
+            ElevatorsCondition,
+            AdditionalDarkCaves,
+            ViridianGymRequirement,
+            ViridianGymCount,
+            Route22GateRequirement,
+            Route22GateCount,
+            Route23GuardRequirement,
+            Route23GuardCount,
+            EliteFourRequirement,
+            EliteFourCount,
+            EliteFourRematchRequirement,
+            EliteFourRematchCount,
+            CeruleanCaveRequirement,
+            CeruleanCaveCount
+        ]
+    ),
+    OptionGroup(
+        "Pokemon Logic",
+        [
+            EvolutionsRequired,
+            EvolutionMethodsRequired
+        ]
+    ),
+    OptionGroup(
+        "Levels",
+        [
+            LevelScaling,
+            ModifyTrainerLevels,
+            ForceFullyEvolved
+        ]
+    ),
+    OptionGroup(
+        "HMs",
+        [
+            HmCompatibility,
+            FreeFlyLocation,
+            FreeFlyBlacklist,
+            TownMapFlyLocation,
+            TownMapFlyBlacklist
+        ]
+    ),
+    OptionGroup(
+        "Pokemon",
+        [
+            RandomizeWildPokemon,
+            WildPokemonGroups,
+            WildPokemonBlacklist,
+            RandomizeStarters,
+            StarterBlacklist,
+            RandomizeTrainerParties,
+            TrainerPartyBlacklist,
+            RandomizeLegendaryPokemon,
+            LegendaryPokemonBlacklist,
+            RandomizeMiscPokemon,
+            MiscPokemonBlacklist,
+            RandomizeTypes,
+            RandomizeAbilities,
+            AbilityBlacklist,
+            RandomizeBaseStats
+        ]
+    ),
+    OptionGroup(
+        "Moves",
+        [
+            RandomizeMoves,
+            MoveMatchTypeBias,
+            MoveNormalTypeBias,
+            MoveBlacklist,
+            PhysicalSpecialSplit,
+            RandomizeMoveTypes,
+            RandomizeDamageCategories,
+            TmTutorMoves,
+            TmTutorMoveBlacklist,
+            TmTutorCompatibility
+        ]
+    ),
+    OptionGroup(
+        "Quality of Life",
+        [
+            GameOptions,
+            SkipIntro,
+            SkipEliteFour,
+            ItemAppearanceMatchesContents,
+            ReusableTmsTutors,
+            MinCatchRate,
+            AllPokemonSeen,
+            StartingMoney,
+            BetterShops,
+            CheaperCoins,
+            TotalDarkness,
+            RemoteItems,
+            ProvideHints,
+            PokemonFRLGDeathLink
+        ]
+    ),
+    OptionGroup(
+        "Cosmetics",
+        [
+            RandomizeMusic,
+            RandomizeFanfares
+        ]
+    )
+]

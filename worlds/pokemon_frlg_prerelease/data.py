@@ -13,7 +13,7 @@ from pkg_resources import resource_listdir, resource_isdir
 from typing import Dict, List, NamedTuple, Set, FrozenSet, Any, Tuple
 from BaseClasses import ItemClassification
 
-POPTRACKER_CHECKSUM = 0xA2DBC5A6
+POPTRACKER_CHECKSUM = 0xC318E3AA
 NUM_REAL_SPECIES = 386
 
 
@@ -45,9 +45,9 @@ GAME_OPTIONS: Dict[str, GameOption] = {
     "Guaranteed Run": GameOption(0, {"Off": 0, False: 0, "On": 1, True: 1}, 2, 2),
     "Encounter Rates": GameOption(0, {"Vanilla": 0, "Normalized": 1}, 2, 3),
     "Encounter Mode": GameOption(0, {"Random": 0, "Boost": 1, "Rotate": 2}, 2, 4),
-    "Blind Trainers": GameOption(0, {"Off": 0, False: 0, "On": 1, True: 1}, 2, 5),
-    "Skip Nicknames": GameOption(0, {"Off": 0, False: 0, "On": 1, True: 1}, 2, 6),
-    "Item Messages": GameOption(1, {"All": 0, "Progression": 1, "None": 2}, 2, 7)
+    "Blind Trainers": GameOption(0, {"Off": 0, False: 0, "On": 1, True: 1}, 2, 6),
+    "Skip Nicknames": GameOption(0, {"Off": 0, False: 0, "On": 1, True: 1}, 2, 7),
+    "Item Messages": GameOption(1, {"All": 0, "Progression": 1, "None": 2}, 2, 8)
 }
 
 

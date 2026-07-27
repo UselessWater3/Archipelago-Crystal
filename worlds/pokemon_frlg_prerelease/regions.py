@@ -3,14 +3,16 @@ Functions related to AP regions for Pokémon FireRed and LeafGreen (see ./data/r
 """
 from typing import TYPE_CHECKING, Dict, List, Set, Tuple, Callable
 from BaseClasses import CollectionState, ItemClassification, Region
+from rule_builder.rules import Rule
 from .data import (data, EncounterType, LocationCategory, fly_destination_areas, fly_destination_maps,
                    fly_destination_random, fly_destination_regions, fly_plando_maps, starting_town_blacklist_map)
 from .items import PokemonFRLGItem
 from .locations import PokemonFRLGLocation
+from .logic import HasGoodRod, HasOldRod, HasSuperRod
 from .options import LevelScaling, PewterCityRoadblock, RandomizeFlyDestinations
 
 if TYPE_CHECKING:
-    from . import PokemonFRLGWorld
+    from .world import PokemonFRLGWorld
 
 STATIC_POKEMON_SPOILER_NAMES = {
     "TRADE_POKEMON_MR_MIME": "Route 2 Trade House",
@@ -116,13 +118,13 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
     # Used in connect_to_map_encounters. Splits encounter categories into "subcategories" and gives them names
     # and rules so the rods can only access their specific slots.
     encounter_categories: Dict[EncounterType,
-                               List[Tuple[str | None, range, Callable[[CollectionState], bool] | None]]] = {
+                               List[Tuple[str | None, range, Rule | None]]] = {
         EncounterType.LAND: [(None, range(0, 12), None)],
         EncounterType.WATER: [(None, range(0, 5), None)],
         EncounterType.FISHING: [
-            ("Old Rod", range(0, 2), lambda state: world.logic.has_old_rod(state)),
-            ("Good Rod", range(2, 5), lambda state: world.logic.has_good_rod(state)),
-            ("Super Rod", range(5, 10), lambda state: world.logic.has_super_rod(state)),
+            ("Old Rod", range(0, 2), HasOldRod()),
+            ("Good Rod", range(2, 5), HasGoodRod()),
+            ("Super Rod", range(5, 10), HasSuperRod()),
         ],
     }
 
@@ -181,7 +183,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
 
                             # Add access rules
                             if subcategory[2] is not None:
-                                encounter_location.access_rule = subcategory[2]
+                                world.set_rule(encounter_location, subcategory[2])
 
                             # Fill the location with an event for catching that species
                             encounter_location.place_locked_item(PokemonFRLGItem(
@@ -279,11 +281,9 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             return True
         if not world.cerulean_cave_included and scaling_id in cerulean_cave_ids:
             return True
-        if ("Block Tower" in world.options.modify_world_state.value and
-                scaling_id == "STATIC_SCALING_POKEMON_TOWER_6F/MAIN"):
+        if world.options.block_pokemon_tower and scaling_id == "STATIC_SCALING_POKEMON_TOWER_6F/MAIN":
             return True
-        if ("Block Tower" not in world.options.modify_world_state.value and
-                scaling_id == "STATIC_SCALING_POKEMON_TOWER_1F/MAIN"):
+        if not world.options.block_pokemon_tower and scaling_id == "STATIC_SCALING_POKEMON_TOWER_1F/MAIN":
             return True
         return False
 
@@ -455,7 +455,7 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
                                                                         world.player))
                         scaling_event.show_in_spoiler = False
                         if event[2] is not None:
-                            scaling_event.access_rule = event[2]
+                            world.set_rule(scaling_event, event[2])
                         region.locations.append(scaling_event)
 
         for region in regions.values():
@@ -541,16 +541,22 @@ def create_regions(world: "PokemonFRLGWorld") -> Dict[str, Region]:
             elif world.options.randomize_fly_destinations == RandomizeFlyDestinations.option_completely_random:
                 fly_destinations = fly_destination_random.copy()
             maps_already_chosen = set()
+            maps_already_plando = set()
+            for name in world.options.fly_destination_plando.value.values():
+                fly_data = fly_plando_maps[name]
+                maps_already_plando.add(fly_data.map)
             for exit in regions["Sky"].exits:
                 use_plando = False
                 fly_data = None
                 allowed_fly_destinations = [fly for fly in fly_destinations[exit.name]
-                                            if fly.map not in maps_already_chosen and fly.region in regions.keys()]
+                                            if fly.map not in maps_already_chosen
+                                            and fly.map not in maps_already_plando
+                                            and fly.region in regions.keys()]
                 if exit.name in world.options.fly_destination_plando.value.keys():
                     fly_plando = fly_plando_maps[world.options.fly_destination_plando.value[exit.name]]
                     if (fly_plando.map not in maps_already_chosen and
-                        fly_plando.region in regions.keys() and
-                        fly_plando in allowed_fly_destinations):
+                            fly_plando.region in regions.keys() and
+                            fly_plando in allowed_fly_destinations):
                         use_plando = True
                         fly_data = fly_plando
                 if not use_plando:
