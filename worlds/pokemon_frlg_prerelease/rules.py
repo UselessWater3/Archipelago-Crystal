@@ -1705,11 +1705,6 @@ def set_rules(world: "PokemonFRLGWorld") -> None:
         except KeyError:
             continue
 
-    state = world.get_world_collection_state()
-    for item in world.multiworld.itempool:
-        if item.advancement:
-            state.collect(item)
-
 
 def set_hm_compatible_pokemon(world: "PokemonFRLGWorld") -> None:
     logic = world.logic
