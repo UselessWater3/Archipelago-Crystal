@@ -1197,7 +1197,6 @@ def set_rules(world: "PokemonFRLGWorld") -> None:
     location_rules["Cinnabar Pokemon Center 1F - Bill Gift"] = Has("Defeat Blaine")
     location_rules["Cinnabar Pokemon Center 1F - Bookshelf Info"] = PostGameFame()
 
-    # Cinnabar Island
     entrance_rules["Cinnabar Island Surfing Spot"] = CanSurf()
     entrance_rules["Pokemon Mansion Entrance"] = (
         Has("Letter", options=[OptionFilter(ExtraKeyItems, ExtraKeyItems.option_true)], filtered_resolution=True)
