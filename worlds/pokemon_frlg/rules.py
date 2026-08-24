@@ -1622,7 +1622,7 @@ def set_rules(world: "PokemonFRLGWorld") -> None:
         hidden_rule |= Has(
             PokemonFRLGGlitchedToken.TOKEN_NAME,
             options=[OptionFilter(ItemfinderRequired, ItemfinderRequired.option_logic)],
-            filtered_resolution=True
+            filtered_resolution=False
         )
 
     for location in world.get_locations():
@@ -1672,7 +1672,7 @@ def set_rules(world: "PokemonFRLGWorld") -> None:
         dark_cave_rule |= Has(
             PokemonFRLGGlitchedToken.TOKEN_NAME,
             options=[OptionFilter(FlashRequired, FlashRequired.option_logic)],
-            filtered_resolution=True
+            filtered_resolution=False
         )
 
     for region in dark_cave_regions:
