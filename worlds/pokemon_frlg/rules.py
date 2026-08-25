@@ -1605,13 +1605,18 @@ def set_rules(world: "PokemonFRLGWorld") -> None:
     )
 
     # Add rules that are the same for specific location categories
-    hidden_rule = Has(
-        "Itemfinder",
-        options=[
-            OptionFilter(ItemfinderRequired, ItemfinderRequired.option_logic),
-            OptionFilter(ItemfinderRequired, ItemfinderRequired.option_required)
-        ],
-        filtered_resolution=True
+    hidden_rule = (
+        True_(options=[OptionFilter(ItemfinderRequired, ItemfinderRequired.option_off)]) |
+        Has(
+            "Itemfinder",
+            options=[OptionFilter(ItemfinderRequired, ItemfinderRequired.option_logic)],
+            filtered_resolution=False
+        ) |
+        Has(
+            "Itemfinder",
+            options=[OptionFilter(ItemfinderRequired, ItemfinderRequired.option_required)],
+            filtered_resolution=False
+        )
     )
     fame_rule = Has(
         "Fame Checker",
